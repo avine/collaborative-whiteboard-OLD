@@ -118,6 +118,41 @@
           }
         }
       }
+    },
+    "collaborative-whiteboard": {
+      "projectType": "library",
+      "root": "projects/collaborative-whiteboard",
+      "sourceRoot": "projects/collaborative-whiteboard/src",
+      "prefix": "cw",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/collaborative-whiteboard/tsconfig.lib.json",
+            "project": "projects/collaborative-whiteboard/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/collaborative-whiteboard/src/test.ts",
+            "tsConfig": "projects/collaborative-whiteboard/tsconfig.spec.json",
+            "karmaConfig": "projects/collaborative-whiteboard/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/collaborative-whiteboard/tsconfig.lib.json",
+              "projects/collaborative-whiteboard/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }},
   "defaultProject": "showcase"
 }
