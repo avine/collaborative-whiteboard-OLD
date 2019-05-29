@@ -1,0 +1,36 @@
+<div class="canvas">
+  <cw-canvas
+    [class.cut-tool--open]="cutOpen"
+    [broadcast]="service.broadcast$ | async"
+    (draw)="service.emit($event)">
+  </cw-canvas>
+
+  <cw-canvas
+    *ngIf="cutOpen"
+    class="canvas-cut"
+    [background]="false"
+    [drawDisabled]="true"
+    [broadcast]="slice">
+  </cw-canvas>
+</div>
+
+<br>
+<button (click)="service.undo()">Undo</button>
+<button (click)="service.redo()">Redo</button>
+<button (click)="service.clear()">Clear</button>
+<button (click)="service.redraw()">Redraw</button>
+<button (click)="toggleCut()">Cut tool</button>
+
+<br><br>
+
+<div *ngIf="cutOpen">
+  <input
+    type="range"
+    min="0"
+    [max]="history.length ? history.length - 1 : 0"
+    [(ngModel)]="historyIndex"
+    (ngModelChange)="updateSlice()">
+  {{ historyIndex }}
+
+  <button (click)="cut()">Cut</button>
+</div>

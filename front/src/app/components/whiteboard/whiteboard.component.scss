@@ -1,0 +1,16 @@
+.canvas {
+  position: relative;
+  display: inline-block;
+  width: 300px;
+  height: 300px;
+}
+
+.cut-tool--open {
+  opacity: 0.25;
+}
+
+.canvas-cut {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

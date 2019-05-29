@@ -5,7 +5,7 @@ import { CollaborativeWhiteboardService } from '../collaborative-whiteboard.serv
 @Component({
   selector: 'cw-whiteboard',
   templateUrl: './whiteboard.component.html',
-  styleUrls: ['./whiteboard.component.css'],
+  styleUrls: ['./whiteboard.component.scss'],
   providers: [CollaborativeWhiteboardService]
 })
 export class WhiteboardComponent implements OnInit {

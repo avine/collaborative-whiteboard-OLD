@@ -1,17 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { Demo1Component } from './components/demo1/demo1.component';
+import { CanvasMirrorComponent } from './components/canvas-mirror/canvas-mirror.component';
+import { CanvasComponent } from './components/canvas/canvas.component';
+import { WhiteboardComponent } from './components/whiteboard/whiteboard.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/demo1',
+    redirectTo: '/canvas',
     pathMatch: 'full'
   },
   {
-    path: 'demo1',
-    component: Demo1Component
+    path: 'canvas',
+    component: CanvasComponent
+  },
+  {
+    path: 'canvas-mirror',
+    component: CanvasMirrorComponent
+  },
+  {
+    path: 'whiteboard',
+    component: WhiteboardComponent
   },
 ];
 

@@ -1,10 +1,10 @@
 <cw-canvas
+  [canvasSize]="canvasSize"
+  (canvasSizeChange)="canvasSizeChange.emit(canvasSize = $event)"
+  [background]="background"
+  [drawOptions]="drawOptions"
+  [drawDisabled]="drawDisabled"
+
   [broadcast]="service.broadcast$ | async"
   (draw)="service.emit($event)">
-</cw-canvas>
-
-<!-- Just a demo -->
-<cw-canvas
-  [drawDisabled]="true"
-  [broadcast]="broadcast$ | async">
 </cw-canvas>

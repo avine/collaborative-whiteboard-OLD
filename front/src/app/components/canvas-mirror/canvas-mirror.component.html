@@ -1,0 +1,13 @@
+<cw-canvas
+  (draw)="broadcast($event)">
+</cw-canvas>
+
+<cw-canvas
+  [drawDisabled]="true"
+  [broadcast]="broadcastDrawEvents">
+</cw-canvas>
+
+<button
+  (click)="animate = !animate">
+  Toggle animation
+</button>

@@ -121,6 +121,11 @@
     },
     "collaborative-whiteboard": {
       "projectType": "library",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "root": "projects/collaborative-whiteboard",
       "sourceRoot": "projects/collaborative-whiteboard/src",
       "prefix": "cw",
