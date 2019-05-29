@@ -1,0 +1,10 @@
+<cw-canvas
+  [broadcast]="service.broadcast$ | async"
+  (draw)="service.emit($event)">
+</cw-canvas>
+
+<!-- Just a demo -->
+<cw-canvas
+  [drawDisabled]="true"
+  [broadcast]="broadcast$ | async">
+</cw-canvas>
