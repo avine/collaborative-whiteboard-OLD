@@ -1,0 +1,19 @@
+$color: rgba(0, 0, 0, 0.2);
+
+:host {
+  display: block;
+}
+
+.canvas {
+  display: block;
+}
+
+.canvas--background {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+  background-color: #fff;
+  background-size: 15px 15px;
+  background-position: -1px 0px;
+  background-image:
+    linear-gradient(0deg, $color 0, transparent 1px),
+    linear-gradient(90deg, $color 0, transparent 1px);
+}
