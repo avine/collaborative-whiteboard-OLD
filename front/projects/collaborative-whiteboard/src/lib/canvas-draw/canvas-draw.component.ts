@@ -13,7 +13,7 @@ export class CanvasDrawComponent implements OnInit {
   // Propagate binding
   @Input() canvasSize = getDefaultCanvasSize();
   @Output() canvasSizeChange = new EventEmitter<CanvasSize>();
-  @Input() background = true;
+  @Input() showGuides = false;
   @Input() drawOptions: DrawOptions = getDefaultDrawOptions();
   @Input() drawDisabled = false;
   // Propagate binding

@@ -1,10 +1,11 @@
 import {
-    ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges,
-    ViewChild
+    ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input,
+    OnChanges, OnInit, Output, SimpleChanges, ViewChild
 } from '@angular/core';
 
 import {
-    BroadcastDrawEvents, CanvasLine, CanvasLineSerie, CanvasPoint, CanvasSize, DrawEvent, DrawOptions
+    BroadcastDrawEvents, CanvasLine, CanvasLineSerie, CanvasPoint, CanvasSize, DrawEvent,
+    DrawOptions
 } from '../collaborative-whiteboard.model';
 import { getDefaultCanvasSize, getDefaultDrawOptions } from '../collaborative-whiteboard.operator';
 
@@ -23,7 +24,7 @@ export class CanvasComponent implements OnInit, OnChanges {
 
   @Output() canvasSizeChange = new EventEmitter<CanvasSize>();
 
-  @Input() background = true;
+  @Input() showGuides = true;
 
   @Input() broadcast: BroadcastDrawEvents;
 

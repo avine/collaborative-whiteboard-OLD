@@ -1,6 +1,7 @@
-<div class="canvas">
+<div class="canvas-container">
   <cw-canvas
-    [class.cut-tool--open]="cutOpen"
+    class="canvas-draw"
+    [showGuides]="!cutOpen"
     [broadcast]="service.broadcast$ | async"
     (draw)="service.emit($event)">
   </cw-canvas>
@@ -8,13 +9,13 @@
   <cw-canvas
     *ngIf="cutOpen"
     class="canvas-cut"
-    [background]="false"
     [drawDisabled]="true"
     [broadcast]="service.broadcastHistoryRange$ | async">
   </cw-canvas>
 </div>
 
-<br>
+<br><br>
+
 <button (click)="service.undo()">Undo</button>
 <button (click)="service.redo()">Redo</button>
 <button (click)="service.clear()">Clear</button>
