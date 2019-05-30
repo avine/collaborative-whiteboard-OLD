@@ -1,4 +1,6 @@
-import { DrawEvent, BroadcastDrawEvents, mapDrawLineSerieToDrawLines } from 'projects/collaborative-whiteboard/src/public-api';
+import {
+    BroadcastDrawEvents, broadcastDrawEventsMapper, DrawEvent
+} from 'projects/collaborative-whiteboard/src/public-api';
 
 import { Component, OnInit } from '@angular/core';
 
@@ -18,10 +20,6 @@ export class CanvasMirrorComponent implements OnInit {
   }
 
   broadcast(drawEvent: DrawEvent) {
-    if (this.animate) {
-      this.broadcastDrawEvents = { animate: true, events: mapDrawLineSerieToDrawLines([drawEvent]) };
-    } else {
-      this.broadcastDrawEvents = { animate: false, events: [drawEvent] };
-    }
+    this.broadcastDrawEvents = broadcastDrawEventsMapper([drawEvent], this.animate);
   }
 }

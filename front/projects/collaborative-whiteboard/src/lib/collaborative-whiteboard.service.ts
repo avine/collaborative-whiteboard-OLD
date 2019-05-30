@@ -4,7 +4,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 import { BroadcastDrawEvents, DrawEvent, DrawTransport } from './collaborative-whiteboard.model';
-import { getClearEvent, mapDrawLineSerieToDrawLines } from './collaborative-whiteboard.operator';
+import { broadcastDrawEventsMapper, getClearEvent } from './collaborative-whiteboard.operator';
 
 const md5 = md5_;
 
@@ -120,13 +120,12 @@ export class CollaborativeWhiteboardService {
     // We must sort the events to remove by index DESC
     removeIndex.sort().reverse().forEach(index => this.popHistory(index));
     addEvent.forEach(event => this.pushHistory(event));
-    this.broadcast$$.next(removeIndex.length ? {
-      animate: false,
-      events: [getClearEvent(), ...this.history, ...addEvent]
-    } : {
-      animate: true,
-      events: mapDrawLineSerieToDrawLines(addEvent)
-    });
+    if (removeIndex.length) {
+      const events = [getClearEvent(), ...this.history, ...addEvent];
+      this.broadcast$$.next(broadcastDrawEventsMapper(events));
+    } else {
+      this.broadcast$$.next(broadcastDrawEventsMapper(addEvent, true));
+    }
     this.emitHistory();
   }
 
@@ -153,10 +152,7 @@ export class CollaborativeWhiteboardService {
       // Simply identify the event and let the `pushHistory` method do its job...
       const event = this.historyRedo[0];
       this.pushHistory(event);
-      this.broadcast$$.next({
-        animate: true,
-        events: mapDrawLineSerieToDrawLines([event])
-      });
+      this.broadcast$$.next(broadcastDrawEventsMapper([event], true));
       this.emit$$.next([{ action: 'add', event }]);
       this.emitHistory();
     }
@@ -192,9 +188,7 @@ export class CollaborativeWhiteboardService {
   }
 
   redraw(animate = true) {
-    this.broadcast$$.next({
-      animate,
-      events: [getClearEvent(), ...mapDrawLineSerieToDrawLines(this.history)]
-    });
+    const events = [getClearEvent(), ...this.history];
+    this.broadcast$$.next(broadcastDrawEventsMapper(events, animate));
   }
 }

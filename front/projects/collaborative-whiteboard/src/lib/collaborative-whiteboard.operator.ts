@@ -1,4 +1,6 @@
-import { CanvasSize, DrawClear, DrawEvent, DrawOptions } from './collaborative-whiteboard.model';
+import {
+    BroadcastDrawEvents, CanvasSize, DrawClear, DrawEvent, DrawOptions
+} from './collaborative-whiteboard.model';
 
 export const getDefaultCanvasSize = (): CanvasSize => ({
   width: 300,
@@ -21,7 +23,7 @@ export const getClearEvent = (): DrawClear => ({
   options: getEmptyDrawOptions()
 });
 
-export const mapDrawLineSerieToDrawLines = (events: DrawEvent[]): DrawEvent[] => {
+export const drawLineSerieToLinesMapper = (events: DrawEvent[]): DrawEvent[] => {
   const result: DrawEvent[] = [];
   events.forEach(event => {
     if (event.type === 'lineSerie') {
@@ -39,3 +41,11 @@ export const mapDrawLineSerieToDrawLines = (events: DrawEvent[]): DrawEvent[] =>
   });
   return result;
 };
+
+export const broadcastDrawEventsMapper = (
+  events: DrawEvent[],
+  animate = false
+): BroadcastDrawEvents => ({
+  animate,
+  events: animate ? drawLineSerieToLinesMapper(events) : events
+});
