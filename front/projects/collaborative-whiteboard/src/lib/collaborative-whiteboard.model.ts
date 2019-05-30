@@ -64,3 +64,7 @@ export interface DrawTransport {
   action: DrawAction;
   event: DrawEvent;
 }
+
+export type HistoryRange = [number, number];
+
+export type HistoryRangeArg = HistoryRange | number;

@@ -1,5 +1,6 @@
 import {
-    BroadcastDrawEvents, CanvasSize, DrawClear, DrawEvent, DrawOptions
+    BroadcastDrawEvents, CanvasSize, DrawClear, DrawEvent, DrawOptions, HistoryRange,
+    HistoryRangeArg
 } from './collaborative-whiteboard.model';
 
 export const getDefaultCanvasSize = (): CanvasSize => ({
@@ -49,3 +50,9 @@ export const broadcastDrawEventsMapper = (
   animate,
   events: animate ? drawLineSerieToLinesMapper(events) : events
 });
+
+export const normalizeHistoryRange = (data: HistoryRangeArg, limit: number): HistoryRange => {
+  const range = Array.isArray(data) ? [...data].sort() : [data, data];
+  const applyLimits = (n: number) => Math.max(0, Math.min(limit, n));
+  return range.map(applyLimits) as HistoryRange;
+};

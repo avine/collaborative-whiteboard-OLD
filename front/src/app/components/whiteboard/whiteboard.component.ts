@@ -1,5 +1,5 @@
 import {
-    CollaborativeWhiteboardService, DrawEvent, BroadcastDrawEvents, getClearEvent
+    BroadcastDrawEvents, CollaborativeWhiteboardService, DrawEvent, getClearEvent
 } from 'projects/collaborative-whiteboard/src/public-api';
 import { Subscription } from 'rxjs';
 
@@ -12,11 +12,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
   providers: [CollaborativeWhiteboardService]
 })
 export class WhiteboardComponent implements OnInit, OnDestroy {
-  history: DrawEvent[] = [];
 
   historyIndex = 0;
 
-  slice: BroadcastDrawEvents;
+  lastIndex = 0;
 
   cutOpen = false;
 
@@ -25,9 +24,11 @@ export class WhiteboardComponent implements OnInit, OnDestroy {
   constructor(public service: CollaborativeWhiteboardService) { }
 
   ngOnInit() {
-    this.subscription = this.service.history$.subscribe(history => {
-      this.history = history;
-      this.updateSlice();
+    this.subscription = this.service.historyLastIndex$.subscribe(lastIndex => {
+      this.lastIndex = lastIndex;
+      if (this.historyIndex > lastIndex) {
+        this.service.historyRange(this.historyIndex = lastIndex);
+      }
     });
   }
 
@@ -38,26 +39,15 @@ export class WhiteboardComponent implements OnInit, OnDestroy {
   toggleCut() {
     this.cutOpen = !this.cutOpen;
     if (this.cutOpen) {
-      this.updateSlice();
-    } else {
-      this.historyIndex = 0;
+      this.service.historyRange(this.historyIndex = this.lastIndex);
     }
   }
 
   updateSlice() {
-    const slice = this.history.slice(this.historyIndex, this.historyIndex + 1);
-    this.slice = {
-      animate: false,
-      events: [getClearEvent(), ...slice]
-    };
+    this.service.historyRange(this.historyIndex);
   }
 
   cut() {
     this.service.cut(this.historyIndex);
-    this.historyIndex = Math.min(
-      this.historyIndex,
-      this.history.length ? this.history.length - 1 : 0
-    );
-    this.updateSlice();
   }
 }

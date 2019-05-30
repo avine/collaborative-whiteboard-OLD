@@ -10,7 +10,7 @@
     class="canvas-cut"
     [background]="false"
     [drawDisabled]="true"
-    [broadcast]="slice">
+    [broadcast]="service.broadcastHistoryRange$ | async">
   </cw-canvas>
 </div>
 
@@ -27,7 +27,7 @@
   <input
     type="range"
     min="0"
-    [max]="history.length ? history.length - 1 : 0"
+    [max]="service.historyLastIndex$ | async"
     [(ngModel)]="historyIndex"
     (ngModelChange)="updateSlice()">
   {{ historyIndex }}

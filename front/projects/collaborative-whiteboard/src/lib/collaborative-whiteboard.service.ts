@@ -1,10 +1,15 @@
 import * as md5_ from 'md5';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { Injectable } from '@angular/core';
 
-import { BroadcastDrawEvents, DrawEvent, DrawTransport } from './collaborative-whiteboard.model';
-import { broadcastDrawEventsMapper, getClearEvent } from './collaborative-whiteboard.operator';
+import {
+    BroadcastDrawEvents, DrawEvent, DrawTransport, HistoryRange, HistoryRangeArg
+} from './collaborative-whiteboard.model';
+import {
+    broadcastDrawEventsMapper, getClearEvent, normalizeHistoryRange
+} from './collaborative-whiteboard.operator';
 
 const md5 = md5_;
 
@@ -18,6 +23,8 @@ export class CollaborativeWhiteboardService {
 
   private history$$ = new BehaviorSubject<DrawEvent[]>([]);
 
+  private historyRange$$ = new BehaviorSubject<HistoryRange>([0, 0]);
+
   /**
    * Dispatch draw events downwards to the child components
    */
@@ -29,6 +36,16 @@ export class CollaborativeWhiteboardService {
   private emit$$ = new Subject<DrawTransport[]>();
 
   history$ = this.history$$.asObservable();
+
+  historyLastIndex$ = this.history$$.pipe(map(history => Math.max(0, history.length - 1)));
+
+  historyRange$ = this.historyRange$$.asObservable();
+
+  broadcastHistoryRange$ = combineLatest(this.history$$, this.historyRange$$).pipe(
+    map(([history, range]) => broadcastDrawEventsMapper(
+      [getClearEvent(), ...history.slice(range[0], range[1] + 1)]
+    ))
+  );
 
   broadcast$ = this.broadcast$$.asObservable();
 
@@ -190,5 +207,11 @@ export class CollaborativeWhiteboardService {
   redraw(animate = true) {
     const events = [getClearEvent(), ...this.history];
     this.broadcast$$.next(broadcastDrawEventsMapper(events, animate));
+  }
+
+  historyRange(data: HistoryRangeArg) {
+    const range = normalizeHistoryRange(data, this.history.length);
+    this.historyRange$$.next(range);
+    return range;
   }
 }
