@@ -27,7 +27,8 @@ export class WhiteboardComponent implements OnInit, OnDestroy {
     this.subscription = this.service.historyLastIndex$.subscribe(lastIndex => {
       this.lastIndex = lastIndex;
       if (this.historyIndex > lastIndex) {
-        this.service.historyRange(this.historyIndex = lastIndex);
+        this.historyIndex = lastIndex;
+        this.service.historyRange(this.historyIndex);
       }
     });
   }
@@ -39,11 +40,12 @@ export class WhiteboardComponent implements OnInit, OnDestroy {
   toggleCut() {
     this.cutOpen = !this.cutOpen;
     if (this.cutOpen) {
-      this.service.historyRange(this.historyIndex = this.lastIndex);
+      this.historyIndex = this.lastIndex;
+      this.service.historyRange(this.historyIndex);
     }
   }
 
-  updateSlice() {
+  updateHistoryIndex() {
     this.service.historyRange(this.historyIndex);
   }
 

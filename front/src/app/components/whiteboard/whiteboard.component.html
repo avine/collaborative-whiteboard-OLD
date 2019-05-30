@@ -27,9 +27,9 @@
   <input
     type="range"
     min="0"
-    [max]="service.historyLastIndex$ | async"
+    [max]="lastIndex"
     [(ngModel)]="historyIndex"
-    (ngModelChange)="updateSlice()">
+    (ngModelChange)="updateHistoryIndex()">
   {{ historyIndex }}
 
   <button (click)="cut()">Cut</button>

@@ -42,9 +42,10 @@ export class CollaborativeWhiteboardService {
   historyRange$ = this.historyRange$$.asObservable();
 
   broadcastHistoryRange$ = combineLatest(this.history$$, this.historyRange$$).pipe(
-    map(([history, range]) => broadcastDrawEventsMapper(
-      [getClearEvent(), ...history.slice(range[0], range[1] + 1)]
-    ))
+    map(([history, [from, to]]) => {
+      const slice = [getClearEvent(), ...history.slice(from, to + 1)];
+      return broadcastDrawEventsMapper(slice);
+    })
   );
 
   broadcast$ = this.broadcast$$.asObservable();
