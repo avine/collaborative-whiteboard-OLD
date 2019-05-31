@@ -1,5 +1,6 @@
 <div class="canvas-container">
   <cw-canvas
+    [drawOptions]="drawOptions"
     class="canvas-draw"
     [showGuides]="!cutOpen"
     [broadcast]="service.broadcast$ | async"
@@ -16,15 +17,36 @@
 
 <br><br>
 
-<button (click)="service.undo()">Undo</button>
-<button (click)="service.redo()">Redo</button>
-<button (click)="service.clear()">Clear</button>
-<button (click)="service.redraw()">Redraw</button>
-<button (click)="toggleCut()">Cut tool</button>
+<select
+  class="draw-options"
+  [(ngModel)]="drawOptions.strokeStyle">
+  <option>grey</option>
+  <option>red</option>
+  <option>green</option>
+  <option>blue</option>
+</select>
+
+<input
+  class="draw-options"
+  type="range"
+  min="1"
+  max="20"
+  [(ngModel)]="drawOptions.lineWidth">
+  {{ drawOptions.lineWidth }}
 
 <br><br>
 
-<div *ngIf="cutOpen">
+<div class="actions">
+  <button (click)="service.undo()">Undo</button>
+  <button (click)="service.redo()">Redo</button>
+  <button (click)="service.clear()">Clear</button>
+  <button (click)="service.redraw()">Redraw</button>
+  <button (click)="toggleCut()">Cut tool</button>
+</div>
+
+<br><br>
+
+<div class="actions" *ngIf="cutOpen">
   <input
     type="range"
     min="0"

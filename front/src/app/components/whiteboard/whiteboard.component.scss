@@ -1,12 +1,10 @@
 .canvas-container {
   position: relative;
   display: inline-block;
-  width: 300px;
-  height: 300px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
 }
 
 .canvas-draw {
+  //box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
   background-color: white;
 }
 
@@ -15,4 +13,16 @@
   top: 0;
   left: 0;
   background-color: rgba(255, 255, 255, 0.75);
+}
+
+.draw-options {
+  margin: 0 0.25rem;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.actions > * {
+  margin: 0 0.25rem;
+  display: inline-block;
+  vertical-align: middle;
 }

@@ -1,5 +1,5 @@
 import {
-    BroadcastDrawEvents, CollaborativeWhiteboardService, DrawEvent, getClearEvent
+    BroadcastDrawEvents, CollaborativeWhiteboardService, DrawEvent, DrawOptions, getClearEvent, getDefaultDrawOptions
 } from 'projects/collaborative-whiteboard/src/public-api';
 import { Subscription } from 'rxjs';
 
@@ -12,6 +12,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
   providers: [CollaborativeWhiteboardService]
 })
 export class WhiteboardComponent implements OnInit, OnDestroy {
+  drawOptions: DrawOptions = {
+    strokeStyle: 'grey',
+    lineWidth: 3
+  };
 
   historyIndex = 0;
 
