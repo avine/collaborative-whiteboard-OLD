@@ -1,13 +1,14 @@
 import {
-    ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input,
-    OnChanges, OnInit, Output, SimpleChanges, ViewChild
+    ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges,
+    ViewChild
 } from '@angular/core';
 
 import {
-    BroadcastDrawEvents, CanvasLine, CanvasLineSerie, CanvasPoint, CanvasSize, DrawEvent,
-    DrawOptions
+    BroadcastDrawEvents, CanvasLine, CanvasLineSerie, CanvasPoint, CanvasSize, DrawEvent, DrawOptions
 } from '../collaborative-whiteboard.model';
-import { getDefaultCanvasSize, getDefaultDrawOptions } from '../collaborative-whiteboard.operator';
+import {
+    getClearEvent, getDefaultCanvasSize, getDefaultDrawOptions, keepDrawEventsAfterClearEvent
+} from '../collaborative-whiteboard.operator';
 
 type ComponentInputType =
   | 'canvasSize'
@@ -106,13 +107,12 @@ export class CanvasComponent implements OnInit, OnChanges {
   }
 
   private updateBroadcastBuffer() {
-    for (let i = this.broadcast.events.length - 1; i >= 0; i--) {
-      if (this.broadcast.events[i].type === 'clear') {
-        this.broadcastBuffer = this.broadcast.events.slice(i);
-        return;
-      }
+    const result = keepDrawEventsAfterClearEvent(this.broadcast.events);
+    if (result.offset) {
+      this.broadcastBuffer = [getClearEvent(), ...result.events];
+    } else {
+      this.broadcastBuffer.push(...this.broadcast.events);
     }
-    this.broadcastBuffer.push(...this.broadcast.events);
   }
 
   private flushBroadcastBuffer() {

@@ -5,10 +5,10 @@ import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 import {
-    BroadcastDrawEvents, DrawEvent, DrawTransport, HistoryRange, HistoryRangeArg
+    BroadcastDrawEvents, DrawEvent, DrawTransport, CutRange, CutRangeArg
 } from './collaborative-whiteboard.model';
 import {
-    broadcastDrawEventsMapper, getClearEvent, normalizeHistoryRange
+    broadcastDrawEventsMapper, getClearEvent, normalizeCutRange, keepDrawEventsAfterClearEvent
 } from './collaborative-whiteboard.operator';
 
 const md5 = md5_;
@@ -23,7 +23,7 @@ export class CollaborativeWhiteboardService {
 
   private history$$ = new BehaviorSubject<DrawEvent[]>([]);
 
-  private historyRange$$ = new BehaviorSubject<HistoryRange>([0, 0]);
+  private cutRange$$ = new BehaviorSubject<CutRange>([0, 0]);
 
   /**
    * Dispatch draw events downwards to the child components
@@ -37,13 +37,13 @@ export class CollaborativeWhiteboardService {
 
   history$ = this.history$$.asObservable();
 
-  historyLastIndex$ = this.history$$.pipe(map(history => Math.max(0, history.length - 1)));
+  historyCut$ = this.history$$.pipe(map(history => keepDrawEventsAfterClearEvent(history)));
 
-  historyRange$ = this.historyRange$$.asObservable();
+  cutRange$ = this.cutRange$$.asObservable();
 
-  broadcastHistoryRange$ = combineLatest(this.history$$, this.historyRange$$).pipe(
-    map(([history, [from, to]]) => {
-      const slice = [getClearEvent(), ...history.slice(from, to + 1)];
+  broadcastHistoryCut$ = combineLatest(this.historyCut$, this.cutRange$$).pipe(
+    map(([historyCut, [from, to]]) => {
+      const slice = [getClearEvent(), ...historyCut.events.slice(from, to + 1)];
       return broadcastDrawEventsMapper(slice);
     })
   );
@@ -210,9 +210,9 @@ export class CollaborativeWhiteboardService {
     this.broadcast$$.next(broadcastDrawEventsMapper(events, animate));
   }
 
-  historyRange(data: HistoryRangeArg) {
-    const range = normalizeHistoryRange(data, this.history.length);
-    this.historyRange$$.next(range);
+  cutRange(data: CutRangeArg) {
+    const range = normalizeCutRange(data, this.history.length); // FIXME: this is NOT accurate hafter we need the `historyCut.length`
+    this.cutRange$$.next(range);
     return range;
   }
 }

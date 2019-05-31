@@ -17,9 +17,14 @@ export class WhiteboardComponent implements OnInit, OnDestroy {
     lineWidth: 3
   };
 
-  historyIndex = 0;
+  historyCut: {
+    offset: number;
+    events: DrawEvent[];
+  };
 
-  lastIndex = 0;
+  cutIndex = 0;
+
+  cutLastIndex = 0;
 
   cutOpen = false;
 
@@ -28,11 +33,13 @@ export class WhiteboardComponent implements OnInit, OnDestroy {
   constructor(public service: CollaborativeWhiteboardService) { }
 
   ngOnInit() {
-    this.subscription = this.service.historyLastIndex$.subscribe(lastIndex => {
-      this.lastIndex = lastIndex;
-      if (this.historyIndex > lastIndex) {
-        this.historyIndex = lastIndex;
-        this.service.historyRange(this.historyIndex);
+    this.subscription = this.service.historyCut$.subscribe(historyCut => {
+      this.historyCut = historyCut;
+      this.cutLastIndex = Math.max(0, historyCut.events.length - 1);
+
+      if (this.cutIndex > this.cutLastIndex) {
+        this.cutIndex = this.cutLastIndex;
+        this.service.cutRange(this.cutIndex);
       }
     });
   }
@@ -44,16 +51,16 @@ export class WhiteboardComponent implements OnInit, OnDestroy {
   toggleCut() {
     this.cutOpen = !this.cutOpen;
     if (this.cutOpen) {
-      this.historyIndex = this.lastIndex;
-      this.service.historyRange(this.historyIndex);
+      this.cutIndex = this.cutLastIndex;
+      this.service.cutRange(this.cutIndex);
     }
   }
 
-  updateHistoryIndex() {
-    this.service.historyRange(this.historyIndex);
+  updatecutIndex() {
+    this.service.cutRange(this.cutIndex);
   }
 
   cut() {
-    this.service.cut(this.historyIndex);
+    this.service.cut(this.historyCut.offset + this.cutIndex);
   }
 }

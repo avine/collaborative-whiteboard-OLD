@@ -11,7 +11,7 @@
     *ngIf="cutOpen"
     class="canvas-cut"
     [drawDisabled]="true"
-    [broadcast]="service.broadcastHistoryRange$ | async">
+    [broadcast]="service.broadcastHistoryCut$ | async">
   </cw-canvas>
 </div>
 
@@ -50,10 +50,10 @@
   <input
     type="range"
     min="0"
-    [max]="lastIndex"
-    [(ngModel)]="historyIndex"
-    (ngModelChange)="updateHistoryIndex()">
-  {{ historyIndex }}
+    [max]="cutLastIndex"
+    [(ngModel)]="cutIndex"
+    (ngModelChange)="updatecutIndex()">
+  {{ cutIndex }}
 
   <button (click)="cut()">Cut</button>
 </div>

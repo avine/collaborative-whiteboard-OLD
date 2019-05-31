@@ -65,6 +65,11 @@ export interface DrawTransport {
   event: DrawEvent;
 }
 
-export type HistoryRange = [number, number];
+export interface CutHistory {
+  offset: number;
+  events: DrawEvent[];
+}
 
-export type HistoryRangeArg = HistoryRange | number;
+export type CutRange = [number, number];
+
+export type CutRangeArg = CutRange | number;
