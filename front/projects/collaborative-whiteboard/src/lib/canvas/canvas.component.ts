@@ -1,10 +1,11 @@
 import {
-    ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges,
-    ViewChild
+    AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter,
+    Input, OnChanges, Output, SimpleChanges, ViewChild
 } from '@angular/core';
 
 import {
-    BroadcastDrawEvents, CanvasLine, CanvasLineSerie, CanvasPoint, CanvasSize, DrawEvent, DrawOptions
+    BroadcastDrawEvents, CanvasLine, CanvasLineSerie, CanvasPoint, CanvasSize, DrawEvent,
+    DrawOptions
 } from '../collaborative-whiteboard.model';
 import {
     getClearEvent, getDefaultCanvasSize, getDefaultDrawOptions, keepDrawEventsAfterClearEvent
@@ -20,7 +21,7 @@ type ComponentInputType =
   styleUrls: ['./canvas.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CanvasComponent implements OnInit, OnChanges {
+export class CanvasComponent implements AfterViewInit, OnChanges {
   @Input() canvasSize = getDefaultCanvasSize();
 
   @Output() canvasSizeChange = new EventEmitter<CanvasSize>();
@@ -35,7 +36,7 @@ export class CanvasComponent implements OnInit, OnChanges {
 
   @Output() draw = new EventEmitter<DrawEvent>();
 
-  @ViewChild('canvas', { static: true }) canvasRef: ElementRef<HTMLCanvasElement>;
+  @ViewChild('canvas', { static: false }) canvasRef: ElementRef<HTMLCanvasElement>;
 
   private context: CanvasRenderingContext2D;
 
@@ -47,7 +48,7 @@ export class CanvasComponent implements OnInit, OnChanges {
 
   constructor(private changeDetectorRef: ChangeDetectorRef) {}
 
-  ngOnInit() {
+  ngAfterViewInit() {
     this.applyCanvasSize();
     this.initContext();
   }
