@@ -241,10 +241,10 @@ export class CanvasComponent implements AfterViewInit, OnChanges {
     if (this.lineSerieBuffer.length === 2) {
       const data = this.lineSerieBuffer as CanvasPoint;
       this.drawPoint(data);
-      this.emit({ user: null, type: 'point', options: this.drawOptions, data });
+      this.emit({ owner: null, type: 'point', options: this.drawOptions, data });
     } else {
       const data = this.lineSerieBuffer as CanvasLineSerie;
-      this.emit({ user: null, type: 'lineSerie', options: this.drawOptions, data });
+      this.emit({ owner: null, type: 'lineSerie', options: this.drawOptions, data });
     }
     this.lineSerieBuffer = [];
   }

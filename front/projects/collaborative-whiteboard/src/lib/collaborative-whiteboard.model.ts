@@ -1,3 +1,5 @@
+export type Owner = number | string;
+
 export interface CanvasSize {
   width: number;
   height: number;
@@ -21,7 +23,7 @@ export interface DrawOptions {
 }
 
 export interface DrawBase {
-  user: number | string;
+  owner: Owner;
   type: DrawType;
   options: DrawOptions;
 }

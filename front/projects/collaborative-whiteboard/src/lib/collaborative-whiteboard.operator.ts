@@ -1,6 +1,10 @@
+import * as md5_ from 'md5';
+
 import {
     BroadcastDrawEvents, CanvasSize, CutRange, CutRangeArg, DrawClear, DrawEvent, DrawOptions
 } from './collaborative-whiteboard.model';
+
+const md5 = md5_;
 
 export const getDefaultCanvasSize = (): CanvasSize => ({
   width: 300,
@@ -18,7 +22,7 @@ export const getEmptyDrawOptions = (): DrawOptions => ({
 });
 
 export const getClearEvent = (): DrawClear => ({
-  user: null,
+  owner: null,
   type: 'clear',
   options: getEmptyDrawOptions(),
   data: [undefined, undefined, undefined, undefined]
@@ -28,10 +32,10 @@ export const drawLineSerieToLinesMapper = (events: DrawEvent[]): DrawEvent[] => 
   const result: DrawEvent[] = [];
   events.forEach(event => {
     if (event.type === 'lineSerie') {
-      const { user, options, data } = event;
+      const { owner, options, data } = event;
       for (let i = 0; i < data.length - 3; i = i + 2) {
         result.push({
-          user,
+          owner,
           type: 'line',
           options,
           data: [data[i], data[i + 1], data[i + 2], data[i + 3]]
@@ -65,4 +69,12 @@ export const keepDrawEventsAfterClearEvent = (events: DrawEvent[]): DrawEvent[] 
     }
   }
   return events;
+};
+
+// Note: Don't forget to update the `hash` builder each time the `DrawEvent` interface is modified.
+export const getHash = (event: DrawEvent) => {
+  // Warning: we assumes that `options.toString()` works.
+  // It means that all properties (like `event.options.strokeStyle`) are primitive values...
+  const options = Object.keys(event.options).sort().map(key => event.options[key]);
+  return md5(event.owner + event.type + options.toString() + event.data.toString());
 };

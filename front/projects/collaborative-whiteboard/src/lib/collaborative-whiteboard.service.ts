@@ -1,17 +1,15 @@
-import * as md5_ from 'md5';
 import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Injectable } from '@angular/core';
 
 import {
-    BroadcastDrawEvents, DrawEvent, DrawTransport, CutRange, CutRangeArg
+    BroadcastDrawEvents, CutRange, CutRangeArg, DrawEvent, DrawTransport, Owner
 } from './collaborative-whiteboard.model';
 import {
-    broadcastDrawEventsMapper, getClearEvent, normalizeCutRange, keepDrawEventsAfterClearEvent
+    broadcastDrawEventsMapper, getClearEvent, getHash, keepDrawEventsAfterClearEvent,
+    normalizeCutRange
 } from './collaborative-whiteboard.operator';
-
-const md5 = md5_;
 
 @Injectable()
 export class CollaborativeWhiteboardService {
@@ -50,17 +48,19 @@ export class CollaborativeWhiteboardService {
 
   emit$ = this.emit$$.asObservable();
 
+  owner: Owner;
+
   constructor() { }
 
   private pushHistory(event: DrawEvent) {
     event.options = { ...event.options }; // Make this immutable!
-    const hash = this.getHash(event);
+    const hash = getHash(event);
     this.historyMap.set(hash, event);
-    while (this.historyRedo.length && this.getHash(this.historyRedo.shift()) !== hash) {}
+    while (this.historyRedo.length && getHash(this.historyRedo.shift()) !== hash) {}
   }
 
   private pullHistory(event: DrawEvent): boolean {
-    const hash = this.getHash(event);
+    const hash = getHash(event);
     if (this.historyMap.delete(hash)) {
       this.historyRedo.unshift(event);
       return true;
@@ -82,13 +82,6 @@ export class CollaborativeWhiteboardService {
     }
   }
 
-  private getHash(event: DrawEvent) {
-    // Warning: we assumes that `options.toString()` works.
-    // It means that all properties (like `event.options.strokeStyle`) are primitive values...
-    const options = Object.keys(event.options).sort().map(key => event.options[key]);
-    return md5(event.type + options.toString() + event.data.toString());
-  }
-
   private get history(): DrawEvent[] {
     return Array.from(this.historyMap.values());
   }
@@ -102,6 +95,10 @@ export class CollaborativeWhiteboardService {
     //    <app-canvas-cut [history]="whiteboard.history$ | async"></app-canvas-cut>
     //
     this.history$$.next(this.history);
+  }
+
+  private setDrawEventOwner(event: DrawEvent): DrawEvent {
+    return { ...event, owner: this.owner };
   }
 
   broadcast(transport: DrawTransport[]) {
@@ -118,7 +115,7 @@ export class CollaborativeWhiteboardService {
       }
       switch (t.action) {
         case 'remove': {
-          const hash = this.getHash(t.event);
+          const hash = getHash(t.event);
           if (this.historyMap.has(hash)) {
             removeHash.push(hash);
           }
@@ -146,6 +143,7 @@ export class CollaborativeWhiteboardService {
   }
 
   emit(event: DrawEvent) {
+    event = this.setDrawEventOwner(event);
     this.pushHistory(event);
     this.emit$$.next([{ action: 'add', event }]);
     this.emitHistory();
