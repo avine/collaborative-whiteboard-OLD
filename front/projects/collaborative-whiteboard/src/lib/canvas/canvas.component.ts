@@ -146,7 +146,8 @@ export class CanvasComponent implements AfterViewInit, OnChanges {
 
   private flushCount(remain: number, total: number) {
     // Let's do some easing!
-    return Math.round(Math.sin((remain / total) * Math.PI) * 10 + 1);
+    const count = Math.round(Math.sin((remain / total) * Math.PI) * 9) + 1;
+    return Math.min(count, remain);
   }
 
   private drawHandler(event: DrawEvent) {

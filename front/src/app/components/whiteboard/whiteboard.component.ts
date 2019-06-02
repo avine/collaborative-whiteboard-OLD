@@ -1,7 +1,8 @@
 import {
-    BroadcastDrawEvents, CollaborativeWhiteboardService, DrawEvent, DrawOptions, getClearEvent, getDefaultDrawOptions
+    CollaborativeWhiteboardService, DrawEvent, DrawOptions, DrawTransport
 } from 'projects/collaborative-whiteboard/src/public-api';
 import { Subscription } from 'rxjs';
+import { SocketService } from 'src/app/services/socket.service';
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
@@ -25,24 +26,37 @@ export class WhiteboardComponent implements OnInit, OnDestroy {
 
   cutOpen = false;
 
-  subscription: Subscription;
+  subscriptions: Subscription[] = [];
 
-  constructor(public service: CollaborativeWhiteboardService) { }
+  constructor(
+    private socketService: SocketService,
+    public service: CollaborativeWhiteboardService
+  ) { }
 
   ngOnInit() {
-    this.subscription = this.service.historyCut$.subscribe(historyCut => {
-      this.historyCut = historyCut;
-      this.cutLastIndex = Math.max(0, historyCut.length - 1);
-
-      if (this.cutIndex > this.cutLastIndex) {
-        this.cutIndex = this.cutLastIndex;
-        this.service.cutRange(this.cutIndex);
-      }
+    this.socketService.socket.on('broadcastDrawTransport', (transport: DrawTransport[]) => {
+      this.service.broadcast(transport);
     });
+
+    this.subscriptions.push(
+      this.service.historyCut$.subscribe(historyCut => {
+        this.historyCut = historyCut;
+        this.cutLastIndex = Math.max(0, historyCut.length - 1);
+
+        if (this.cutIndex > this.cutLastIndex) {
+          this.cutIndex = this.cutLastIndex;
+          this.service.cutRange(this.cutIndex);
+        }
+      }),
+
+      this.service.emit$.subscribe((transport: DrawTransport[]) => {
+        this.socketService.socket.emit('drawTransport', transport);
+      })
+    );
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   toggleCut() {
