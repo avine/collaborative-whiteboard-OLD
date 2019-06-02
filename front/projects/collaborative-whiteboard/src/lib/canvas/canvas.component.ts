@@ -123,11 +123,11 @@ export class CanvasComponent implements AfterViewInit, OnChanges {
         this.drawHandler(this.broadcastBuffer.shift());
       }
     } else {
+      const steps = this.broadcastBuffer.length;
       const step = () => {
         if (id === this.broadcastId) {
           if (this.broadcastBuffer.length) {
-            // Let's do some acceleration!
-            const count = Math.ceil(this.broadcastBuffer.length / 10);
+            const count = this.flushCount(this.broadcastBuffer.length, steps);
             for (let i = 0; i < count; i++) {
               this.drawHandler(this.broadcastBuffer.shift());
             }
@@ -142,6 +142,11 @@ export class CanvasComponent implements AfterViewInit, OnChanges {
       };
       window.requestAnimationFrame(step);
     }
+  }
+
+  private flushCount(remain: number, total: number) {
+    // Let's do some acceleration!
+    return Math.round(Math.sin((remain / total) * Math.PI) * 30 + 1);
   }
 
   private drawHandler(event: DrawEvent) {
