@@ -145,8 +145,8 @@ export class CanvasComponent implements AfterViewInit, OnChanges {
   }
 
   private flushCount(remain: number, total: number) {
-    // Let's do some acceleration!
-    return Math.round(Math.sin((remain / total) * Math.PI) * 30 + 1);
+    // Let's do some easing!
+    return Math.round(Math.sin((remain / total) * Math.PI) * 10 + 1);
   }
 
   private drawHandler(event: DrawEvent) {
@@ -240,10 +240,10 @@ export class CanvasComponent implements AfterViewInit, OnChanges {
     if (this.lineSerieBuffer.length === 2) {
       const data = this.lineSerieBuffer as CanvasPoint;
       this.drawPoint(data);
-      this.emit({ type: 'point', options: this.drawOptions, data });
+      this.emit({ user: null, type: 'point', options: this.drawOptions, data });
     } else {
       const data = this.lineSerieBuffer as CanvasLineSerie;
-      this.emit({ type: 'lineSerie', options: this.drawOptions, data });
+      this.emit({ user: null, type: 'lineSerie', options: this.drawOptions, data });
     }
     this.lineSerieBuffer = [];
   }

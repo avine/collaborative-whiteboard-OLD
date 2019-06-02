@@ -18,18 +18,20 @@ export const getEmptyDrawOptions = (): DrawOptions => ({
 });
 
 export const getClearEvent = (): DrawClear => ({
+  user: null,
   type: 'clear',
-  data: [undefined, undefined, undefined, undefined],
-  options: getEmptyDrawOptions()
+  options: getEmptyDrawOptions(),
+  data: [undefined, undefined, undefined, undefined]
 });
 
 export const drawLineSerieToLinesMapper = (events: DrawEvent[]): DrawEvent[] => {
   const result: DrawEvent[] = [];
   events.forEach(event => {
     if (event.type === 'lineSerie') {
-      const { options, data } = event;
+      const { user, options, data } = event;
       for (let i = 0; i < data.length - 3; i = i + 2) {
         result.push({
+          user,
           type: 'line',
           options,
           data: [data[i], data[i + 1], data[i + 2], data[i + 3]]

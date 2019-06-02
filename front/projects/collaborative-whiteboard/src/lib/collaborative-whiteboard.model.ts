@@ -21,6 +21,7 @@ export interface DrawOptions {
 }
 
 export interface DrawBase {
+  user: number | string;
   type: DrawType;
   options: DrawOptions;
 }
