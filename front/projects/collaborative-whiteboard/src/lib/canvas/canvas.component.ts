@@ -108,9 +108,9 @@ export class CanvasComponent implements AfterViewInit, OnChanges {
   }
 
   private updateBroadcastBuffer() {
-    const result = keepDrawEventsAfterClearEvent(this.broadcast.events);
-    if (result.offset) {
-      this.broadcastBuffer = [getClearEvent(), ...result.events];
+    const events = keepDrawEventsAfterClearEvent(this.broadcast.events);
+    if (events.length < this.broadcast.events.length) {
+      this.broadcastBuffer = [getClearEvent(), ...events];
     } else {
       this.broadcastBuffer.push(...this.broadcast.events);
     }

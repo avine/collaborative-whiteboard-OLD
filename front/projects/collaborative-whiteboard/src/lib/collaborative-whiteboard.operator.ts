@@ -1,5 +1,5 @@
 import {
-    BroadcastDrawEvents, CanvasSize, CutHistory, CutRange, CutRangeArg, DrawClear, DrawEvent, DrawOptions
+    BroadcastDrawEvents, CanvasSize, CutRange, CutRangeArg, DrawClear, DrawEvent, DrawOptions
 } from './collaborative-whiteboard.model';
 
 export const getDefaultCanvasSize = (): CanvasSize => ({
@@ -50,17 +50,17 @@ export const broadcastDrawEventsMapper = (
   events: animate ? drawLineSerieToLinesMapper(events) : events
 });
 
-export const normalizeCutRange = (data: CutRangeArg, maxLength: number): CutRange => {
+export const normalizeCutRange = (data: CutRangeArg): CutRange => {
   const range = Array.isArray(data) ? [...data].sort() : [data, data];
-  const applyLimits = (n: number) => Math.max(0, Math.min(maxLength - 1, n));
-  return range.map(applyLimits) as CutRange;
+  const [from, to] = range;
+  return [Math.max(0, from), Math.max(0, to)];
 };
 
-export const keepDrawEventsAfterClearEvent = (events: DrawEvent[]): CutHistory => {
+export const keepDrawEventsAfterClearEvent = (events: DrawEvent[]): DrawEvent[] => {
   for (let i = events.length - 1; i >= 0; i--) {
     if (events[i].type === 'clear') {
-      return { offset: i + 1, events: events.slice(i + 1) };
+      return events.slice(i + 1);
     }
   }
-  return { offset: 0, events };
+  return events;
 };

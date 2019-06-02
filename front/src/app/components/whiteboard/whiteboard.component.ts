@@ -17,10 +17,7 @@ export class WhiteboardComponent implements OnInit, OnDestroy {
     lineWidth: 3
   };
 
-  historyCut: {
-    offset: number;
-    events: DrawEvent[];
-  };
+  historyCut: DrawEvent[];
 
   cutIndex = 0;
 
@@ -35,7 +32,7 @@ export class WhiteboardComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.service.historyCut$.subscribe(historyCut => {
       this.historyCut = historyCut;
-      this.cutLastIndex = Math.max(0, historyCut.events.length - 1);
+      this.cutLastIndex = Math.max(0, historyCut.length - 1);
 
       if (this.cutIndex > this.cutLastIndex) {
         this.cutIndex = this.cutLastIndex;
@@ -61,6 +58,7 @@ export class WhiteboardComponent implements OnInit, OnDestroy {
   }
 
   cut() {
-    this.service.cut(this.historyCut.offset + this.cutIndex);
+    const event = this.historyCut[this.cutIndex];
+    this.service.cut([event]);
   }
 }

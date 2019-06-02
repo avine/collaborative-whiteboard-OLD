@@ -15,9 +15,7 @@ const md5 = md5_;
 
 @Injectable()
 export class CollaborativeWhiteboardService {
-  private history: DrawEvent[] = [];
-
-  private historyMap: { [hash: string]: number; } = {};
+  private historyMap = new Map<string, DrawEvent>();
 
   private historyRedo: DrawEvent[] = [];
 
@@ -26,12 +24,12 @@ export class CollaborativeWhiteboardService {
   private cutRange$$ = new BehaviorSubject<CutRange>([0, 0]);
 
   /**
-   * Dispatch draw events downwards to the child components
+   * Dispatch draw events from the server to the client
    */
   private broadcast$$ = new Subject<BroadcastDrawEvents>();
 
   /**
-   * Dispatch draw events upwards through the network
+   * Dispatch draw events from the client to the server
    */
   private emit$$ = new Subject<DrawTransport[]>();
 
@@ -43,7 +41,7 @@ export class CollaborativeWhiteboardService {
 
   broadcastHistoryCut$ = combineLatest(this.historyCut$, this.cutRange$$).pipe(
     map(([historyCut, [from, to]]) => {
-      const slice = [getClearEvent(), ...historyCut.events.slice(from, to + 1)];
+      const slice = [getClearEvent(), ...historyCut.slice(from, to + 1)];
       return broadcastDrawEventsMapper(slice);
     })
   );
@@ -57,31 +55,28 @@ export class CollaborativeWhiteboardService {
   private pushHistory(event: DrawEvent) {
     event.options = { ...event.options }; // Make this immutable!
     const hash = this.getHash(event);
-    if (!(hash in this.historyMap)) {
-      this.historyMap[hash] = this.history.length;
-      this.history.push(event);
-    }
+    this.historyMap.set(hash, event);
     while (this.historyRedo.length && this.getHash(this.historyRedo.shift()) !== hash) {}
   }
 
-  private pullHistory(event: DrawEvent): number {
+  private pullHistory(event: DrawEvent): boolean {
     const hash = this.getHash(event);
-    if (hash in this.historyMap) {
-      const index = this.historyMap[hash];
-      const [removed] = this.history.splice(index, 1);
-      delete this.historyMap[hash];
-      this.historyRedo.unshift(removed);
-      return index;
+    if (this.historyMap.delete(hash)) {
+      this.historyRedo.unshift(event);
+      return true;
     }
-    return -1;
+    return false;
   }
 
-  private popHistory(index?: number): DrawEvent {
-    const removed = index === undefined
-      ? this.history.pop()
-      : this.history.splice(index, 1)[0];
+  private popHistory(hash?: string): DrawEvent {
+    if (!hash) {
+      let lastKey: string;
+      for (lastKey of this.historyMap.keys()) {}
+      hash = lastKey;
+    }
+    const removed = this.historyMap.get(hash);
     if (removed) {
-      delete this.historyMap[this.getHash(removed)];
+      this.historyMap.delete(hash);
       this.historyRedo.unshift(removed);
       return removed;
     }
@@ -94,6 +89,10 @@ export class CollaborativeWhiteboardService {
     return md5(event.type + options.toString() + event.data.toString());
   }
 
+  private get history(): DrawEvent[] {
+    return Array.from(this.historyMap.values());
+  }
+
   private emitHistory() {
     // Making the emitted values immutable has an advantage!
     //
@@ -102,11 +101,11 @@ export class CollaborativeWhiteboardService {
     //
     //    <app-canvas-cut [history]="whiteboard.history$ | async"></app-canvas-cut>
     //
-    this.history$$.next([...this.history]);
+    this.history$$.next(this.history);
   }
 
   broadcast(transport: DrawTransport[]) {
-    const removeIndex: number[] = [];
+    const removeHash: string[] = [];
     const addEvent: DrawEvent[] = [];
     transport.forEach(t => {
       if (t.event.type === 'clear') {
@@ -120,8 +119,8 @@ export class CollaborativeWhiteboardService {
       switch (t.action) {
         case 'remove': {
           const hash = this.getHash(t.event);
-          if (hash in this.historyMap) {
-            removeIndex.push(this.historyMap[hash]);
+          if (this.historyMap.has(hash)) {
+            removeHash.push(hash);
           }
           break;
         }
@@ -135,10 +134,9 @@ export class CollaborativeWhiteboardService {
         }
       }
     });
-    // We must sort the events to remove by index DESC
-    removeIndex.sort().reverse().forEach(index => this.popHistory(index));
+    removeHash.forEach(hash => this.popHistory(hash));
     addEvent.forEach(event => this.pushHistory(event));
-    if (removeIndex.length) {
+    if (removeHash.length) {
       const events = [getClearEvent(), ...this.history, ...addEvent];
       this.broadcast$$.next(broadcastDrawEventsMapper(events));
     } else {
@@ -153,8 +151,8 @@ export class CollaborativeWhiteboardService {
     this.emitHistory();
   }
 
-  undo(index?: number) {
-    const event = this.popHistory(index);
+  undo() {
+    const event = this.popHistory();
     if (event) {
       this.broadcast$$.next({
         animate: false,
@@ -176,14 +174,8 @@ export class CollaborativeWhiteboardService {
     }
   }
 
-  cut(fromIndex: number, toIndex = fromIndex) {
-    const removed: DrawEvent[] = [];
-    for (let i = toIndex; i >= fromIndex; i--) { // We must sort the events to remove by index DESC
-      const event = this.popHistory(i);
-      if (event) {
-        removed.push(event);
-      }
-    }
+  cut(events: DrawEvent[]) {
+    const removed = events.filter(event => this.pullHistory(event));
     if (removed.length) {
       this.broadcast$$.next({
         animate: false,
@@ -211,7 +203,7 @@ export class CollaborativeWhiteboardService {
   }
 
   cutRange(data: CutRangeArg) {
-    const range = normalizeCutRange(data, this.history.length); // FIXME: this is NOT accurate hafter we need the `historyCut.length`
+    const range = normalizeCutRange(data);
     this.cutRange$$.next(range);
     return range;
   }
