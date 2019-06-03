@@ -57,6 +57,10 @@ export class CollaborativeWhiteboardService {
     event.options = { ...event.options }; // Make this immutable!
     const hash = getHash(event);
     this.historyMap.set(hash, event);
+    this.dropHistoryRedoAgainst(hash);
+  }
+
+  private dropHistoryRedoAgainst(hash: string) {
     while (this.historyRedo.length && getHash(this.historyRedo.shift()) !== hash) {}
   }
 
@@ -116,6 +120,10 @@ export class CollaborativeWhiteboardService {
     const addEvent: DrawEvent[] = [];
     transport.forEach(t => {
       if (t.event.type === 'clear') {
+        // Notice:
+        // This case should NOT occurs anymore after clear events are NOT emitted...
+        // Thus, this `if` case should be removed...
+        // Or let say that it is still relevant for "moderator" as a red button to clear the canvas...
         // FIXME: Hack
         // The clear event data should be: `[undefined, undefined, undefined, undefined]`.
         // But after it was stringified in the wire it becomes: `[null, null, null, null]`.
