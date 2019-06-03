@@ -65,7 +65,7 @@ export type DrawAction =
 
 export interface DrawTransport {
   action: DrawAction;
-  event: DrawEvent;
+  events: DrawEvent[];
 }
 
 export type CutRange = [number, number];

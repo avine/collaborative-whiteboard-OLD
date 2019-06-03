@@ -14,9 +14,7 @@ import {
 export class CollaborativeWhiteboardService {
   private historyMap = new Map<string, DrawEvent>();
 
-  // TODO: use a matrix `DrawEvent[][]` instead...
-  // Because in case of clear event or cut event, we want an atomic transaction...
-  private historyRedo: DrawEvent[] = [];
+  private historyRedo: DrawEvent[][] = [];
 
   private history$$ = new BehaviorSubject<DrawEvent[]>([]);
 
@@ -60,25 +58,32 @@ export class CollaborativeWhiteboardService {
     this.dropHistoryRedoAgainst(hash);
   }
 
-  private dropHistoryRedoAgainst(hash: string) {
-    while (this.historyRedo.length && getHash(this.historyRedo.shift()) !== hash) {}
-  }
-
   private pullHistory(event: DrawEvent): boolean {
     const hash = getHash(event);
-    if (this.historyMap.delete(hash)) {
-      this.historyRedo.unshift(event);
-      return true;
-    }
-    return false;
+    return this.historyMap.delete(hash);
   }
 
   private popHistory(hash = this.getOwnerLastHash()): DrawEvent {
     const removed = this.historyMap.get(hash);
     if (removed) {
       this.historyMap.delete(hash);
-      this.historyRedo.unshift(removed);
       return removed;
+    }
+  }
+
+  private addHistoryRedo(events: DrawEvent[]) {
+    this.historyRedo.unshift(events);
+  }
+
+  private dropHistoryRedoAgainst(hash: string) {
+    while (this.historyRedo.length) {
+      const events = this.historyRedo.shift();
+      while (events.length) {
+        const event = events.shift();
+        if (getHash(event) === hash) {
+          return;
+        }
+      }
     }
   }
 
@@ -116,19 +121,10 @@ export class CollaborativeWhiteboardService {
   }
 
   broadcast(transport: DrawTransport[]) {
-
-    // TMP (force one event only for each `DrawTransport`)
-    const tmp: DrawTransport[] = [];
-    transport.forEach(t => {
-      t.events.forEach(event => tmp.push({ action: t.action, events: [event] }));
-    });
-    transport = tmp;
-    // TMP
-
     const removeHash: string[] = [];
     const addEvent: DrawEvent[] = [];
     transport.forEach(t => {
-      if (t.events[0].type === 'clear') {
+      if (t.events.type === 'clear') {
         // Notice:
         // This case should NOT occurs anymore after clear events are NOT emitted...
         // Thus, this `if` case should be removed...
@@ -138,18 +134,18 @@ export class CollaborativeWhiteboardService {
         // But after it was stringified in the wire it becomes: `[null, null, null, null]`.
         // Thus, we must restore the real clear event data structure,
         // otherwise the method `CanvasComponent.drawClear` will not work properly...
-        t.events[0] = getClearEvent();
+        t.events = getClearEvent();
       }
       switch (t.action) {
         case 'remove': {
-          const hash = getHash(t.events[0]);
+          const hash = getHash(t.events);
           if (this.historyMap.has(hash)) {
             removeHash.push(hash);
           }
           break;
         }
         case 'add': {
-          addEvent.push(t.events[0]);
+          addEvent.push(t.events);
           break;
         }
         default: {
@@ -158,7 +154,12 @@ export class CollaborativeWhiteboardService {
         }
       }
     });
-    removeHash.forEach(hash => this.popHistory(hash));
+    removeHash.forEach(hash => {
+      const event = this.popHistory(hash);
+      if (event) {
+        this.addHistoryRedo([event]);
+      }
+    });
     addEvent.forEach(event => this.pushHistory(event));
     if (removeHash.length) {
       const events = [getClearEvent(), ...this.history, ...addEvent];
@@ -172,18 +173,19 @@ export class CollaborativeWhiteboardService {
   emit(event: DrawEvent) {
     event = this.setDrawEventOwner(event);
     this.pushHistory(event);
-    this.emit$$.next([{ action: 'add', events: [event] }]);
+    this.emit$$.next([{ action: 'add', events: event }]);
     this.emitHistory();
   }
 
   undo() {
     const event = this.popHistory();
     if (event) {
+      this.addHistoryRedo([event]);
       this.broadcast$$.next({
         animate: false,
         events: [getClearEvent(), ...this.history]
       });
-      this.emit$$.next([{ action: 'remove', events: [event] }]);
+      this.emit$$.next([{ action: 'remove', events: event }]);
       this.emitHistory();
     }
   }
@@ -191,10 +193,11 @@ export class CollaborativeWhiteboardService {
   redo() {
     if (this.historyRedo.length) {
       // Simply identify the event and let the `pushHistory` method do its job...
-      const event = this.historyRedo[0];
-      this.pushHistory(event);
-      this.broadcast$$.next(broadcastDrawEventsMapper([event], true));
-      this.emit$$.next([{ action: 'add', events: [event] }]);
+      // In other words, do NOT execute something like: `this.historyRedo.shift()`
+      const events = this.historyRedo[0];
+      events.forEach(event => this.pushHistory(event));
+      this.broadcast$$.next(broadcastDrawEventsMapper(events, true));
+      events.forEach(event => this.emit$$.next([{ action: 'add', events: event }]));
       this.emitHistory();
     }
   }
@@ -202,18 +205,18 @@ export class CollaborativeWhiteboardService {
   cut(events: DrawEvent[]) {
     const removed = events.filter(event => this.pullHistory(event));
     if (removed.length) {
+      this.addHistoryRedo(removed);
       this.broadcast$$.next({
         animate: false,
         events: [getClearEvent(), ...this.history]
       });
-      this.emit$$.next([{ action: 'remove', events: removed }]);
+      this.emit$$.next(removed.map(event => ({ action: 'remove', events: event } as DrawTransport)));
       this.emitHistory();
     }
   }
 
   clear() {
-    const events = this.getOwnerDrawEvents(this.history).reverse();
-    this.cut(events);
+    this.cut(this.getOwnerDrawEvents(this.history).reverse());
   }
 
   redraw(animate = true) {
