@@ -15,7 +15,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 export class WhiteboardComponent implements OnInit, OnDestroy {
   drawOptions: DrawOptions = {
     strokeStyle: 'grey',
-    lineWidth: 3
+    lineWidth: 6
   };
 
   historyCut: DrawEvent[];
@@ -73,6 +73,8 @@ export class WhiteboardComponent implements OnInit, OnDestroy {
 
   cut() {
     const event = this.historyCut[this.cutIndex];
-    this.service.cut([event]);
+    if (event) {
+      this.service.cut([event]);
+    }
   }
 }
