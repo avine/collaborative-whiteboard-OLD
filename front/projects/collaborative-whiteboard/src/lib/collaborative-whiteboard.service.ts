@@ -7,14 +7,15 @@ import {
     BroadcastDrawEvents, CutRange, CutRangeArg, DrawEvent, DrawTransport, Owner
 } from './collaborative-whiteboard.model';
 import {
-    broadcastDrawEventsMapper, getClearEvent, getHash, keepDrawEventsAfterClearEvent,
-    normalizeCutRange
+    broadcastDrawEventsMapper, getClearEvent, getHash, normalizeCutRange
 } from './collaborative-whiteboard.operator';
 
 @Injectable()
 export class CollaborativeWhiteboardService {
   private historyMap = new Map<string, DrawEvent>();
 
+  // TODO: use a matrix `DrawEvent[][]` instead...
+  // Because in case of clear event or cut event, we want an atomic transaction...
   private historyRedo: DrawEvent[] = [];
 
   private history$$ = new BehaviorSubject<DrawEvent[]>([]);
@@ -33,7 +34,7 @@ export class CollaborativeWhiteboardService {
 
   history$ = this.history$$.asObservable();
 
-  historyCut$ = this.history$$.pipe(map(history => keepDrawEventsAfterClearEvent(history)));
+  historyCut$ = this.history$$.pipe(map(history => this.getOwnerDrawEvents(history)));
 
   cutRange$ = this.cutRange$$.asObservable();
 
@@ -68,12 +69,7 @@ export class CollaborativeWhiteboardService {
     return false;
   }
 
-  private popHistory(hash?: string): DrawEvent {
-    if (!hash) {
-      let lastKey: string;
-      for (lastKey of this.historyMap.keys()) {}
-      hash = lastKey;
-    }
+  private popHistory(hash = this.getOwnerLastHash()): DrawEvent {
     const removed = this.historyMap.get(hash);
     if (removed) {
       this.historyMap.delete(hash);
@@ -99,6 +95,20 @@ export class CollaborativeWhiteboardService {
 
   private setDrawEventOwner(event: DrawEvent): DrawEvent {
     return { ...event, owner: this.owner };
+  }
+
+  private getOwnerDrawEvents(events: DrawEvent[]) {
+    return events.filter(event => event.owner === this.owner);
+  }
+
+  private getOwnerLastHash(): string {
+    let lastHash: string;
+    for (const [hash, event] of this.historyMap.entries()) {
+      if (event.owner === this.owner) {
+        lastHash = hash;
+      }
+    }
+    return lastHash;
   }
 
   broadcast(transport: DrawTransport[]) {
@@ -185,13 +195,13 @@ export class CollaborativeWhiteboardService {
   }
 
   clear() {
-    const event = getClearEvent();
-    this.pushHistory(event);
+    const events = this.getOwnerDrawEvents(this.history).reverse();
+    events.forEach(event => this.pullHistory(event));
     this.broadcast$$.next({
       animate: false,
-      events: [getClearEvent()]
+      events: [getClearEvent(), ...this.history]
     });
-    this.emit$$.next([{ action: 'add', event }]);
+    this.emit$$.next(events.map(event => ({ action: 'remove', event })));
     this.emitHistory();
   }
 
