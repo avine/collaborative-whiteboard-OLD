@@ -34,7 +34,7 @@ export class WhiteboardComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.socketService.socket.on('broadcastDrawTransport', (transport: DrawTransport[]) => {
+    this.socketService.socket.on('broadcastDrawTransport', (transport: DrawTransport) => {
       this.service.broadcast(transport);
     });
 
@@ -49,7 +49,7 @@ export class WhiteboardComponent implements OnInit, OnDestroy {
         }
       }),
 
-      this.service.emit$.subscribe((transport: DrawTransport[]) => {
+      this.service.emit$.subscribe((transport: DrawTransport) => {
         this.socketService.socket.emit('drawTransport', transport);
       })
     );

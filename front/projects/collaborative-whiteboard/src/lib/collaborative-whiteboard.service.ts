@@ -14,9 +14,7 @@ import {
 export class CollaborativeWhiteboardService {
   private historyMap = new Map<string, DrawEvent>();
 
-  // TODO: use a matrix `DrawEvent[][]` instead...
-  // Because in case of clear event or cut event, we want an atomic transaction...
-  private historyRedo: DrawEvent[] = [];
+  private historyRedo: DrawEvent[][] = [];
 
   private history$$ = new BehaviorSubject<DrawEvent[]>([]);
 
@@ -30,7 +28,7 @@ export class CollaborativeWhiteboardService {
   /**
    * Dispatch draw events from the client to the server
    */
-  private emit$$ = new Subject<DrawTransport[]>();
+  private emit$$ = new Subject<DrawTransport>();
 
   history$ = this.history$$.asObservable();
 
@@ -57,29 +55,45 @@ export class CollaborativeWhiteboardService {
     event.options = { ...event.options }; // Make this immutable!
     const hash = getHash(event);
     this.historyMap.set(hash, event);
-    this.dropHistoryRedoAgainst(hash);
-  }
-
-  private dropHistoryRedoAgainst(hash: string) {
-    while (this.historyRedo.length && getHash(this.historyRedo.shift()) !== hash) {}
   }
 
   private pullHistory(event: DrawEvent): boolean {
     const hash = getHash(event);
-    if (this.historyMap.delete(hash)) {
-      this.historyRedo.unshift(event);
-      return true;
-    }
-    return false;
+    return this.historyMap.delete(hash);
   }
 
   private popHistory(hash = this.getOwnerLastHash()): DrawEvent {
     const removed = this.historyMap.get(hash);
     if (removed) {
       this.historyMap.delete(hash);
-      this.historyRedo.unshift(removed);
       return removed;
     }
+  }
+
+  private pushHistoryRedo(events: DrawEvent[]) {
+    this.historyRedo.unshift(events);
+  }
+
+  private popHistoryRedo() {
+    return this.historyRedo.shift() || false;
+  }
+
+  private dropHistoryRedoAgainst(events: DrawEvent[]) {
+    let redos: DrawEvent[] = [];
+    events.forEach(event => {
+      const hash = getHash(event);
+      while (redos.length || this.historyRedo.length) {
+        if (!redos.length) {
+          redos = this.historyRedo.shift();
+        }
+        while (redos.length) {
+          const redo = redos.shift();
+          if (getHash(redo) === hash) {
+            return;
+          }
+        }
+      }
+    });
   }
 
   private get history(): DrawEvent[] {
@@ -115,86 +129,79 @@ export class CollaborativeWhiteboardService {
     return lastHash;
   }
 
-  broadcast(transport: DrawTransport[]) {
-
-    // TMP (force one event only for each `DrawTransport`)
-    const tmp: DrawTransport[] = [];
-    transport.forEach(t => {
-      t.events.forEach(event => tmp.push({ action: t.action, events: [event] }));
-    });
-    transport = tmp;
-    // TMP
-
-    const removeHash: string[] = [];
-    const addEvent: DrawEvent[] = [];
-    transport.forEach(t => {
-      if (t.events[0].type === 'clear') {
-        // Notice:
-        // This case should NOT occurs anymore after clear events are NOT emitted...
-        // Thus, this `if` case should be removed...
-        // Or let say that it is still relevant for "moderator" as a red button to clear the canvas...
-        // FIXME: Hack
-        // The clear event data should be: `[undefined, undefined, undefined, undefined]`.
-        // But after it was stringified in the wire it becomes: `[null, null, null, null]`.
-        // Thus, we must restore the real clear event data structure,
-        // otherwise the method `CanvasComponent.drawClear` will not work properly...
-        t.events[0] = getClearEvent();
-      }
-      switch (t.action) {
-        case 'remove': {
-          const hash = getHash(t.events[0]);
-          if (this.historyMap.has(hash)) {
-            removeHash.push(hash);
-          }
-          break;
-        }
-        case 'add': {
-          addEvent.push(t.events[0]);
-          break;
-        }
-        default: {
-          console.error('Unhandled "DrawTransport" event', t);
-          break;
-        }
-      }
-    });
-    removeHash.forEach(hash => this.popHistory(hash));
-    addEvent.forEach(event => this.pushHistory(event));
-    if (removeHash.length) {
-      const events = [getClearEvent(), ...this.history, ...addEvent];
-      this.broadcast$$.next(broadcastDrawEventsMapper(events));
-    } else {
-      this.broadcast$$.next(broadcastDrawEventsMapper(addEvent, true));
+  private broadcastAdd(events: DrawEvent[]) {
+    events = this.normalizeEvents(events);
+    events.forEach(event => this.pushHistory(event));
+    const ownerEvents = events.filter(event => event.owner === this.owner);
+    if (ownerEvents.length) {
+      this.dropHistoryRedoAgainst(ownerEvents);
     }
+    this.broadcast$$.next(broadcastDrawEventsMapper(events, true));
     this.emitHistory();
+  }
+
+  private broadcastRemove(events: DrawEvent[]) {
+    events = this.normalizeEvents(events);
+    const removed = events.filter(event => this.pullHistory(event));
+    if (removed.length) {
+      const ownerEvents = removed.filter(event => event.owner === this.owner);
+      if (ownerEvents.length) {
+        this.pushHistoryRedo(ownerEvents);
+      }
+      this.broadcast$$.next(broadcastDrawEventsMapper([getClearEvent(), ...this.history]));
+      this.emitHistory();
+    }
+  }
+
+  // Notice:
+  // This case should NOT occurs anymore after clear events are NOT emitted...
+  // FIXME: Hack
+  // The clear event data should be: `[undefined, undefined, undefined, undefined]`.
+  // But after it was stringified in the wire it becomes: `[null, null, null, null]`.
+  // Thus, we must restore the real clear event data structure,
+  // otherwise the method `CanvasComponent.drawClear` will not work properly...
+  private normalizeEvents(events: DrawEvent[]) {
+    return events.map(event => event.type === 'clear' ? getClearEvent() : event);
+  }
+
+  broadcast(transport: DrawTransport) {
+    switch (transport.action) {
+      case 'add':
+        this.broadcastAdd(transport.events);
+        break;
+      case 'remove':
+        this.broadcastRemove(transport.events);
+        break;
+      default:
+        console.error('Unhandled "DrawTransport" event', transport);
+        break;
+    }
   }
 
   emit(event: DrawEvent) {
     event = this.setDrawEventOwner(event);
     this.pushHistory(event);
-    this.emit$$.next([{ action: 'add', events: [event] }]);
+    this.dropHistoryRedoAgainst([event]);
+    this.emit$$.next({ action: 'add', events: [event] });
     this.emitHistory();
   }
 
   undo() {
     const event = this.popHistory();
     if (event) {
-      this.broadcast$$.next({
-        animate: false,
-        events: [getClearEvent(), ...this.history]
-      });
-      this.emit$$.next([{ action: 'remove', events: [event] }]);
+      this.pushHistoryRedo([event]);
+      this.broadcast$$.next(broadcastDrawEventsMapper([getClearEvent(), ...this.history]));
+      this.emit$$.next({ action: 'remove', events: [event] });
       this.emitHistory();
     }
   }
 
   redo() {
-    if (this.historyRedo.length) {
-      // Simply identify the event and let the `pushHistory` method do its job...
-      const event = this.historyRedo[0];
-      this.pushHistory(event);
-      this.broadcast$$.next(broadcastDrawEventsMapper([event], true));
-      this.emit$$.next([{ action: 'add', events: [event] }]);
+    const events = this.popHistoryRedo();
+    if (events) {
+      events.forEach(event => this.pushHistory(event));
+      this.broadcast$$.next(broadcastDrawEventsMapper(events, true));
+      this.emit$$.next({ action: 'add', events });
       this.emitHistory();
     }
   }
@@ -202,11 +209,9 @@ export class CollaborativeWhiteboardService {
   cut(events: DrawEvent[]) {
     const removed = events.filter(event => this.pullHistory(event));
     if (removed.length) {
-      this.broadcast$$.next({
-        animate: false,
-        events: [getClearEvent(), ...this.history]
-      });
-      this.emit$$.next([{ action: 'remove', events: removed }]);
+      this.pushHistoryRedo(removed);
+      this.broadcast$$.next(broadcastDrawEventsMapper([getClearEvent(), ...this.history]));
+      this.emit$$.next({ action: 'remove', events: removed });
       this.emitHistory();
     }
   }
