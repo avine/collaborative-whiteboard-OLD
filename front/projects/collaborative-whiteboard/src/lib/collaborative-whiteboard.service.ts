@@ -75,7 +75,7 @@ export class CollaborativeWhiteboardService {
   }
 
   private popHistoryRedo() {
-    return this.historyRedo.shift() || false;
+    return this.historyRedo.shift();
   }
 
   private dropHistoryRedoAgainst(events: DrawEvent[]) {
@@ -101,13 +101,6 @@ export class CollaborativeWhiteboardService {
   }
 
   private emitHistory() {
-    // Making the emitted values immutable has an advantage!
-    //
-    // For more details, see the `CanvasCutComponent` that consumes the `history$`
-    // observable and still uses the `ChangeDetectionStrategy.OnPush`.
-    //
-    //    <app-canvas-cut [history]="whiteboard.history$ | async"></app-canvas-cut>
-    //
     this.history$$.next(this.history);
   }
 
@@ -132,7 +125,7 @@ export class CollaborativeWhiteboardService {
   private broadcastAdd(events: DrawEvent[]) {
     events = this.normalizeEvents(events);
     events.forEach(event => this.pushHistory(event));
-    const ownerEvents = events.filter(event => event.owner === this.owner);
+    const ownerEvents = this.getOwnerDrawEvents(events);
     if (ownerEvents.length) {
       this.dropHistoryRedoAgainst(ownerEvents);
     }
@@ -144,7 +137,7 @@ export class CollaborativeWhiteboardService {
     events = this.normalizeEvents(events);
     const removed = events.filter(event => this.pullHistory(event));
     if (removed.length) {
-      const ownerEvents = removed.filter(event => event.owner === this.owner);
+      const ownerEvents = this.getOwnerDrawEvents(removed);
       if (ownerEvents.length) {
         this.pushHistoryRedo(ownerEvents);
       }
@@ -153,13 +146,13 @@ export class CollaborativeWhiteboardService {
     }
   }
 
-  // Notice:
-  // This case should NOT occurs anymore after clear events are NOT emitted...
-  // FIXME: Hack
-  // The clear event data should be: `[undefined, undefined, undefined, undefined]`.
-  // But after it was stringified in the wire it becomes: `[null, null, null, null]`.
-  // Thus, we must restore the real clear event data structure,
+  // The clear event `data` should be: `[undefined, undefined, undefined, undefined]`.
+  // But when stringified through the network it becomes: `[null, null, null, null]`.
+  // Thus, we need to restore the real clear event data structure,
   // otherwise the method `CanvasComponent.drawClear` will not work properly...
+  //
+  // Note that since the whiteboard is collaborative, the clear event should NOT
+  // be broadcast through the network, otherwise all users' events will be deleted.
   private normalizeEvents(events: DrawEvent[]) {
     return events.map(event => event.type === 'clear' ? getClearEvent() : event);
   }
