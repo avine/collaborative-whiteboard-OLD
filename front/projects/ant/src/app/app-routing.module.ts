@@ -1,7 +1,19 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+import { WhiteboardComponent } from './components/whiteboard/whiteboard.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    pathMatch: 'full',
+    component: WhiteboardComponent
+  },
+  {
+    path: '**',
+    component: WhiteboardComponent
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

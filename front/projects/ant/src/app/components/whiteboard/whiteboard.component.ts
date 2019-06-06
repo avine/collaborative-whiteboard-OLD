@@ -9,7 +9,7 @@ import {
 @Component({
   selector: 'app-whiteboard',
   templateUrl: './whiteboard.component.html',
-  styleUrls: ['./whiteboard.component.scss'],
+  styleUrls: ['./whiteboard.component.less'],
   providers: [CollaborativeWhiteboardService]
 })
 export class WhiteboardComponent implements OnInit, OnDestroy {

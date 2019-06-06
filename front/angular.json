@@ -199,9 +199,15 @@
             "tsConfig": "projects/ant/tsconfig.app.json",
             "assets": [
               "projects/ant/src/favicon.ico",
-              "projects/ant/src/assets"
+              "projects/ant/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              }
             ],
             "styles": [
+              "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
               "projects/ant/src/styles.less"
             ],
             "scripts": []

@@ -9,6 +9,7 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "downlevelIteration": true,
     "importHelpers": true,
     "target": "es2015",
     "typeRoots": [
@@ -24,6 +25,10 @@
       ],
       "collaborative-whiteboard/*": [
         "dist/collaborative-whiteboard/*"
+      ],
+
+      "@collaborative-whiteboard": [
+        "projects/collaborative-whiteboard/src/public-api"
       ]
     }
   }

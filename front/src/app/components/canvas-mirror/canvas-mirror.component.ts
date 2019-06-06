@@ -1,8 +1,7 @@
+import { Component, OnInit } from '@angular/core';
 import {
     BroadcastDrawEvents, broadcastDrawEventsMapper, DrawEvent
-} from 'projects/collaborative-whiteboard/src/public-api';
-
-import { Component, OnInit } from '@angular/core';
+} from '@collaborative-whiteboard';
 
 @Component({
   selector: 'app-canvas-mirror',
