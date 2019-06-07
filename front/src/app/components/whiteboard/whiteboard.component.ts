@@ -67,7 +67,7 @@ export class WhiteboardComponent implements OnInit, OnDestroy {
     }
   }
 
-  updatecutIndex() {
+  updateCutIndex() {
     this.service.cutRange(this.cutIndex);
   }
 

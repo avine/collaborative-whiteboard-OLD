@@ -3,7 +3,7 @@ import { SocketService } from 'src/app/services/socket.service';
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
-    CollaborativeWhiteboardService, DrawEvent, DrawOptions, DrawTransport
+    CollaborativeWhiteboardService, DrawEvent, DrawOptions, DrawTransport, getDefaultDrawOptions
 } from '@collaborative-whiteboard';
 
 @Component({
@@ -13,10 +13,7 @@ import {
   providers: [CollaborativeWhiteboardService]
 })
 export class WhiteboardComponent implements OnInit, OnDestroy {
-  drawOptions: DrawOptions = {
-    strokeStyle: 'grey',
-    lineWidth: 6
-  };
+  drawOptions: DrawOptions = getDefaultDrawOptions();
 
   historyCut: DrawEvent[];
 
@@ -59,6 +56,7 @@ export class WhiteboardComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
+  // FIXME: Restore the usage of this method in the template...
   toggleCut() {
     this.cutOpen = !this.cutOpen;
     if (this.cutOpen) {
@@ -67,7 +65,7 @@ export class WhiteboardComponent implements OnInit, OnDestroy {
     }
   }
 
-  updatecutIndex() {
+  updateCutIndex() {
     this.service.cutRange(this.cutIndex);
   }
 
