@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CollaborativeWhiteboardComponent } from '@collaborative-whiteboard';
 
 import { CanvasMirrorComponent } from './components/canvas-mirror/canvas-mirror.component';
 import { CanvasComponent } from './components/canvas/canvas.component';
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'whiteboard',
     component: WhiteboardComponent
+  },
+  {
+    path: 'whiteboard2',
+    component: CollaborativeWhiteboardComponent
   },
 ];
 

@@ -209,7 +209,7 @@ export class CollaborativeWhiteboardService {
     }
   }
 
-  clear() {
+  clear() { // TODO: Rename into `undoAll`
     const events = this.getOwnerDrawEvents(this.history).reverse();
     this.cut(events);
   }

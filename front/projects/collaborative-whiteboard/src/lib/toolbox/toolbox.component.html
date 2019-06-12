@@ -3,6 +3,12 @@
   [fixedWidth]="true"
   [icon]="item.icon"
   class="action"
-  [class.action--active]="action === item.type"
+  [class.action--active]="item.mode === 'toggle' && actionType === item.type"
   (click)="actionHandler(item.type)">
 </fa-icon>
+
+<br><br>
+
+<div #viewContainer></div>
+
+<ng-content></ng-content>

@@ -1,7 +1,9 @@
 .action {
-  cursor: pointer;;
+  cursor: pointer;
+  transition: color ease 100ms;
 }
 
+.action:active,
 .action--active {
   color: dodgerblue;
 }

@@ -10,4 +10,9 @@ export * from './lib/collaborative-whiteboard.model';
 export * from './lib/collaborative-whiteboard.operator';
 
 export * from './lib/canvas/canvas.component';
+
 export * from './lib/toolbox/toolbox.component';
+export * from './lib/toolbox/toolbox.model';
+
+export * from './lib/directives/toolbox-draw-line.directive';
+export * from './lib/directives/toolbox-cut.directive';
