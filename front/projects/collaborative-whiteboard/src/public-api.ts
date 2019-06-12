@@ -10,3 +10,4 @@ export * from './lib/collaborative-whiteboard.model';
 export * from './lib/collaborative-whiteboard.operator';
 
 export * from './lib/canvas/canvas.component';
+export * from './lib/toolbox/toolbox.component';

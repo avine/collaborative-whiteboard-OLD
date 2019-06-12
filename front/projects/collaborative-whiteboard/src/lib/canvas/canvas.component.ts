@@ -108,8 +108,6 @@ export class CanvasComponent implements AfterViewInit, OnChanges {
   }
 
   private updateBroadcastBuffer() {
-    // FIXME: is it still relevant to use `keepDrawEventsAfterClearEvent` ?
-    // After clear events are just for internal use (a user can not emit a clear event...)
     const events = keepDrawEventsAfterClearEvent(this.broadcast.events);
     if (events.length < this.broadcast.events.length) {
       this.broadcastBuffer = [getClearEvent(), ...events];

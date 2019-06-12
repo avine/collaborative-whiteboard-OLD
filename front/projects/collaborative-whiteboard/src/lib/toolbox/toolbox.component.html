@@ -1,0 +1,8 @@
+<fa-icon
+  *ngFor="let item of actions"
+  [fixedWidth]="true"
+  [icon]="item.icon"
+  class="action"
+  [class.action--active]="action === item.type"
+  (click)="actionHandler(item.type)">
+</fa-icon>
