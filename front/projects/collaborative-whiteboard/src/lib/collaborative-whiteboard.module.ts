@@ -6,16 +6,16 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CwCanvasComponent } from './components/cw-canvas/cw-canvas.component';
 import { CwToolsComponent } from './components/cw-tools/cw-tools.component';
 import { CwWhiteboardComponent } from './components/cw-whiteboard/cw-whiteboard.component';
-import { ToolboxCutDirective } from './directives/toolbox-cut.directive';
-import { ToolboxDrawLineDirective } from './directives/toolbox-draw-line.directive';
+import { CwCutToolDirective } from './directives/cw-cut-tool.directive';
+import { CwDrawLineToolDirective } from './directives/cw-draw-line-tool.directive';
 
 @NgModule({
   declarations: [
     CwCanvasComponent,
     CwWhiteboardComponent,
     CwToolsComponent,
-    ToolboxCutDirective,
-    ToolboxDrawLineDirective
+    CwCutToolDirective,
+    CwDrawLineToolDirective
   ],
   imports: [
     CommonModule,
@@ -26,8 +26,8 @@ import { ToolboxDrawLineDirective } from './directives/toolbox-draw-line.directi
     CwCanvasComponent,
     CwWhiteboardComponent,
     CwToolsComponent,
-    ToolboxCutDirective,
-    ToolboxDrawLineDirective
+    CwCutToolDirective,
+    CwDrawLineToolDirective
   ]
 })
 export class CollaborativeWhiteboardModule { }

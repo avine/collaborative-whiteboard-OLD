@@ -14,5 +14,5 @@ export * from './lib/components/cw-tools/cw-tools.model';
 export * from './lib/components/cw-tools/cw-tools.operator';
 export * from './lib/components/cw-whiteboard/cw-whiteboard.component';
 
-export * from './lib/directives/toolbox-draw-line.directive';
-export * from './lib/directives/toolbox-cut.directive';
+export * from './lib/directives/cw-cut-tool.directive';
+export * from './lib/directives/cw-draw-line-tool.directive';

@@ -3,8 +3,8 @@ import {
     TemplateRef, ViewChild, ViewContainerRef
 } from '@angular/core';
 
-import { ToolboxCutDirective } from '../../directives/toolbox-cut.directive';
-import { ToolboxDrawLineDirective } from '../../directives/toolbox-draw-line.directive';
+import { CwCutToolDirective } from '../../directives/cw-cut-tool.directive';
+import { CwDrawLineToolDirective } from '../../directives/cw-draw-line-tool.directive';
 import { getDefaultTools } from './cw-tools.operator';
 import { ToolType } from './cw-tools.model';
 
@@ -21,10 +21,10 @@ export class CwToolsComponent implements OnInit, AfterViewInit {
 
   @Output() toolTypeChange = new EventEmitter<ToolType>();
 
-  @ContentChild(ToolboxDrawLineDirective, { static: false, read: TemplateRef })
+  @ContentChild(CwDrawLineToolDirective, { static: false, read: TemplateRef })
   private drawLineTmplRef: TemplateRef<any>;
 
-  @ContentChild(ToolboxCutDirective, { static: false, read: TemplateRef })
+  @ContentChild(CwCutToolDirective, { static: false, read: TemplateRef })
   private cutTmplRef: TemplateRef<any>;
 
   @ViewChild('viewContainer', { static: false, read: ViewContainerRef }) viewContainer: ViewContainerRef;

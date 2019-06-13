@@ -18,7 +18,7 @@
 <br><br>
 
 <cw-tools (toolTypeChange)="handleToolType($event)">
-  <ng-template cwToolboxDrawLine>
+  <ng-template cwDrawLineTool>
     <select
       class="draw-options"
       [(ngModel)]="drawOptions.strokeStyle">
@@ -37,7 +37,7 @@
       {{ drawOptions.lineWidth }}
   </ng-template>
 
-  <ng-template cwToolboxCut>
+  <ng-template cwCutTool>
     <input
       type="range"
       min="0"
