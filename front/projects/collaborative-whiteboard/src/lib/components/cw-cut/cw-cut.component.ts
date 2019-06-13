@@ -32,6 +32,9 @@ export class CwCutComponent implements OnInit, OnDestroy {
         this.service.cutRange(this.cutIndex);
       }*/
 
+      if (this.cutIndex > this.cutLastIndex) {
+        this.cutIndex = this.cutLastIndex;
+      }
       this.service.cutRange(this.cutIndex); // = 0
     });
   }
