@@ -6,10 +6,10 @@ import {
 import {
     BroadcastDrawEvents, CanvasLine, CanvasLineSerie, CanvasPoint, CanvasSize, DrawEvent,
     DrawOptions
-} from '../collaborative-whiteboard.model';
+} from '../../collaborative-whiteboard.model';
 import {
     getClearEvent, getDefaultCanvasSize, getDefaultDrawOptions, keepDrawEventsAfterClearEvent
-} from '../collaborative-whiteboard.operator';
+} from '../../collaborative-whiteboard.operator';
 
 type ComponentInputType =
   | 'canvasSize'

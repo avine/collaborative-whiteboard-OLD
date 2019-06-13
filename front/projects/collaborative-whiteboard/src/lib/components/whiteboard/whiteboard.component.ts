@@ -2,17 +2,17 @@ import { Subscription } from 'rxjs';
 
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 
-import { DrawEvent, DrawOptions, DrawTransport, Owner } from './collaborative-whiteboard.model';
-import { CollaborativeWhiteboardService } from './collaborative-whiteboard.service';
-import { ToolboxActionType } from './toolbox/toolbox.model';
+import { DrawEvent, DrawOptions, DrawTransport, Owner } from '../../collaborative-whiteboard.model';
+import { CollaborativeWhiteboardService } from '../../collaborative-whiteboard.service';
+import { ToolboxActionType } from '../toolbox/toolbox.model';
 
 @Component({
-  selector: 'cw-collaborative-whiteboard',
-  templateUrl: './collaborative-whiteboard.component.html',
-  styleUrls: ['./collaborative-whiteboard.component.scss'],
+  selector: 'cw-whiteboard',
+  templateUrl: './whiteboard.component.html',
+  styleUrls: ['./whiteboard.component.scss'],
   providers: [CollaborativeWhiteboardService]
 })
-export class CollaborativeWhiteboardComponent implements OnInit, OnDestroy {
+export class WhiteboardComponent implements OnInit, OnDestroy {
   @Input() set onwer(owner: Owner) {
     this.service.owner = owner;
   }

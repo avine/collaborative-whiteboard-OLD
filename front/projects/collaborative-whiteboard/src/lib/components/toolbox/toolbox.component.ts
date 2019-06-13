@@ -6,8 +6,8 @@ import {
     faCut, faPaintBrush, faPlay, faRedoAlt, faTrash, faUndoAlt
 } from '@fortawesome/free-solid-svg-icons';
 
-import { ToolboxCutDirective } from '../directives/toolbox-cut.directive';
-import { ToolboxDrawLineDirective } from '../directives/toolbox-draw-line.directive';
+import { ToolboxCutDirective } from '../../directives/toolbox-cut.directive';
+import { ToolboxDrawLineDirective } from '../../directives/toolbox-draw-line.directive';
 import { ToolboxAction, ToolboxActionType } from './toolbox.model';
 
 const drawLine = faPaintBrush;
