@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WhiteboardComponent } from './whiteboard.component';
+import { CwToolboxComponent } from './cw-toolbox.component';
 
-describe('WhiteboardComponent', () => {
-  let component: WhiteboardComponent;
-  let fixture: ComponentFixture<WhiteboardComponent>;
+describe('ToolboxComponent', () => {
+  let component: CwToolboxComponent;
+  let fixture: ComponentFixture<CwToolboxComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WhiteboardComponent ]
+      declarations: [ CwToolboxComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WhiteboardComponent);
+    fixture = TestBed.createComponent(CwToolboxComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -3,17 +3,17 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-import { CanvasComponent } from './components/canvas/canvas.component';
-import { ToolboxComponent } from './components/toolbox/toolbox.component';
-import { WhiteboardComponent } from './components/whiteboard/whiteboard.component';
+import { CwCanvasComponent } from './components/cw-canvas/cw-canvas.component';
+import { CwToolboxComponent } from './components/cw-toolbox/cw-toolbox.component';
+import { CwWhiteboardComponent } from './components/cw-whiteboard/cw-whiteboard.component';
 import { ToolboxCutDirective } from './directives/toolbox-cut.directive';
 import { ToolboxDrawLineDirective } from './directives/toolbox-draw-line.directive';
 
 @NgModule({
   declarations: [
-    CanvasComponent,
-    WhiteboardComponent,
-    ToolboxComponent,
+    CwCanvasComponent,
+    CwWhiteboardComponent,
+    CwToolboxComponent,
     ToolboxCutDirective,
     ToolboxDrawLineDirective
   ],
@@ -23,9 +23,9 @@ import { ToolboxDrawLineDirective } from './directives/toolbox-draw-line.directi
     FontAwesomeModule
   ],
   exports: [
-    CanvasComponent,
-    WhiteboardComponent,
-    ToolboxComponent,
+    CwCanvasComponent,
+    CwWhiteboardComponent,
+    CwToolboxComponent,
     ToolboxCutDirective,
     ToolboxDrawLineDirective
   ]

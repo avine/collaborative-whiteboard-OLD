@@ -6,10 +6,10 @@ import {
 import {
     BroadcastDrawEvents, CanvasLine, CanvasLineSerie, CanvasPoint, CanvasSize, DrawEvent,
     DrawOptions
-} from '../../collaborative-whiteboard.model';
+} from '../../cw.model';
 import {
     getClearEvent, getDefaultCanvasSize, getDefaultDrawOptions, keepDrawEventsAfterClearEvent
-} from '../../collaborative-whiteboard.operator';
+} from '../../cw.operator';
 
 type ComponentInputType =
   | 'canvasSize'
@@ -17,11 +17,11 @@ type ComponentInputType =
 
 @Component({
   selector: 'cw-canvas',
-  templateUrl: './canvas.component.html',
-  styleUrls: ['./canvas.component.scss'],
+  templateUrl: './cw-canvas.component.html',
+  styleUrls: ['./cw-canvas.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CanvasComponent implements AfterViewInit, OnChanges {
+export class CwCanvasComponent implements AfterViewInit, OnChanges {
   @Input() canvasSize = getDefaultCanvasSize();
 
   @Output() canvasSizeChange = new EventEmitter<CanvasSize>();

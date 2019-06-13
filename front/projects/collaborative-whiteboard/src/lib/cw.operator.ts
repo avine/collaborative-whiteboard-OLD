@@ -2,7 +2,7 @@ import * as md5_ from 'md5';
 
 import {
     BroadcastDrawEvents, CanvasSize, CutRange, CutRangeArg, DrawClear, DrawEvent, DrawOptions
-} from './collaborative-whiteboard.model';
+} from './cw.model';
 
 const md5 = md5_;
 

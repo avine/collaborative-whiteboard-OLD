@@ -2,17 +2,17 @@ import { Subscription } from 'rxjs';
 
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 
-import { DrawEvent, DrawOptions, DrawTransport, Owner } from '../../collaborative-whiteboard.model';
-import { CollaborativeWhiteboardService } from '../../collaborative-whiteboard.service';
-import { ToolboxActionType } from '../toolbox/toolbox.model';
+import { DrawEvent, DrawOptions, DrawTransport, Owner } from '../../cw.model';
+import { CwService } from '../../cw.service';
+import { ToolboxActionType } from '../cw-toolbox/cw-toolbox.model';
 
 @Component({
   selector: 'cw-whiteboard',
-  templateUrl: './whiteboard.component.html',
-  styleUrls: ['./whiteboard.component.scss'],
-  providers: [CollaborativeWhiteboardService]
+  templateUrl: './cw-whiteboard.component.html',
+  styleUrls: ['./cw-whiteboard.component.scss'],
+  providers: [CwService]
 })
-export class WhiteboardComponent implements OnInit, OnDestroy {
+export class CwWhiteboardComponent implements OnInit, OnDestroy {
   @Input() set onwer(owner: Owner) {
     this.service.owner = owner;
   }
@@ -38,7 +38,7 @@ export class WhiteboardComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
-  constructor(public service: CollaborativeWhiteboardService) { }
+  constructor(public service: CwService) { }
 
   ngOnInit() {
     this.subscriptions.push(

@@ -5,13 +5,13 @@ import { Injectable } from '@angular/core';
 
 import {
     BroadcastDrawEvents, CutRange, CutRangeArg, DrawEvent, DrawTransport, Owner
-} from './collaborative-whiteboard.model';
+} from './cw.model';
 import {
     broadcastDrawEventsMapper, getClearEvent, getHash, normalizeCutRange
-} from './collaborative-whiteboard.operator';
+} from './cw.operator';
 
 @Injectable()
-export class CollaborativeWhiteboardService {
+export class CwService {
   private historyMap = new Map<string, DrawEvent>();
 
   private historyRedo: DrawEvent[][] = [];
@@ -149,7 +149,7 @@ export class CollaborativeWhiteboardService {
   // The clear event `data` should be: `[undefined, undefined, undefined, undefined]`.
   // But when stringified through the network it becomes: `[null, null, null, null]`.
   // Thus, we need to restore the real clear event data structure,
-  // otherwise the method `CanvasComponent.drawClear` will not work properly...
+  // otherwise the method `CwCanvasComponent.drawClear` will not work properly...
   //
   // Note that since the whiteboard is collaborative, the clear event should NOT
   // be broadcast through the network, otherwise all users' events will be deleted.

@@ -3,14 +3,14 @@ import { SocketService } from 'src/app/services/socket.service';
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
-    CollaborativeWhiteboardService, DrawEvent, DrawOptions, DrawTransport, getDefaultDrawOptions
+    CwService, DrawEvent, DrawOptions, DrawTransport, getDefaultDrawOptions
 } from '@collaborative-whiteboard';
 
 @Component({
   selector: 'app-whiteboard',
   templateUrl: './whiteboard.component.html',
   styleUrls: ['./whiteboard.component.less'],
-  providers: [CollaborativeWhiteboardService]
+  providers: [CwService]
 })
 export class WhiteboardComponent implements OnInit, OnDestroy {
   drawOptions: DrawOptions = getDefaultDrawOptions();
@@ -27,7 +27,7 @@ export class WhiteboardComponent implements OnInit, OnDestroy {
 
   constructor(
     private socketService: SocketService,
-    public service: CollaborativeWhiteboardService
+    public service: CwService
   ) { }
 
   ngOnInit() {

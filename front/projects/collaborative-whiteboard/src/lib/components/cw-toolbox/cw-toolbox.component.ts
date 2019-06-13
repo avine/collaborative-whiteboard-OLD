@@ -8,8 +8,9 @@ import {
 
 import { ToolboxCutDirective } from '../../directives/toolbox-cut.directive';
 import { ToolboxDrawLineDirective } from '../../directives/toolbox-draw-line.directive';
-import { ToolboxAction, ToolboxActionType } from './toolbox.model';
+import { ToolboxAction, ToolboxActionType } from './cw-toolbox.model';
 
+// TODO: put this in `toolbox.icons.ts`
 const drawLine = faPaintBrush;
 const redraw = faPlay;
 const undo = faUndoAlt;
@@ -19,10 +20,10 @@ const undoAll = faTrash;
 
 @Component({
   selector: 'cw-toolbox',
-  templateUrl: './toolbox.component.html',
-  styleUrls: ['./toolbox.component.scss']
+  templateUrl: './cw-toolbox.component.html',
+  styleUrls: ['./cw-toolbox.component.scss']
 })
-export class ToolboxComponent implements OnInit, AfterViewInit {
+export class CwToolboxComponent implements OnInit, AfterViewInit {
 
   @Input() actions: ToolboxAction[] = [
     { type: 'drawLine', mode: 'toggle', icon: drawLine },
