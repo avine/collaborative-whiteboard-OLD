@@ -1,6 +1,6 @@
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
-export type ToolboxActionType =
+export type ToolType =
   | 'drawLine'
   | 'redraw'
   | 'undo'
@@ -9,13 +9,13 @@ export type ToolboxActionType =
   | 'undoAll'
 ;
 
-export type ToolboxActionMode =
+export type ToolMode =
   | 'click'
   | 'toggle'
 ;
 
-export interface ToolboxAction {
-  type: ToolboxActionType;
-  mode: ToolboxActionMode;
+export interface Tool {
+  type: ToolType;
+  mode: ToolMode;
   icon: IconDefinition;
 }

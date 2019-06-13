@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { CwCanvasComponent } from './components/cw-canvas/cw-canvas.component';
-import { CwToolboxComponent } from './components/cw-toolbox/cw-toolbox.component';
+import { CwToolsComponent } from './components/cw-tools/cw-tools.component';
 import { CwWhiteboardComponent } from './components/cw-whiteboard/cw-whiteboard.component';
 import { ToolboxCutDirective } from './directives/toolbox-cut.directive';
 import { ToolboxDrawLineDirective } from './directives/toolbox-draw-line.directive';
@@ -13,7 +13,7 @@ import { ToolboxDrawLineDirective } from './directives/toolbox-draw-line.directi
   declarations: [
     CwCanvasComponent,
     CwWhiteboardComponent,
-    CwToolboxComponent,
+    CwToolsComponent,
     ToolboxCutDirective,
     ToolboxDrawLineDirective
   ],
@@ -25,7 +25,7 @@ import { ToolboxDrawLineDirective } from './directives/toolbox-draw-line.directi
   exports: [
     CwCanvasComponent,
     CwWhiteboardComponent,
-    CwToolboxComponent,
+    CwToolsComponent,
     ToolboxCutDirective,
     ToolboxDrawLineDirective
   ]

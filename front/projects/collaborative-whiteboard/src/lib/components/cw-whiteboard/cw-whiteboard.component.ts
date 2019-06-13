@@ -4,7 +4,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 
 import { DrawEvent, DrawOptions, DrawTransport, Owner } from '../../cw.model';
 import { CwService } from '../../cw.service';
-import { ToolboxActionType } from '../cw-toolbox/cw-toolbox.model';
+import { ToolType } from '../cw-tools/cw-tools.model';
 
 @Component({
   selector: 'cw-whiteboard',
@@ -62,7 +62,7 @@ export class CwWhiteboardComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
-  handleActionType(type: ToolboxActionType) {
+  handleToolType(type: ToolType) {
     switch (type) {
       case 'undo': this.service.undo(); break;
       case 'redo': this.service.redo(); break;

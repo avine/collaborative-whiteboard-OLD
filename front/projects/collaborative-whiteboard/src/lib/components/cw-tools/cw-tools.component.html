@@ -1,0 +1,14 @@
+<fa-icon
+  *ngFor="let item of tools"
+  [fixedWidth]="true"
+  [icon]="item.icon"
+  class="action"
+  [class.action--active]="item.mode === 'toggle' && toolType === item.type"
+  (click)="toolHandler(item.type)">
+</fa-icon>
+
+<br><br>
+
+<div #viewContainer></div>
+
+<ng-content></ng-content>

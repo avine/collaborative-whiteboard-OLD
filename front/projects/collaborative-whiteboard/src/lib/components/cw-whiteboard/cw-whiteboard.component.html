@@ -17,7 +17,7 @@
 
 <br><br>
 
-<cw-toolbox (actionTypeChange)="handleActionType($event)">
+<cw-tools (toolTypeChange)="handleToolType($event)">
   <ng-template cwToolboxDrawLine>
     <select
       class="draw-options"
@@ -48,4 +48,4 @@
 
     <button (click)="cut()">Cut</button>
   </ng-template>
-</cw-toolbox>
+</cw-tools>

@@ -8,9 +8,9 @@ import {
 
 import { ToolboxCutDirective } from '../../directives/toolbox-cut.directive';
 import { ToolboxDrawLineDirective } from '../../directives/toolbox-draw-line.directive';
-import { ToolboxAction, ToolboxActionType } from './cw-toolbox.model';
+import { Tool, ToolType } from './cw-tools.model';
 
-// TODO: put this in `toolbox.icons.ts`
+// TODO: put this in `tools.icons.ts`
 const drawLine = faPaintBrush;
 const redraw = faPlay;
 const undo = faUndoAlt;
@@ -19,13 +19,13 @@ const cut = faCut;
 const undoAll = faTrash;
 
 @Component({
-  selector: 'cw-toolbox',
-  templateUrl: './cw-toolbox.component.html',
-  styleUrls: ['./cw-toolbox.component.scss']
+  selector: 'cw-tools',
+  templateUrl: './cw-tools.component.html',
+  styleUrls: ['./cw-tools.component.scss']
 })
-export class CwToolboxComponent implements OnInit, AfterViewInit {
+export class CwToolsComponent implements OnInit, AfterViewInit {
 
-  @Input() actions: ToolboxAction[] = [
+  @Input() tools: Tool[] = [
     { type: 'drawLine', mode: 'toggle', icon: drawLine },
     { type: 'redraw', mode: 'click', icon: redraw },
     { type: 'undo', mode: 'click', icon: undo },
@@ -34,9 +34,9 @@ export class CwToolboxComponent implements OnInit, AfterViewInit {
     { type: 'undoAll', mode: 'click', icon: undoAll }
   ];
 
-  @Input() actionType: ToolboxActionType;
+  @Input() toolType: ToolType;
 
-  @Output() actionTypeChange = new EventEmitter<ToolboxActionType>();
+  @Output() toolTypeChange = new EventEmitter<ToolType>();
 
   @ContentChild(ToolboxDrawLineDirective, { static: false, read: TemplateRef })
   private drawLineTmplRef: TemplateRef<any>;
@@ -54,29 +54,29 @@ export class CwToolboxComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    if (this.actionType) {
-      this.updateView(this.actionType);
+    if (this.toolType) {
+      this.updateView(this.toolType);
     }
   }
 
-  actionHandler(type: ToolboxActionType) {
+  toolHandler(type: ToolType) {
     const mode = this.getMode(type);
 
-    if (mode === 'toggle' && type === this.actionType) {
-      this.updateAction(null);
+    if (mode === 'toggle' && type === this.toolType) {
+      this.updateToolType(null);
       this.updateView(null);
     } else {
-      this.updateAction(type);
+      this.updateToolType(type);
       this.updateView(type);
     }
   }
 
-  private updateAction(type: ToolboxActionType) {
-    this.actionType = type;
-    this.actionTypeChange.emit(type);
+  private updateToolType(type: ToolType) {
+    this.toolType = type;
+    this.toolTypeChange.emit(type);
   }
 
-  private updateView(type: ToolboxActionType) {
+  private updateView(type: ToolType) {
     this.destroyView();
     if (type === 'drawLine' && this.drawLineTmplRef) {
       this.createView(this.drawLineTmplRef);
@@ -96,7 +96,7 @@ export class CwToolboxComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private getMode(type: ToolboxActionType) {
-    return this.actions.find(action => action.type === type).mode;
+  private getMode(type: ToolType) {
+    return this.tools.find(action => action.type === type).mode;
   }
 }
