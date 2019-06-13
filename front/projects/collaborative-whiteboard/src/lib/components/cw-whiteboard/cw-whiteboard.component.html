@@ -19,10 +19,14 @@
 
 <cw-tools (toolTypeChange)="handleToolType($event)">
   <ng-template cwDrawLineTool>
-    <cw-draw-line [(drawOptions)]="drawOptions"></cw-draw-line>
+    <div class="overlay">
+      <cw-draw-line [(drawOptions)]="drawOptions"></cw-draw-line>
+    </div>
   </ng-template>
 
   <ng-template cwCutTool>
-    <cw-cut></cw-cut>
+    <div class="overlay">
+      <cw-cut></cw-cut>
+    </div>
   </ng-template>
 </cw-tools>

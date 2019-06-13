@@ -17,7 +17,7 @@ export class CwToolsComponent implements OnInit, AfterViewInit {
 
   @Input() tools = getDefaultTools();
 
-  @Input() toolType: ToolType;
+  @Input() toolType: ToolType; // FIXME: Now toolType Input and Output are NOT in sync anymore...
 
   @Output() toolTypeChange = new EventEmitter<ToolType>();
 
@@ -42,10 +42,8 @@ export class CwToolsComponent implements OnInit, AfterViewInit {
     }
   }
 
-  toolHandler(type: ToolType) {
-    const mode = this.getMode(type);
-
-    if (mode === 'toggle' && type === this.toolType) {
+  toolTypeHandler(type: ToolType) {
+    if (this.getMode(type) === 'toggle' && type === this.toolType) {
       this.updateToolType(null);
       this.updateView(null);
     } else {
@@ -55,8 +53,11 @@ export class CwToolsComponent implements OnInit, AfterViewInit {
   }
 
   private updateToolType(type: ToolType) {
-    this.toolType = type;
     this.toolTypeChange.emit(type);
+
+    if (!type || this.getMode(type) === 'toggle') {
+      this.toolType = type;
+    }
   }
 
   private updateView(type: ToolType) {

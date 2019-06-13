@@ -8,6 +8,7 @@ import { DrawOptions } from '../../cw.model';
   styleUrls: ['./cw-draw-line.component.scss']
 })
 export class CwDrawLineComponent implements OnInit {
+
   @Input() drawOptions: DrawOptions = {
     strokeStyle: 'grey',
     lineWidth: 6

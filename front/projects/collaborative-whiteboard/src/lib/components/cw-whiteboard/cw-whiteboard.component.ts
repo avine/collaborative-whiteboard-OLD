@@ -13,6 +13,7 @@ import { ToolType } from '../cw-tools/cw-tools.model';
   providers: [CwService]
 })
 export class CwWhiteboardComponent implements OnInit, OnDestroy {
+
   @Input() set onwer(owner: Owner) {
     this.service.owner = owner;
   }

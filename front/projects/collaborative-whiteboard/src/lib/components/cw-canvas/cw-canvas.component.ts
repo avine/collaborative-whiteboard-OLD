@@ -22,6 +22,7 @@ type ComponentInputType =
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CwCanvasComponent implements AfterViewInit, OnChanges {
+
   @Input() canvasSize = getDefaultCanvasSize();
 
   @Output() canvasSizeChange = new EventEmitter<CanvasSize>();

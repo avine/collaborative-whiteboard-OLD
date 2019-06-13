@@ -12,6 +12,7 @@ import {
 
 @Injectable()
 export class CwService {
+
   private historyMap = new Map<string, DrawEvent>();
 
   private historyRedo: DrawEvent[][] = [];

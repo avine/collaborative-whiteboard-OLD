@@ -1,10 +1,10 @@
 <fa-icon
-  *ngFor="let item of tools"
+  *ngFor="let tool of tools"
   [fixedWidth]="true"
-  [icon]="item.icon"
+  [icon]="tool.icon"
   class="action"
-  [class.action--active]="item.mode === 'toggle' && toolType === item.type"
-  (click)="toolHandler(item.type)">
+  [class.action--active]="tool.mode === 'toggle' && toolType === tool.type"
+  (click)="toolTypeHandler(tool.type)">
 </fa-icon>
 
 <br><br>
