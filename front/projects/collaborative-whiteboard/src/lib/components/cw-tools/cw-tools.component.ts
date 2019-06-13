@@ -2,21 +2,11 @@ import {
     AfterViewInit, Component, ContentChild, EmbeddedViewRef, EventEmitter, Input, OnInit, Output,
     TemplateRef, ViewChild, ViewContainerRef
 } from '@angular/core';
-import {
-    faCut, faPaintBrush, faPlay, faRedoAlt, faTrash, faUndoAlt
-} from '@fortawesome/free-solid-svg-icons';
 
 import { ToolboxCutDirective } from '../../directives/toolbox-cut.directive';
 import { ToolboxDrawLineDirective } from '../../directives/toolbox-draw-line.directive';
-import { Tool, ToolType } from './cw-tools.model';
-
-// TODO: put this in `tools.icons.ts`
-const drawLine = faPaintBrush;
-const redraw = faPlay;
-const undo = faUndoAlt;
-const redo = faRedoAlt;
-const cut = faCut;
-const undoAll = faTrash;
+import { getDefaultTools } from './cw-tools.operator';
+import { ToolType } from './cw-tools.model';
 
 @Component({
   selector: 'cw-tools',
@@ -25,14 +15,7 @@ const undoAll = faTrash;
 })
 export class CwToolsComponent implements OnInit, AfterViewInit {
 
-  @Input() tools: Tool[] = [
-    { type: 'drawLine', mode: 'toggle', icon: drawLine },
-    { type: 'redraw', mode: 'click', icon: redraw },
-    { type: 'undo', mode: 'click', icon: undo },
-    { type: 'redo', mode: 'click', icon: redo },
-    { type: 'cut', mode: 'toggle', icon: cut },
-    { type: 'undoAll', mode: 'click', icon: undoAll }
-  ];
+  @Input() tools = getDefaultTools();
 
   @Input() toolType: ToolType;
 
