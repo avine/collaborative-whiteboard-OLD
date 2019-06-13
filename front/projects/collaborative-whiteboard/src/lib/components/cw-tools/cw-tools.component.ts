@@ -60,11 +60,14 @@ export class CwToolsComponent implements OnInit, AfterViewInit {
   }
 
   private updateView(type: ToolType) {
-    this.destroyView();
     if (type === 'drawLine' && this.drawLineTmplRef) {
+      this.destroyView();
       this.createView(this.drawLineTmplRef);
     } else if (type === 'cut' && this.cutTmplRef) {
+      this.destroyView();
       this.createView(this.cutTmplRef);
+    } else if (!type) {
+      this.destroyView();
     }
   }
 

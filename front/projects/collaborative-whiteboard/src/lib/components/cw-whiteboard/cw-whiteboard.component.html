@@ -19,33 +19,10 @@
 
 <cw-tools (toolTypeChange)="handleToolType($event)">
   <ng-template cwDrawLineTool>
-    <select
-      class="draw-options"
-      [(ngModel)]="drawOptions.strokeStyle">
-      <option>grey</option>
-      <option>red</option>
-      <option>green</option>
-      <option>blue</option>
-    </select>
-
-    <input
-      class="draw-options"
-      type="range"
-      min="1"
-      max="20"
-      [(ngModel)]="drawOptions.lineWidth">
-      {{ drawOptions.lineWidth }}
+    <cw-draw-line [(drawOptions)]="drawOptions"></cw-draw-line>
   </ng-template>
 
   <ng-template cwCutTool>
-    <input
-      type="range"
-      min="0"
-      [max]="cutLastIndex"
-      [(ngModel)]="cutIndex"
-      (ngModelChange)="updateCutIndex()">
-    {{ cutIndex }}
-
-    <button (click)="cut()">Cut</button>
+    <cw-cut></cw-cut>
   </ng-template>
 </cw-tools>

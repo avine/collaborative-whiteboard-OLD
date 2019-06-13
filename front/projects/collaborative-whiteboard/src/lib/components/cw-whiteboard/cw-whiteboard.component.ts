@@ -2,7 +2,7 @@ import { Subscription } from 'rxjs';
 
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 
-import { DrawEvent, DrawOptions, DrawTransport, Owner } from '../../cw.model';
+import { DrawOptions, DrawTransport, Owner } from '../../cw.model';
 import { CwService } from '../../cw.service';
 import { ToolType } from '../cw-tools/cw-tools.model';
 
@@ -28,38 +28,20 @@ export class CwWhiteboardComponent implements OnInit, OnDestroy {
     lineWidth: 6
   };
 
-  historyCut: DrawEvent[];
-
-  cutIndex = 0;
-
-  cutLastIndex = 0;
-
   cutOpen = false;
 
-  subscriptions: Subscription[] = [];
+  subscription: Subscription;
 
   constructor(public service: CwService) { }
 
   ngOnInit() {
-    this.subscriptions.push(
-      this.service.historyCut$.subscribe(historyCut => {
-        this.historyCut = historyCut;
-        this.cutLastIndex = Math.max(0, historyCut.length - 1);
-
-        if (this.cutIndex > this.cutLastIndex) {
-          this.cutIndex = this.cutLastIndex;
-          this.service.cutRange(this.cutIndex);
-        }
-      }),
-
-      this.service.emit$.subscribe((transport: DrawTransport) => {
-        this.emit.emit(transport);
-      })
-    );
+    this.subscription = this.service.emit$.subscribe((transport: DrawTransport) => {
+      this.emit.emit(transport);
+    });
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    this.subscription.unsubscribe();
   }
 
   handleToolType(type: ToolType) {
@@ -77,20 +59,5 @@ export class CwWhiteboardComponent implements OnInit, OnDestroy {
 
   toggleCut() {
     this.cutOpen = !this.cutOpen;
-    if (this.cutOpen) {
-      this.cutIndex = this.cutLastIndex;
-      this.service.cutRange(this.cutIndex);
-    }
-  }
-
-  updateCutIndex() {
-    this.service.cutRange(this.cutIndex);
-  }
-
-  cut() {
-    const event = this.historyCut[this.cutIndex];
-    if (event) {
-      this.service.cut([event]);
-    }
   }
 }

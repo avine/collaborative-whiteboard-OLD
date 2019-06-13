@@ -1,0 +1,19 @@
+<select
+  class="field"
+  [(ngModel)]="drawOptions.strokeStyle"
+  (ngModelChange)="emit()">
+  <option>grey</option>
+  <option>red</option>
+  <option>green</option>
+  <option>blue</option>
+</select>
+
+<input
+  class="field"
+  type="range"
+  min="1"
+  max="20"
+  [(ngModel)]="drawOptions.lineWidth"
+  (ngModelChange)="emit()">
+
+{{ drawOptions.lineWidth }}
