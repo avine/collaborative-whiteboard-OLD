@@ -209,7 +209,7 @@ export class CwService {
     }
   }
 
-  clear() { // TODO: Rename into `undoAll`
+  undoAll() {
     const events = this.getOwnerDrawEvents(this.history).reverse();
     this.cut(events);
   }

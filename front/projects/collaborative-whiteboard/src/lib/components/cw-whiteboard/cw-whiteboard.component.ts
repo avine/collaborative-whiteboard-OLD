@@ -49,7 +49,7 @@ export class CwWhiteboardComponent implements OnInit, OnDestroy {
       case 'undo': this.service.undo(); break;
       case 'redo': this.service.redo(); break;
       case 'redraw': this.service.redraw(); break;
-      case 'undoAll': this.service.clear(); break;
+      case 'undoAll': this.service.undoAll(); break;
     }
 
     if (type === 'cut' && !this.cutOpen || this.cutOpen) {

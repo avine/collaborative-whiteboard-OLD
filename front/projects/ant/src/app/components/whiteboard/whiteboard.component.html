@@ -62,8 +62,8 @@
           nzTitle="Redo" nzPlacement="top" nz-tooltip>
           <i nz-icon type="redo"></i>
         </button>
-        <button nz-button nzType="danger" (click)="service.clear()"
-          nzTitle="Clear" nzPlacement="top" nz-tooltip>
+        <button nz-button nzType="danger" (click)="service.undoAll()"
+          nzTitle="Undo all" nzPlacement="top" nz-tooltip>
           <i nz-icon type="delete"></i>
         </button>
       </nz-button-group>
