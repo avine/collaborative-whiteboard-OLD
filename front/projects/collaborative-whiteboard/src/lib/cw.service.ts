@@ -40,8 +40,7 @@ export class CwService {
   cutRange$ = this.cutRange$$.asObservable();
 
   broadcastHistoryCut$ = combineLatest(this.historyCut$, this.cutRange$$).pipe(
-    map(([historyCut, cutRange]) => {
-      const [from, to] = this.safeCutRange(cutRange, historyCut.length);
+    map(([historyCut, [from, to]]) => {
       const slice = [getClearEvent(), ...historyCut.slice(from, to + 1)];
       return broadcastDrawEventsMapper(slice);
     })
@@ -213,11 +212,12 @@ export class CwService {
     }
   }
 
+  /**
+   * @param data Cut range relative to the array emitted by `historyCut$`
+   */
   cutByRange(data: CutRangeArg) {
     const [from, to] = normalizeCutRange(data);
-    this.historyCut$
-      .pipe(first())
-      .subscribe(historyCut => this.cut(historyCut.slice(from, to + 1)));
+    this.historyCut$.pipe(first()).subscribe(historyCut => this.cut(historyCut.slice(from, to + 1)));
   }
 
   undoAll() {
@@ -230,22 +230,9 @@ export class CwService {
     this.broadcast$$.next(broadcastDrawEventsMapper(events, animate));
   }
 
-  cutRange(data: CutRangeArg) {
+  setCutRange(data: CutRangeArg) {
     const range = normalizeCutRange(data);
     this.cutRange$$.next(range);
     return range;
-  }
-
-  // TODO: Refactor this method by calling `this.cutRange` at some point...
-  private safeCutRange([from, to]: CutRange, historyCutLength: number): CutRange {
-    const max = Math.max(0, historyCutLength - 1);
-    const fromSafe = Math.min(from, max);
-    const toSafe = Math.min(to, max);
-    if (fromSafe !== from || toSafe !== to) {
-      // Give a chance to the end user to update its cutRange state.
-      // Note that this is a huge side effect!
-      this.cutRange$$.next([fromSafe, toSafe]);
-    }
-    return [fromSafe, toSafe];
   }
 }

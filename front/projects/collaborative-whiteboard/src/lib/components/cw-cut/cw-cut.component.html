@@ -1,7 +1,7 @@
 <input
   type="range"
   min="0"
-  [max]="service.historyCutLastIndex$ | async"
+  [max]="lastIndex"
   [(ngModel)]="cutIndex"
   (ngModelChange)="updateCutIndex()">
 

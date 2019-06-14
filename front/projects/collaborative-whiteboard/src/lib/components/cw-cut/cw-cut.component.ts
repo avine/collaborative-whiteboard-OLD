@@ -13,13 +13,18 @@ export class CwCutComponent implements OnInit, OnDestroy {
 
   cutIndex = 0;
 
+  lastIndex = 0;
+
   private subscription: Subscription;
 
   constructor(public service: CwService) { }
 
   ngOnInit() {
-    this.subscription = this.service.cutRange$.subscribe(([from, to]) => {
-      this.cutIndex = from;
+    this.subscription = this.service.historyCutLastIndex$.subscribe(lastIndex => {
+      this.lastIndex = lastIndex;
+      if (this.cutIndex > lastIndex) {
+        this.cutIndex = lastIndex;
+      }
     });
   }
 
@@ -28,10 +33,10 @@ export class CwCutComponent implements OnInit, OnDestroy {
   }
 
   updateCutIndex() {
-    this.service.cutRange(this.cutIndex);
+    this.service.setCutRange(this.cutIndex);
   }
 
   cut() {
-    this.service.cutByRange([this.cutIndex, this.cutIndex]);
+    this.service.cutByRange(this.cutIndex);
   }
 }

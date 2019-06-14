@@ -45,7 +45,7 @@ export class WhiteboardComponent implements OnInit, OnDestroy {
 
         if (this.cutIndex > this.cutLastIndex) {
           this.cutIndex = this.cutLastIndex;
-          this.service.cutRange(this.cutIndex);
+          this.service.setCutRange(this.cutIndex);
         }
       }),
 
@@ -63,12 +63,12 @@ export class WhiteboardComponent implements OnInit, OnDestroy {
     this.cutOpen = !this.cutOpen;
     if (this.cutOpen) {
       this.cutIndex = this.cutLastIndex;
-      this.service.cutRange(this.cutIndex);
+      this.service.setCutRange(this.cutIndex);
     }
   }
 
   updateCutIndex() {
-    this.service.cutRange(this.cutIndex);
+    this.service.setCutRange(this.cutIndex);
   }
 
   cut() {
