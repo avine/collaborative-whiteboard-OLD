@@ -1,0 +1,14 @@
+<div class="nav">
+  <a
+    *ngFor="let tab of tabs"
+    [class.active]="tab.active"
+    (click)="open(tab)">
+    <ng-container *ngTemplateOutlet="tab.label"></ng-container>
+  </a>
+</div>
+
+<div *ngIf="content" class="content">
+  <ng-container *ngTemplateOutlet="content"></ng-container>
+</div>
+
+<ng-content></ng-content>

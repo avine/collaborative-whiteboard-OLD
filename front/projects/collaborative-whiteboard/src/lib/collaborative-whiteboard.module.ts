@@ -10,6 +10,8 @@ import { CwToolsComponent } from './components/cw-tools/cw-tools.component';
 import { CwWhiteboardComponent } from './components/cw-whiteboard/cw-whiteboard.component';
 import { CwCutToolDirective } from './directives/cw-cut-tool.directive';
 import { CwDrawLineToolDirective } from './directives/cw-draw-line-tool.directive';
+import { CwTabsComponent } from './components/cw-tabs/cw-tabs.component';
+import { CwTabComponent } from './components/cw-tab/cw-tab.component';
 
 const features = [
   CwCanvasComponent,
@@ -18,13 +20,16 @@ const features = [
   CwWhiteboardComponent,
   CwToolsComponent,
 
+  CwTabsComponent,
+  CwTabComponent,
+
   CwCutToolDirective,
   CwDrawLineToolDirective
 ];
 
 @NgModule({
   declarations: [
-    features
+    features,
   ],
   imports: [
     CommonModule,

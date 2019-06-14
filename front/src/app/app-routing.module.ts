@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { CanvasMirrorComponent } from './components/canvas-mirror/canvas-mirror.component';
 import { CanvasComponent } from './components/canvas/canvas.component';
+import { TabsComponent } from './components/tabs/tabs.component';
 import { WhiteboardComponent } from './components/whiteboard/whiteboard.component';
 import { Whiteboard2Component } from './components/whiteboard2/whiteboard2.component';
 
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: 'whiteboard2',
     component: Whiteboard2Component
+  },
+  {
+    path: 'tabs',
+    component: TabsComponent
   },
 ];
 

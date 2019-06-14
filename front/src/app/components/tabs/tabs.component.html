@@ -1,0 +1,13 @@
+<cw-tabs>
+  <cw-tab [content]="content1">Header 1</cw-tab>
+  <cw-tab (activeChange)="alert($event)" [content]="content2">Header 2</cw-tab>
+  <cw-tab (activeChange)="alert($event)">Header 3</cw-tab>
+</cw-tabs>
+
+<ng-template #content1>
+  <span> Content 1 </span>
+</ng-template>
+
+<ng-template #content2>
+  <span> Content 2 </span>
+</ng-template>
