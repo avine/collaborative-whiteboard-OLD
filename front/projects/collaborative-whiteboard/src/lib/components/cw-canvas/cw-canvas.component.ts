@@ -1,6 +1,6 @@
 import {
     AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter,
-    Input, OnChanges, Output, SimpleChanges, ViewChild
+    Input, NgZone, OnChanges, Output, SimpleChanges, ViewChild
 } from '@angular/core';
 
 import {
@@ -47,9 +47,10 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
 
   private lineSerieBuffer: number[] = [];
 
-  constructor(private changeDetectorRef: ChangeDetectorRef) {}
+  constructor(private ngZone: NgZone, private changeDetectorRef: ChangeDetectorRef) {}
 
   ngAfterViewInit() {
+    this.initMousemoveListener();
     this.applyCanvasSize();
     this.initContext();
   }
@@ -65,6 +66,26 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
 
   private getCurrentValue(changes: SimpleChanges, input: ComponentInputType) {
     return changes[input] && changes[input].currentValue;
+  }
+
+  private initMousemoveListener() {
+    // Prevent unnecessary changes detection
+    this.ngZone.runOutsideAngular(() => {
+      this.canvasRef.nativeElement.addEventListener('mousemove', this.mousemove.bind(this));
+    });
+  }
+
+  private applyCanvasSize() {
+    this.canvasRef.nativeElement.width = this.canvasSize.width;
+    this.canvasRef.nativeElement.height = this.canvasSize.height;
+    if (this.context) {
+      // Changing the canvas size will reset its context...
+      this.setDefaultContext();
+    }
+    // Actually, the only way to change the value of `canvasSize` is when its @Input() changes.
+    // And emitting the value we just received seems to be useless!
+    // But we still need to do this, so that the wrapping component can react to this change asynchronously.
+    this.canvasSizeChange.emit(this.canvasSize);
   }
 
   private initContext() {
@@ -83,19 +104,6 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
     } else {
       console.error('Canvas NOT supported!');
     }
-  }
-
-  private applyCanvasSize() {
-    this.canvasRef.nativeElement.width = this.canvasSize.width;
-    this.canvasRef.nativeElement.height = this.canvasSize.height;
-    if (this.context) {
-      // Changing the canvas size will reset its context...
-      this.setDefaultContext();
-    }
-    // Actually, the only way to change the value of `canvasSize` is when its @Input() changes.
-    // And emitting the value we just received seems to be useless!
-    // But we still need to do this, so that the wrapping component can react to this change asynchronously.
-    this.canvasSizeChange.emit(this.canvasSize);
   }
 
   private broadcastHandler() {
