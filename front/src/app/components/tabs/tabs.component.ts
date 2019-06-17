@@ -6,13 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tabs.component.scss']
 })
 export class TabsComponent implements OnInit {
+  active2 = true;
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  alert(active: boolean) {
-    console.log('Alert!', active);
+  alert(txt: number, active: boolean) {
+    console.log('Alert!', txt, active);
   }
 }
