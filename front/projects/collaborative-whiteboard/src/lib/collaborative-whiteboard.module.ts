@@ -38,6 +38,9 @@ const features = [
   ],
   exports: [
     features
+  ],
+  entryComponents: [
+    CwTabComponent
   ]
 })
 export class CollaborativeWhiteboardModule { }

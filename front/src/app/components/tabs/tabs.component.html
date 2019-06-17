@@ -1,15 +1,15 @@
 <cw-tabs>
   <cw-tab [content]="content1" (activeChange)="alert(1, $event)">Header 1</cw-tab>
-  <cw-tab [active]="active2" (activeChange)="alert(2, $event)" [content]="content2">Header 2</cw-tab>
+  <cw-tab *ngIf="active2" [active]="active2" (activeChange)="alert(2, $event)" [content]="content2">Header 2</cw-tab>
   <cw-tab (activeChange)="alert(3, $event)">Header 3</cw-tab>
 </cw-tabs>
 
 <ng-template #content1>
-  <span> Content 1 </span>
+  <p> Content 1 </p>
 </ng-template>
 
 <ng-template #content2>
-  <span> Content 2 </span>
+  <p> Content 2 </p>
 </ng-template>
 
 <button (click)="active2 = !active2">Active 2</button>

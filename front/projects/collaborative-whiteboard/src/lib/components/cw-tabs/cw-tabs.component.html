@@ -2,11 +2,9 @@
   <a
     *ngFor="let tab of tabs"
     [class.active]="tab.active"
-    (click)="toggle(tab)">
+    (click)="toggleActive(tab)">
     <ng-container *ngTemplateOutlet="tab.label"></ng-container>
   </a>
 </div>
 
-<div *ngIf="activeTab?.content" class="content">
-  <ng-container *ngTemplateOutlet="activeTab?.content"></ng-container>
-</div>
+<ng-container #portal></ng-container>
