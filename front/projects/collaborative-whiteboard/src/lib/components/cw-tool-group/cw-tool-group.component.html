@@ -1,7 +1,8 @@
 <div class="nav">
   <a
     *ngFor="let tool of tools"
-    [class.active]="tool.active"
+    class="action"
+    [class.action--active]="tool.active"
     (click)="toggleActive(tool)">
     <ng-container *ngTemplateOutlet="tool.label"></ng-container>
   </a>
