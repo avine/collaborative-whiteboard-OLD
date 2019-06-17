@@ -17,16 +17,4 @@
 
 <br><br>
 
-<cw-tools (toolTypeChange)="handleToolType($event)">
-  <ng-template cwDrawLineTool>
-    <div class="overlay">
-      <cw-draw-line [(drawOptions)]="drawOptions"></cw-draw-line>
-    </div>
-  </ng-template>
-
-  <ng-template cwCutTool>
-    <div class="overlay">
-      <cw-cut></cw-cut>
-    </div>
-  </ng-template>
-</cw-tools>
+<cw-tools [(drawOptions)]="drawOptions"></cw-tools>

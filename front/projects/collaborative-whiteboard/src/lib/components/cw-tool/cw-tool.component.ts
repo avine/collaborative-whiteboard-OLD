@@ -3,11 +3,11 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'cw-tab',
-  templateUrl: './cw-tab.component.html',
-  styleUrls: ['./cw-tab.component.scss']
+  selector: 'cw-tool',
+  templateUrl: './cw-tool.component.html',
+  styleUrls: ['./cw-tool.component.scss']
 })
-export class CwTabComponent implements OnChanges {
+export class CwToolComponent implements OnChanges {
   @Input() content: TemplateRef<any>;
 
   @Input() active = false;

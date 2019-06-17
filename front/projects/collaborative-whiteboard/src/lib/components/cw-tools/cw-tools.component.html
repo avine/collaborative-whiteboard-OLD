@@ -1,14 +1,40 @@
-<fa-icon
-  *ngFor="let tool of tools"
-  [fixedWidth]="true"
-  [icon]="tool.icon"
-  class="action"
-  [class.action--active]="tool.mode === 'toggle' && toolType === tool.type"
-  (click)="toolTypeHandler(tool.type)">
-</fa-icon>
+<cw-tool-group>
+  <cw-tool [content]="drawLineTool">
+    <fa-icon [fixedWidth]="true" [icon]="icons.drawLine"></fa-icon>
+  </cw-tool>
 
-<br><br>
+  <cw-tool (activeChange)="service.undo()">
+    <fa-icon [fixedWidth]="true" [icon]="icons.undo"></fa-icon>
+  </cw-tool>
 
-<div #viewContainer></div>
+  <cw-tool (activeChange)="service.redo()">
+    <fa-icon [fixedWidth]="true" [icon]="icons.redo"></fa-icon>
+  </cw-tool>
 
-<ng-content></ng-content>
+  <cw-tool [content]="cutTool">
+    <fa-icon [fixedWidth]="true" [icon]="icons.cut"></fa-icon>
+  </cw-tool>
+
+  <cw-tool (activeChange)="service.redraw()">
+    <fa-icon [fixedWidth]="true" [icon]="icons.redraw"></fa-icon>
+  </cw-tool>
+
+  <cw-tool (activeChange)="service.undoAll()">
+    <fa-icon [fixedWidth]="true" [icon]="icons.undoAll"></fa-icon>
+  </cw-tool>
+</cw-tool-group>
+
+<ng-template #drawLineTool>
+  <div class="overlay">
+    <cw-draw-line
+      [drawOptions]="drawOptions"
+      (drawOptionsChange)="updateDrawOptions($event)">
+    </cw-draw-line>
+  </div>
+</ng-template>
+
+<ng-template #cutTool>
+  <div class="overlay">
+    <cw-cut></cw-cut>
+  </div>
+</ng-template>

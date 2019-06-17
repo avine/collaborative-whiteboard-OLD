@@ -6,12 +6,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CwCanvasComponent } from './components/cw-canvas/cw-canvas.component';
 import { CwCutComponent } from './components/cw-cut/cw-cut.component';
 import { CwDrawLineComponent } from './components/cw-draw-line/cw-draw-line.component';
+import { CwToolGroupComponent } from './components/cw-tool-group/cw-tool-group.component';
+import { CwToolComponent } from './components/cw-tool/cw-tool.component';
 import { CwToolsComponent } from './components/cw-tools/cw-tools.component';
 import { CwWhiteboardComponent } from './components/cw-whiteboard/cw-whiteboard.component';
-import { CwCutToolDirective } from './directives/cw-cut-tool.directive';
-import { CwDrawLineToolDirective } from './directives/cw-draw-line-tool.directive';
-import { CwTabsComponent } from './components/cw-tabs/cw-tabs.component';
-import { CwTabComponent } from './components/cw-tab/cw-tab.component';
 
 const features = [
   CwCanvasComponent,
@@ -19,12 +17,8 @@ const features = [
   CwDrawLineComponent,
   CwWhiteboardComponent,
   CwToolsComponent,
-
-  CwTabsComponent,
-  CwTabComponent,
-
-  CwCutToolDirective,
-  CwDrawLineToolDirective
+  CwToolGroupComponent,
+  CwToolComponent
 ];
 
 @NgModule({
@@ -40,7 +34,7 @@ const features = [
     features
   ],
   entryComponents: [
-    CwTabComponent
+    CwToolComponent
   ]
 })
 export class CollaborativeWhiteboardModule { }

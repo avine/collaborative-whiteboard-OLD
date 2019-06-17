@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CwTabComponent } from './cw-tab.component';
+import { CwToolGroupComponent } from './cw-tool-group.component';
 
-describe('CwTabComponent', () => {
-  let component: CwTabComponent;
-  let fixture: ComponentFixture<CwTabComponent>;
+describe('CwToolGroupComponent', () => {
+  let component: CwToolGroupComponent;
+  let fixture: ComponentFixture<CwToolGroupComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CwTabComponent ]
+      declarations: [ CwToolGroupComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CwTabComponent);
+    fixture = TestBed.createComponent(CwToolGroupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

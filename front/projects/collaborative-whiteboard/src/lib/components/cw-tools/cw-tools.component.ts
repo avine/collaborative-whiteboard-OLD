@@ -1,89 +1,29 @@
-import {
-    AfterViewInit, Component, ContentChild, EmbeddedViewRef, EventEmitter, Input, OnInit, Output,
-    TemplateRef, ViewChild, ViewContainerRef
-} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { CwCutToolDirective } from '../../directives/cw-cut-tool.directive';
-import { CwDrawLineToolDirective } from '../../directives/cw-draw-line-tool.directive';
-import { getDefaultTools } from './cw-tools.operator';
-import { ToolType } from './cw-tools.model';
+import { CwService } from '../../cw.service';
+import { icons } from './cw-tools.operator';
+import { DrawOptions } from '../../cw.model';
+import { getDefaultDrawOptions } from '../../cw.operator';
 
 @Component({
   selector: 'cw-tools',
   templateUrl: './cw-tools.component.html',
   styleUrls: ['./cw-tools.component.scss']
 })
-export class CwToolsComponent implements OnInit, AfterViewInit {
+export class CwToolsComponent implements OnInit {
+  icons = icons;
 
-  @Input() tools = getDefaultTools();
+  @Input() drawOptions = getDefaultDrawOptions();
 
-  @Input() toolType: ToolType; // FIXME: Now toolType Input and Output are NOT in sync anymore...
+  @Output() drawOptionsChange = new EventEmitter<DrawOptions>();
 
-  @Output() toolTypeChange = new EventEmitter<ToolType>();
-
-  @ContentChild(CwDrawLineToolDirective, { static: false, read: TemplateRef })
-  private drawLineTmplRef: TemplateRef<any>;
-
-  @ContentChild(CwCutToolDirective, { static: false, read: TemplateRef })
-  private cutTmplRef: TemplateRef<any>;
-
-  @ViewChild('viewContainer', { static: false, read: ViewContainerRef }) viewContainer: ViewContainerRef;
-
-  embeddedView: EmbeddedViewRef<any>;
-
-  constructor() { }
+  constructor(public service: CwService) { }
 
   ngOnInit() {
   }
 
-  ngAfterViewInit() {
-    if (this.toolType) {
-      this.updateView(this.toolType);
-    }
-  }
-
-  toolTypeHandler(type: ToolType) {
-    if (this.getMode(type) === 'toggle' && type === this.toolType) {
-      this.updateToolType(null);
-      this.updateView(null);
-    } else {
-      this.updateToolType(type);
-      this.updateView(type);
-    }
-  }
-
-  private updateToolType(type: ToolType) {
-    this.toolTypeChange.emit(type);
-
-    if (!type || this.getMode(type) === 'toggle') {
-      this.toolType = type;
-    }
-  }
-
-  private updateView(type: ToolType) {
-    if (type === 'drawLine' && this.drawLineTmplRef) {
-      this.destroyView();
-      this.createView(this.drawLineTmplRef);
-    } else if (type === 'cut' && this.cutTmplRef) {
-      this.destroyView();
-      this.createView(this.cutTmplRef);
-    } else if (!type) {
-      this.destroyView();
-    }
-  }
-
-  private createView(tmplRef: TemplateRef<any>) {
-    this.embeddedView = this.viewContainer.createEmbeddedView(tmplRef);
-  }
-
-  private destroyView() {
-    if (this.embeddedView) {
-      this.embeddedView.destroy();
-      this.embeddedView = null;
-    }
-  }
-
-  private getMode(type: ToolType) {
-    return this.tools.find(action => action.type === type).mode;
+  updateDrawOptions(drawOptions: DrawOptions) {
+    this.drawOptions = drawOptions;
+    this.drawOptionsChange.emit(drawOptions);
   }
 }

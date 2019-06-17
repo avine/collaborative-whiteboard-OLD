@@ -1,0 +1,10 @@
+<div class="nav">
+  <a
+    *ngFor="let tool of tools"
+    [class.active]="tool.active"
+    (click)="toggleActive(tool)">
+    <ng-container *ngTemplateOutlet="tool.label"></ng-container>
+  </a>
+</div>
+
+<ng-container #portal></ng-container>
