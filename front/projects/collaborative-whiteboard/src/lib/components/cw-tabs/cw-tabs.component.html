@@ -7,6 +7,6 @@
   </a>
 </div>
 
-<div *ngIf="content" class="content">
-  <ng-container *ngTemplateOutlet="content"></ng-container>
+<div *ngIf="activeTab?.content" class="content">
+  <ng-container *ngTemplateOutlet="activeTab?.content"></ng-container>
 </div>

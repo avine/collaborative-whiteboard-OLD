@@ -13,12 +13,12 @@ export class CwTabsComponent implements AfterContentInit {
 
   @ContentChildren(CwTabComponent) tabs: QueryList<CwTabComponent>;
 
-  content: TemplateRef<any>;
+  activeTab: CwTabComponent;
 
   ngAfterContentInit() {
     this.tabs.forEach(tab => {
       if (tab.active) {
-        this.toggleTab(tab);
+        this.toggleActiveTab(tab);
       }
     });
     this.initTabs();
@@ -28,8 +28,8 @@ export class CwTabsComponent implements AfterContentInit {
     this.tabs.forEach(tab => {
       tab.activeChange.subscribe(active => {
         if (tab.content) {
-          if (tab.active && tab.content !== this.content || !tab.active && tab.content === this.content) {
-            this.toggleTab(tab);
+          if (tab.active && tab !== this.activeTab || !tab.active && tab === this.activeTab) {
+            this.toggleActiveTab(tab);
           }
         }
       });
@@ -37,14 +37,14 @@ export class CwTabsComponent implements AfterContentInit {
   }
 
   toggle(tab: CwTabComponent) {
-    const prevContent = this.content;
+    const prevTab = this.activeTab;
 
-    this.toggleTab(tab);
+    this.toggleActiveTab(tab);
     this.updateActiveTab();
 
-    if (this.content && prevContent && this.content !== prevContent) {
+    if (this.activeTab && prevTab && this.activeTab !== prevTab) {
       this.tabs.forEach(t => {
-        if (t.content === prevContent) {
+        if (t === prevTab) {
           t.activeChange.emit(false);
         }
       });
@@ -53,19 +53,19 @@ export class CwTabsComponent implements AfterContentInit {
     this.emitActiveTab(tab);
   }
 
-  private toggleTab(tab: CwTabComponent) {
-    if (this.content === tab.content) {
-      this.content = null;
+  private toggleActiveTab(tab: CwTabComponent) {
+    if (this.activeTab === tab) {
+      this.activeTab = null;
     } else if (tab.content) {
-      this.content = tab.content;
+      this.activeTab = tab;
     }
   }
 
   private updateActiveTab() {
-    this.tabs.forEach(tab => tab.active = tab.content === this.content);
+    this.tabs.forEach(tab => tab.active = this.activeTab === tab);
   }
 
   private emitActiveTab(tab: CwTabComponent) {
-    tab.activeChange.emit(!tab.content || this.content === tab.content);
+    tab.activeChange.emit(!tab.content || this.activeTab === tab);
   }
 }
