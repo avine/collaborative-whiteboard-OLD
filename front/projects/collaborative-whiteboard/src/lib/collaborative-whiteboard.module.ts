@@ -8,7 +8,6 @@ import { CwCutComponent } from './components/cw-cut/cw-cut.component';
 import { CwDrawLineComponent } from './components/cw-draw-line/cw-draw-line.component';
 import { CwToolGroupComponent } from './components/cw-tool-group/cw-tool-group.component';
 import { CwToolComponent } from './components/cw-tool/cw-tool.component';
-import { CwToolsComponent } from './components/cw-tools/cw-tools.component';
 import { CwWhiteboardComponent } from './components/cw-whiteboard/cw-whiteboard.component';
 
 const features = [
@@ -16,7 +15,6 @@ const features = [
   CwCutComponent,
   CwDrawLineComponent,
   CwWhiteboardComponent,
-  CwToolsComponent,
   CwToolGroupComponent,
   CwToolComponent
 ];
