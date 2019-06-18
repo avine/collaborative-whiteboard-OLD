@@ -2,3 +2,13 @@
   display: inline-block;
   min-width: 2em;
 }
+
+.button {
+  border: none;
+  background-color: dodgerblue;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 3px;
+  font: inherit;
+  outline: none;
+}

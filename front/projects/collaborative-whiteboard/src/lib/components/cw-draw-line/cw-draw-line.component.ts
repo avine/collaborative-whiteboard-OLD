@@ -11,7 +11,7 @@ import { DrawOptions } from '../../cw.model';
 export class CwDrawLineComponent {
 
   @Input() drawOptions: DrawOptions = {
-    strokeStyle: 'grey',
+    strokeStyle: '#29B6F6',
     lineWidth: 6
   };
 

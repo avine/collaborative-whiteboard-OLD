@@ -1,3 +1,9 @@
-<p>
-  cw-color-picker works!
-</p>
+<ng-container *ngFor="let clr of colors; index as i">
+  <br *ngIf="i && i % breakIndex === 0">
+  <span
+    [style.backgroundColor]="clr"
+    class="color"
+    [class.color--selected]="clr === color"
+    (click)="updateColor(clr)">
+  </span>
+</ng-container>

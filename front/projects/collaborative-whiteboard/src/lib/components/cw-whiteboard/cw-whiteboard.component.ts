@@ -26,7 +26,7 @@ export class CwWhiteboardComponent implements OnInit, OnDestroy {
   @Output() emit = new EventEmitter<DrawTransport>();
 
   drawOptions: DrawOptions = {
-    strokeStyle: 'grey',
+    strokeStyle: '#29B6F6',
     lineWidth: 6
   };
 

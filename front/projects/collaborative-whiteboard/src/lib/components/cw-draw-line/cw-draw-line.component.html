@@ -1,13 +1,3 @@
-<select
-  class="field"
-  [(ngModel)]="drawOptions.strokeStyle"
-  (ngModelChange)="emit()">
-  <option>grey</option>
-  <option>red</option>
-  <option>green</option>
-  <option>blue</option>
-</select>
-
 <input
   class="field"
   type="range"
@@ -17,3 +7,10 @@
   (ngModelChange)="emit()">
 
 <span class="number">{{ drawOptions.lineWidth }}</span>
+
+<br><br><br>
+
+<cw-cw-color-picker
+  [(color)]="drawOptions.strokeStyle"
+  (colorChange)="emit()">
+</cw-cw-color-picker>
