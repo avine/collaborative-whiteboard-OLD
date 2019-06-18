@@ -1,10 +1,11 @@
 import { Subscription } from 'rxjs';
 
 import {
-    AfterViewInit, Component, ContentChildren, EmbeddedViewRef, OnDestroy, QueryList, ViewChild,
-    ViewContainerRef
+    AfterViewInit, Component, ComponentFactoryResolver, ComponentRef, ContentChildren, OnDestroy,
+    QueryList, ViewChild, ViewContainerRef
 } from '@angular/core';
 
+import { CwToolContentComponent } from '../cw-tool-content/cw-tool-content.component';
 import { CwToolComponent } from '../cw-tool/cw-tool.component';
 
 @Component({
@@ -18,12 +19,12 @@ export class CwToolGroupComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('portal', { static: false, read: ViewContainerRef }) portal: ViewContainerRef;
 
-  private activeTools = new Map<CwToolComponent, EmbeddedViewRef<any>>();
+  private activeTools = new Map<CwToolComponent, ComponentRef<CwToolContentComponent>>();
 
   private activeChangeSubscriptions: Subscription[] = [];
   private toolsChangeSubscription: Subscription;
 
-  constructor() {}
+  constructor(private componentFactoryResolver: ComponentFactoryResolver) {}
 
   ngAfterViewInit() {
     this.subscribeToActiveChange();
@@ -80,7 +81,11 @@ export class CwToolGroupComponent implements AfterViewInit, OnDestroy {
   }
 
   private openContent(tool: CwToolComponent) {
-    this.activeTools.set(tool, this.portal.createEmbeddedView(tool.content));
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(CwToolContentComponent);
+    const componentRef = this.portal.createComponent(componentFactory);
+    componentRef.instance.title = tool.title;
+    componentRef.instance.content = tool.content;
+    this.activeTools.set(tool, componentRef);
   }
 
   private closeContent(tool: CwToolComponent) {

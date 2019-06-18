@@ -8,6 +8,9 @@ import {
   styleUrls: ['./cw-tool.component.scss']
 })
 export class CwToolComponent implements OnChanges {
+
+  @Input() title: string;
+
   @Input() content: TemplateRef<any>;
 
   @Input() active = false;

@@ -1,0 +1,12 @@
+<div class="container" cdkDrag>
+  <fa-icon class="drag" cdkDragHandle
+    [icon]="icons.drag"
+    [fixedWidth]="true">
+  </fa-icon>
+
+  <div class="title">{{ title }}</div>
+
+  <ng-container
+    [ngTemplateOutlet]="content">
+  </ng-container>
+</div>
