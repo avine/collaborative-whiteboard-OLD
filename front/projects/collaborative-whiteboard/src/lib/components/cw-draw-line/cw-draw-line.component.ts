@@ -1,13 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { DrawOptions } from '../../cw.model';
 
 @Component({
   selector: 'cw-draw-line',
   templateUrl: './cw-draw-line.component.html',
-  styleUrls: ['./cw-draw-line.component.scss']
+  styleUrls: ['./cw-draw-line.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CwDrawLineComponent implements OnInit {
+export class CwDrawLineComponent {
 
   @Input() drawOptions: DrawOptions = {
     strokeStyle: 'grey',
@@ -15,11 +16,6 @@ export class CwDrawLineComponent implements OnInit {
   };
 
   @Output() drawOptionsChange = new EventEmitter<DrawOptions>();
-
-  constructor() { }
-
-  ngOnInit() {
-  }
 
   emit() {
     this.drawOptionsChange.emit(this.drawOptions);

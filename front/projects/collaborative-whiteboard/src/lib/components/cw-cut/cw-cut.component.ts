@@ -15,8 +15,6 @@ import { CwService } from '../../cw.service';
 })
 export class CwCutComponent implements OnInit, OnDestroy {
 
-  cutLength = 0;
-
   cutLastIndex = 0;
 
   cutIndex = 0;
@@ -45,10 +43,8 @@ export class CwCutComponent implements OnInit, OnDestroy {
     this.unsubscribeFromCutLength();
   }
 
-  subscribeToCutLength() {
+  private subscribeToCutLength() {
     this.subscription = this.service.historyCutLength$.subscribe(cutLength => {
-      this.cutLength = cutLength;
-
       this.cutLastIndex =  Math.max(0, cutLength - 1);
       this.cutMaxSpread =  Math.max(1, cutLength);
 
@@ -59,7 +55,7 @@ export class CwCutComponent implements OnInit, OnDestroy {
     });
   }
 
-  unsubscribeFromCutLength() {
+  private unsubscribeFromCutLength() {
     this.subscription.unsubscribe();
   }
 
