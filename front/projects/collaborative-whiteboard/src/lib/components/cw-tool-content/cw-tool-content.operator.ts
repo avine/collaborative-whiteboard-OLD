@@ -5,4 +5,4 @@ import {
 const drag = faArrowsAlt;
 const close = faTimes;
 
-export const icons = { drag, close };
+export const contentIcons = { drag, close };

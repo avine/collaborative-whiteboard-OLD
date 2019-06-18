@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 
-import { icons } from './cw-tool-content.operator';
+import { contentIcons } from './cw-tool-content.operator';
 
 @Component({
   selector: 'cw-cw-tool-content',
@@ -8,7 +8,7 @@ import { icons } from './cw-tool-content.operator';
   styleUrls: ['./cw-tool-content.component.scss']
 })
 export class CwToolContentComponent implements OnInit {
-  icons = icons;
+  icons = contentIcons;
 
   @Input() title: string;
 

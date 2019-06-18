@@ -9,4 +9,4 @@ const redo = faRedoAlt;
 const cut = faCut;
 const undoAll = faTrash;
 
-export const icons = { drawLine, redraw, undo, redo, cut, undoAll };
+export const whiteboardIcons = { drawLine, redraw, undo, redo, cut, undoAll };

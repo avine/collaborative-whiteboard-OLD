@@ -4,7 +4,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 
 import { DrawOptions, DrawTransport, Owner } from '../../cw.model';
 import { CwService } from '../../cw.service';
-import { icons } from './cw-whiteboard.operator';
+import { whiteboardIcons } from './cw-whiteboard.operator';
 
 @Component({
   selector: 'cw-whiteboard',
@@ -13,7 +13,7 @@ import { icons } from './cw-whiteboard.operator';
   providers: [CwService]
 })
 export class CwWhiteboardComponent implements OnInit, OnDestroy {
-  icons = icons;
+  icons = whiteboardIcons;
 
   @Input() set onwer(owner: Owner) {
     this.service.owner = owner;
