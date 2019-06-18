@@ -1,42 +1,73 @@
 import { Subscription } from 'rxjs';
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+    ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit
+} from '@angular/core';
 
+import { CutRange } from '../../cw.model';
 import { CwService } from '../../cw.service';
 
 @Component({
   selector: 'cw-cut',
   templateUrl: './cw-cut.component.html',
-  styleUrls: ['./cw-cut.component.scss']
+  styleUrls: ['./cw-cut.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CwCutComponent implements OnInit, OnDestroy {
 
+  cutLength = 0;
+
+  cutLastIndex = 0;
+
   cutIndex = 0;
 
-  lastIndex = 0;
+  cutMaxSpread = 1;
+
+  cutSpread = 1;
+
+  get cutRange(): CutRange {
+    return [this.cutIndex, this.cutIndex + this.cutSpread - 1];
+  }
 
   private subscription: Subscription;
 
-  constructor(public service: CwService) { }
+  constructor(
+    private service: CwService,
+    private changeDetectorRef: ChangeDetectorRef
+  ) { }
 
   ngOnInit() {
-    this.subscription = this.service.historyCutLastIndex$.subscribe(lastIndex => {
-      this.lastIndex = lastIndex;
-      if (this.cutIndex > lastIndex) {
-        this.cutIndex = lastIndex;
-      }
-    });
+    this.updateCutRange();
+    this.subscribeToCutLength();
   }
 
   ngOnDestroy() {
+    this.unsubscribeFromCutLength();
+  }
+
+  subscribeToCutLength() {
+    this.subscription = this.service.historyCutLength$.subscribe(cutLength => {
+      this.cutLength = cutLength;
+
+      this.cutLastIndex =  Math.max(0, cutLength - 1);
+      this.cutMaxSpread =  Math.max(1, cutLength);
+
+      this.cutIndex = Math.min(this.cutIndex, this.cutLastIndex);
+      this.cutSpread = Math.min(this.cutSpread, this.cutMaxSpread);
+
+      this.changeDetectorRef.detectChanges();
+    });
+  }
+
+  unsubscribeFromCutLength() {
     this.subscription.unsubscribe();
   }
 
-  updateCutIndex() {
-    this.service.setCutRange(this.cutIndex);
+  updateCutRange() {
+    this.service.setCutRange(this.cutRange);
   }
 
   cut() {
-    this.service.cutByRange(this.cutIndex);
+    this.service.cutByRange(this.cutRange);
   }
 }

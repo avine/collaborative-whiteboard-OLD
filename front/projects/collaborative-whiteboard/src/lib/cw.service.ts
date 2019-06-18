@@ -35,7 +35,7 @@ export class CwService {
 
   historyCut$ = this.history$$.pipe(map(history => this.getOwnerDrawEvents(history)));
 
-  historyCutLastIndex$ = this.historyCut$.pipe(map(historyCut => Math.max(0, historyCut.length - 1)));
+  historyCutLength$ = this.historyCut$.pipe(map(historyCut => historyCut.length));
 
   cutRange$ = this.cutRange$$.asObservable();
 

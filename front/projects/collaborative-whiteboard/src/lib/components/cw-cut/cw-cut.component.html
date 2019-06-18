@@ -1,10 +1,23 @@
 <input
   type="range"
   min="0"
-  [max]="lastIndex"
+  [max]="cutLastIndex"
   [(ngModel)]="cutIndex"
-  (ngModelChange)="updateCutIndex()">
+  (ngModelChange)="updateCutRange()">
 
 {{ cutIndex }}
+
+<br>
+
+<input
+  type="range"
+  min="1"
+  [max]="cutMaxSpread"
+  [(ngModel)]="cutSpread"
+  (ngModelChange)="updateCutRange()">
+
+{{ cutSpread }}
+
+<br>
 
 <button (click)="cut()">Cut</button>
