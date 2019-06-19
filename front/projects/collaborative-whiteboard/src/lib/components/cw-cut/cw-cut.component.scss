@@ -1,6 +1,12 @@
+.field {
+  display: inline-block;
+  vertical-align: middle;
+}
+
 .number {
   display: inline-block;
   min-width: 2em;
+  margin-left: 0.5em;
 }
 
 .button {

@@ -23,11 +23,11 @@
     <fa-icon [fixedWidth]="true" [icon]="icons.drawLine"></fa-icon>
   </cw-tool>
 
-  <cw-tool (activeChange)="service.undo()">
+  <cw-tool title="Undo" (activeChange)="service.undo()">
     <fa-icon [fixedWidth]="true" [icon]="icons.undo"></fa-icon>
   </cw-tool>
 
-  <cw-tool (activeChange)="service.redo()">
+  <cw-tool title="Redo" (activeChange)="service.redo()">
     <fa-icon [fixedWidth]="true" [icon]="icons.redo"></fa-icon>
   </cw-tool>
 
@@ -35,15 +35,15 @@
     <fa-icon [fixedWidth]="true" [icon]="icons.cut"></fa-icon>
   </cw-tool>
 
-  <cw-tool (activeChange)="service.undoAll()">
+  <cw-tool title="Undo all" (activeChange)="service.undoAll()">
     <fa-icon [fixedWidth]="true" [icon]="icons.undoAll"></fa-icon>
   </cw-tool>
 
-  <cw-tool (activeChange)="service.redraw()">
+  <cw-tool title="Redraw" (activeChange)="service.redraw()">
     <fa-icon [fixedWidth]="true" [icon]="icons.redraw"></fa-icon>
   </cw-tool>
 
-  <cw-tool [noContentSwitchMode]="true" [(active)]="hideGuides">
+  <cw-tool title="Hide guides" [noContentSwitchMode]="true" [(active)]="hideGuides">
     <fa-icon [fixedWidth]="true" [icon]="icons.noGuides"></fa-icon>
   </cw-tool>
 </cw-tool-group>

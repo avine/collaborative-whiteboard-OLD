@@ -1,6 +1,7 @@
-<div class="nav">
+<div class="nav" [class.nav--vertical]="layoutVertical">
   <a
     *ngFor="let tool of tools"
+    [title]="tool.title"
     class="action"
     [class.action--active]="tool.active"
     (click)="toggleActive(tool)">

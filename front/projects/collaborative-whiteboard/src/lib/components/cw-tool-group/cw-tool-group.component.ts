@@ -2,7 +2,7 @@ import { Subscription } from 'rxjs';
 
 import {
     AfterViewInit, Component, ComponentFactoryResolver, ComponentRef, ContentChildren, OnDestroy,
-    QueryList, ViewChild, ViewContainerRef
+    QueryList, ViewChild, ViewContainerRef, Input
 } from '@angular/core';
 
 import { CwToolContentComponent } from '../cw-tool-content/cw-tool-content.component';
@@ -14,6 +14,7 @@ import { CwToolComponent } from '../cw-tool/cw-tool.component';
   styleUrls: ['./cw-tool-group.component.scss']
 })
 export class CwToolGroupComponent implements AfterViewInit, OnDestroy {
+  @Input() layoutVertical = false;
 
   @ContentChildren(CwToolComponent) tools: QueryList<CwToolComponent>;
 
