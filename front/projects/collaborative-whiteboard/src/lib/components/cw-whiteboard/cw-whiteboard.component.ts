@@ -32,6 +32,8 @@ export class CwWhiteboardComponent implements OnInit, OnDestroy {
 
   cutOpen = false;
 
+  hideGuides = false;
+
   subscription: Subscription;
 
   constructor(public service: CwService) { }
@@ -45,19 +47,6 @@ export class CwWhiteboardComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-
-  /*handleToolType(type: ToolType) {
-    switch (type) {
-      case 'undo': this.service.undo(); break;
-      case 'redo': this.service.redo(); break;
-      case 'redraw': this.service.redraw(); break;
-      case 'undoAll': this.service.undoAll(); break;
-    }
-
-    if (type === 'cut' && !this.cutOpen || this.cutOpen) {
-      this.toggleCut();
-    }
-  }*/
 
   toggleCut() {
     this.cutOpen = !this.cutOpen;

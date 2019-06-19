@@ -94,7 +94,7 @@ export class CwToolGroupComponent implements AfterViewInit, OnDestroy {
   }
 
   toggleActive(tool: CwToolComponent) {
-    if (tool.content) {
+    if (tool.content || tool.noContentSwitchMode) {
       tool.active = !tool.active;
       tool.activeChange.emit(tool.active);
     } else {

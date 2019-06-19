@@ -1,12 +1,13 @@
 import {
-    faCut, faPaintBrush, faPlay, faRedoAlt, faTrash, faUndoAlt
+    faBorderNone, faCut, faFilm, faPaintBrush, faRedoAlt, faTrash, faUndoAlt
 } from '@fortawesome/free-solid-svg-icons';
 
 const drawLine = faPaintBrush;
-const redraw = faPlay;
 const undo = faUndoAlt;
 const redo = faRedoAlt;
 const cut = faCut;
 const undoAll = faTrash;
+const redraw = faFilm;
+const noGuides = faBorderNone;
 
-export const whiteboardIcons = { drawLine, redraw, undo, redo, cut, undoAll };
+export const whiteboardIcons = { drawLine, undo, redo, cut, undoAll, redraw, noGuides };
