@@ -57,8 +57,9 @@ export const broadcastDrawEventsMapper = (
 });
 
 export const normalizeCutRange = (data: CutRangeArg): CutRange => {
-  const range = Array.isArray(data) ? [...data].sort() : [data, data];
-  const [from, to] = range;
+  const [from, to] = Array.isArray(data)
+    ? [...data].sort((a, b) => a > b ? 1 : a < b ? -1 : 0)
+    : [data, data];
   return [Math.max(0, from), Math.max(0, to)];
 };
 
