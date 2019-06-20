@@ -13,7 +13,6 @@ import { whiteboardIcons } from './cw-whiteboard.operator';
   providers: [CwService]
 })
 export class CwWhiteboardComponent implements OnInit, OnDestroy {
-  icons = whiteboardIcons;
 
   @Input() set onwer(owner: Owner) {
     this.service.owner = owner;
@@ -25,12 +24,16 @@ export class CwWhiteboardComponent implements OnInit, OnDestroy {
 
   @Output() emit = new EventEmitter<DrawTransport>();
 
+  icons = whiteboardIcons;
+
   drawOptions: DrawOptions = {
     strokeStyle: '#29B6F6',
     lineWidth: 6
   };
 
-  cutOpen = false;
+  showDrawLineTool = false;
+
+  showCutTool = false;
 
   hideGuides = false;
 
@@ -46,9 +49,5 @@ export class CwWhiteboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
-  }
-
-  toggleCut() {
-    this.cutOpen = !this.cutOpen;
   }
 }

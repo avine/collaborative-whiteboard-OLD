@@ -2,13 +2,13 @@
   <cw-canvas
     [drawOptions]="drawOptions"
     class="canvas-draw"
-    [showGuides]="!hideGuides && !cutOpen"
+    [showGuides]="!hideGuides && !showCutTool"
     [broadcast]="service.broadcast$ | async"
     (draw)="service.emit($event)">
   </cw-canvas>
 
   <cw-canvas
-    *ngIf="cutOpen"
+    *ngIf="showCutTool"
     class="canvas-cut"
     [showGuides]="!hideGuides"
     [drawDisabled]="true"
@@ -19,7 +19,7 @@
 <br><br>
 
 <cw-tool-group>
-  <cw-tool [content]="drawLineTool" title="Draw line">
+  <cw-tool [content]="drawLineTool" title="Draw line" [(active)]="showDrawLineTool">
     <fa-icon [fixedWidth]="true" [icon]="icons.drawLine"></fa-icon>
   </cw-tool>
 
@@ -31,7 +31,7 @@
     <fa-icon [fixedWidth]="true" [icon]="icons.redo"></fa-icon>
   </cw-tool>
 
-  <cw-tool [content]="cutTool" title="Cut" (activeChange)="cutOpen = $event">
+  <cw-tool [content]="cutTool" title="Cut" [(active)]="showCutTool">
     <fa-icon [fixedWidth]="true" [icon]="icons.cut"></fa-icon>
   </cw-tool>
 
