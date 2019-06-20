@@ -33,3 +33,5 @@ $track-radius: 5px !default;
 $contrast: 0%;
 
 @import "~input-range-scss/_inputrange.scss";
+
+@import '~@angular/cdk/overlay-prebuilt.css';

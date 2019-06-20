@@ -1,9 +1,16 @@
 <div class="container"
-  cdkDrag>
-  <fa-icon class="drag"
+  cdkDrag
+  cdkDragRootElement=".cdk-overlay-pane">
+  <fa-icon class="btn btn--drag"
     cdkDragHandle
     [icon]="icons.drag"
     [fixedWidth]="true">
+  </fa-icon>
+
+  <fa-icon class="btn btn--dispose"
+    [icon]="icons.dispose"
+    [fixedWidth]="true"
+    (click)="dispose.emit()">
   </fa-icon>
 
   <div class="title">{{ title }}</div>

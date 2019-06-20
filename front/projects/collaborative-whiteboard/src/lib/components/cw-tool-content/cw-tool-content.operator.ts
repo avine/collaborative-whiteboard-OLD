@@ -3,6 +3,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 const drag = faArrowsAlt;
-const close = faTimes;
+const dispose = faTimes;
 
-export const contentIcons = { drag, close };
+export const contentIcons = { drag, dispose };

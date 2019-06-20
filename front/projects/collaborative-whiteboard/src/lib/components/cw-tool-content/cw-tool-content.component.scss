@@ -1,8 +1,5 @@
 .container {
-  position: absolute;
-  top: 3rem;
-  left: 3rem;
-
+  position: relative;
   border-radius: 3px;
   box-shadow: 0 6px 6px -3px rgba(0, 0, 0, 0.1);
   border: 1px solid #eee;
@@ -19,10 +16,9 @@
   margin-bottom: 1.5rem;
 }
 
-.drag {
+.btn {
   position: absolute;
   top: 0.75rem;
-  right: 0.75rem;
   opacity: 0.5;
   transition: opacity 150ms ease;
   cursor: pointer;
@@ -30,4 +26,12 @@
   &:hover {
     opacity: 1;
   }
+}
+
+.btn--drag {
+  right: 2.25rem;
+}
+
+.btn--dispose {
+  right: 0.75rem;
 }

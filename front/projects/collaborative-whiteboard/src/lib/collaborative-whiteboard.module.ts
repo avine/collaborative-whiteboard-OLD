@@ -1,4 +1,6 @@
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { PortalModule } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -32,7 +34,9 @@ const features = [
     CommonModule,
     FormsModule,
     FontAwesomeModule,
-    DragDropModule
+    DragDropModule,
+    OverlayModule,
+    PortalModule
   ],
   exports: [
     features

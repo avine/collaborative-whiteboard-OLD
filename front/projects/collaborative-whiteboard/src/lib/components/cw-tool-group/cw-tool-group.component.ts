@@ -1,8 +1,11 @@
 import { Subscription } from 'rxjs';
+import { first } from 'rxjs/operators';
 
+import { Overlay, OverlayRef } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
 import {
-    AfterViewInit, Component, ComponentFactoryResolver, ComponentRef, ContentChildren, OnDestroy,
-    QueryList, ViewChild, ViewContainerRef, Input
+    AfterViewInit, Component, ContentChildren, Input, OnDestroy, QueryList, ViewChild,
+    ViewContainerRef
 } from '@angular/core';
 
 import { CwToolContentComponent } from '../cw-tool-content/cw-tool-content.component';
@@ -20,12 +23,12 @@ export class CwToolGroupComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('portal', { static: false, read: ViewContainerRef }) portal: ViewContainerRef;
 
-  private activeTools = new Map<CwToolComponent, ComponentRef<CwToolContentComponent>>();
+  private activeTools = new Map<CwToolComponent, OverlayRef>();
 
   private activeChangeSubscriptions: Subscription[] = [];
   private toolsChangeSubscription: Subscription;
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) {}
+  constructor(private overlay: Overlay) {}
 
   ngAfterViewInit() {
     this.subscribeToActiveChange();
@@ -82,15 +85,17 @@ export class CwToolGroupComponent implements AfterViewInit, OnDestroy {
   }
 
   private openContent(tool: CwToolComponent) {
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(CwToolContentComponent);
-    const componentRef = this.portal.createComponent(componentFactory);
+    const positionStrategy = this.overlay.position().global().centerHorizontally().centerVertically();
+    const overlayRef = this.overlay.create({ positionStrategy });
+    const componentRef = overlayRef.attach(new ComponentPortal(CwToolContentComponent));
     componentRef.instance.title = tool.title;
     componentRef.instance.content = tool.content;
-    this.activeTools.set(tool, componentRef);
+    componentRef.instance.dispose.pipe(first()).subscribe(() => this.toggleActive(tool));
+    this.activeTools.set(tool, overlayRef);
   }
 
   private closeContent(tool: CwToolComponent) {
-    this.activeTools.get(tool).destroy();
+    this.activeTools.get(tool).dispose();
     this.activeTools.delete(tool);
   }
 

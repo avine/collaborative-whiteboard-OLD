@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, Output, TemplateRef, EventEmitter } from '@angular/core';
 
 import { contentIcons } from './cw-tool-content.operator';
 
@@ -14,4 +14,6 @@ export class CwToolContentComponent {
   @Input() title: string;
 
   @Input() content: TemplateRef<any>;
+
+  @Output() dispose = new EventEmitter<void>();
 }
