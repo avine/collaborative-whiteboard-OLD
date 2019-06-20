@@ -1,3 +1,18 @@
+.layout {
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  grid-template-rows: auto;
+  grid-template-areas: "sidebar main";
+}
+
+.sidebar {
+  grid-area: sidebar;
+}
+
+.main {
+  grid-area: main;
+}
+
 .canvas-container {
   position: relative;
   display: inline-block;
@@ -12,5 +27,5 @@
   position: absolute;
   top: 0;
   left: 0;
-  background-color: rgba(255, 255, 224, 0.75); // rgba(255, 255, 255, 0.75);
+  background-color: rgba(255, 255, 224, 0.75);
 }
