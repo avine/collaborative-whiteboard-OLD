@@ -1,7 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, Output, TemplateRef, EventEmitter } from '@angular/core';
 
-import { contentIcons } from './cw-tool-content.operator';
-
 @Component({
   selector: 'cw-cw-tool-content',
   templateUrl: './cw-tool-content.component.html',
@@ -9,7 +7,6 @@ import { contentIcons } from './cw-tool-content.operator';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CwToolContentComponent {
-  icons = contentIcons;
 
   @Input() title: string;
 

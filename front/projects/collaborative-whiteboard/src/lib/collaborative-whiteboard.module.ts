@@ -4,12 +4,12 @@ import { PortalModule } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { CwCanvasComponent } from './components/cw-canvas/cw-canvas.component';
 import { CwColorPickerComponent } from './components/cw-color-picker/cw-color-picker.component';
 import { CwCutComponent } from './components/cw-cut/cw-cut.component';
 import { CwDrawLineComponent } from './components/cw-draw-line/cw-draw-line.component';
+import { CwIconComponent } from './components/cw-icon/cw-icon.component';
 import { CwToolContentComponent } from './components/cw-tool-content/cw-tool-content.component';
 import { CwToolGroupComponent } from './components/cw-tool-group/cw-tool-group.component';
 import { CwToolComponent } from './components/cw-tool/cw-tool.component';
@@ -20,6 +20,7 @@ const features = [
   CwColorPickerComponent,
   CwCutComponent,
   CwDrawLineComponent,
+  CwIconComponent,
   CwToolContentComponent,
   CwToolGroupComponent,
   CwToolComponent,
@@ -33,7 +34,6 @@ const features = [
   imports: [
     CommonModule,
     FormsModule,
-    FontAwesomeModule,
     DragDropModule,
     OverlayModule,
     PortalModule
