@@ -1,3 +1,41 @@
-.container {
+.layout {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 2rem 1fr;
+  grid-template-areas: "header" "main";
+  height: 100%;
   text-align: center;
+}
+
+.header {
+  grid-area: header;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  border-bottom: 1px solid #ddd;
+  background-color: #fff;
+  font-size: 1rem;
+  line-height: 2rem;
+}
+
+.main {
+  grid-area: main;
+  position: relative;
+  box-sizing: border-box;
+  background-color: #f7f7f7;
+}
+
+.title {
+  font-family: 'Fredericka the Great', cursive;
+}
+
+.menu {
+
+}
+
+.menu-link {
+  color: #999;
+  text-decoration: none;
 }

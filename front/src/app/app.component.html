@@ -1,10 +1,16 @@
-<div class="container">
-  <a routerLink="/canvas">canvas</a> &nbsp;
-  <a routerLink="/canvas-mirror">canvas-mirror</a> &nbsp;
-  <a routerLink="/whiteboard">whiteboard</a> &nbsp;
-  <a routerLink="/whiteboard2">whiteboard2</a>
+<div class="layout">
+  <div class="header">
+    <div class="title">Collaborative Whiteboard</div>
 
-  <br><br>
+    <div class="menu">
+      <a class="menu-link" routerLink="/canvas">canvas</a> &nbsp;
+      <a class="menu-link" routerLink="/canvas-mirror">canvas-mirror</a> &nbsp;
+      <a class="menu-link" routerLink="/whiteboard">whiteboard</a> &nbsp;
+      <a class="menu-link" routerLink="/whiteboard2">whiteboard2</a>
+    </div>
+  </div>
 
-  <router-outlet></router-outlet>
+  <div class="main">
+    <router-outlet></router-outlet>
+  </div>
 </div>
