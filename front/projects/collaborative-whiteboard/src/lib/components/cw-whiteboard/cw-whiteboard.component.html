@@ -1,66 +1,57 @@
-<div class="layout">
-  <div class="main">
+<div class="canvas-container">
+  <cw-canvas
+    [drawOptions]="drawOptions"
+    class="canvas-draw"
+    [showGuides]="!hideGuides && !showCutTool"
+    [broadcast]="service.broadcast$ | async"
+    (draw)="service.emit($event)">
+  </cw-canvas>
 
-    <div class="canvas-container">
-      <cw-canvas
-        [drawOptions]="drawOptions"
-        class="canvas-draw"
-        [showGuides]="!hideGuides && !showCutTool"
-        [broadcast]="service.broadcast$ | async"
-        (draw)="service.emit($event)">
-      </cw-canvas>
-
-      <cw-canvas
-        *ngIf="showCutTool"
-        class="canvas-cut"
-        [showGuides]="!hideGuides"
-        [drawDisabled]="true"
-        [broadcast]="service.broadcastHistoryCut$ | async">
-      </cw-canvas>
-    </div>
-
-  </div>
-  <div class="sidebar">
-
-    <cw-tool-group [layoutVertical]="true">
-      <cw-tool [content]="drawLineTool" title="Draw line" [(active)]="showDrawLineTool">
-        <cw-icon icon="drawLine"></cw-icon>
-      </cw-tool>
-
-      <cw-tool title="Undo" (activeChange)="service.undo()">
-        <cw-icon icon="undo"></cw-icon>
-      </cw-tool>
-
-      <cw-tool title="Redo" (activeChange)="service.redo()">
-        <cw-icon icon="redo"></cw-icon>
-      </cw-tool>
-
-      <cw-tool [content]="cutTool" title="Cut" [(active)]="showCutTool">
-        <cw-icon icon="cut"></cw-icon>
-      </cw-tool>
-
-      <cw-tool title="Undo all" (activeChange)="service.undoAll()">
-        <cw-icon icon="undoAll"></cw-icon>
-      </cw-tool>
-
-      <cw-tool title="Redraw" (activeChange)="service.redraw()">
-        <cw-icon icon="redraw"></cw-icon>
-      </cw-tool>
-
-      <cw-tool title="Hide guides" [noContentSwitchMode]="true" [(active)]="hideGuides">
-        <cw-icon icon="noGuides"></cw-icon>
-      </cw-tool>
-    </cw-tool-group>
-
-    <ng-template #drawLineTool>
-      <cw-draw-line
-        [(drawOptions)]="drawOptions">
-      </cw-draw-line>
-    </ng-template>
-
-    <ng-template #cutTool>
-      <cw-cut></cw-cut>
-    </ng-template>
-
-  </div>
+  <cw-canvas
+    *ngIf="showCutTool"
+    class="canvas-cut"
+    [showGuides]="!hideGuides"
+    [drawDisabled]="true"
+    [broadcast]="service.broadcastHistoryCut$ | async">
+  </cw-canvas>
 </div>
+
+<cw-tool-group [layoutVertical]="true" class="tools">
+  <cw-tool [content]="drawLineTool" title="Draw line" [(active)]="showDrawLineTool">
+    <cw-icon icon="drawLine"></cw-icon>
+  </cw-tool>
+
+  <cw-tool title="Undo" (activeChange)="service.undo()">
+    <cw-icon icon="undo"></cw-icon>
+  </cw-tool>
+
+  <cw-tool title="Redo" (activeChange)="service.redo()">
+    <cw-icon icon="redo"></cw-icon>
+  </cw-tool>
+
+  <cw-tool [content]="cutTool" title="Cut" [(active)]="showCutTool">
+    <cw-icon icon="cut"></cw-icon>
+  </cw-tool>
+
+  <cw-tool title="Undo all" (activeChange)="service.undoAll()">
+    <cw-icon icon="undoAll"></cw-icon>
+  </cw-tool>
+
+  <cw-tool title="Redraw" (activeChange)="service.redraw()">
+    <cw-icon icon="redraw"></cw-icon>
+  </cw-tool>
+
+  <cw-tool title="Hide guides" [noContentSwitchMode]="true" [(active)]="hideGuides">
+    <cw-icon icon="noGuides"></cw-icon>
+  </cw-tool>
+</cw-tool-group>
+
+<ng-template #drawLineTool>
+  <cw-draw-line
+    [(drawOptions)]="drawOptions">
+  </cw-draw-line>
+</ng-template>
+
+<ng-template #cutTool>
+  <cw-cut></cw-cut>
+</ng-template>

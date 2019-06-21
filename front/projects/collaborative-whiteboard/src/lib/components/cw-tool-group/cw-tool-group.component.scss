@@ -11,6 +11,18 @@
   flex-direction: column;
 }
 
+.btn {
+  cursor: pointer;
+  user-select: none;
+  padding: 0.5em;
+  opacity: 0.2;
+  transition: opacity 200ms ease;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
 .action {
   cursor: pointer;
   user-select: none;

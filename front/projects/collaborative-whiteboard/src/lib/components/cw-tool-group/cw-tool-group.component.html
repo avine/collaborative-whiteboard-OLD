@@ -1,4 +1,13 @@
-<div class="nav" [class.nav--vertical]="layoutVertical">
+<div cdkDrag
+  class="nav"
+  [class.nav--vertical]="layoutVertical">
+  <a class="btn">
+    <cw-icon
+      icon="drag"
+      cdkDragHandle>
+    </cw-icon>
+  </a>
+
   <a
     *ngFor="let tool of tools"
     [title]="tool.title"

@@ -38,6 +38,7 @@ export class CwToolGroupComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy() {
     this.unsubscribeFromActiveChange();
     this.unsubscribeFromToolsChange();
+    this.closeAllContent();
   }
 
   private subscribeToActiveChange() {
@@ -97,6 +98,13 @@ export class CwToolGroupComponent implements AfterViewInit, OnDestroy {
   private closeContent(tool: CwToolComponent) {
     this.activeTools.get(tool).dispose();
     this.activeTools.delete(tool);
+  }
+
+  private closeAllContent() {
+    const tools = this.tools.toArray();
+    for (const tool of this.activeTools.keys()) {
+      this.closeContent(tool);
+    }
   }
 
   toggleActive(tool: CwToolComponent) {

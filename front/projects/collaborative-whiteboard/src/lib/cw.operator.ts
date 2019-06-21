@@ -7,8 +7,8 @@ import {
 const md5 = md5_;
 
 export const getDefaultCanvasSize = (): CanvasSize => ({
-  width: 300,
-  height: 300
+  width: 600,
+  height: 600
 });
 
 export const getDefaultDrawOptions = (): DrawOptions => ({
