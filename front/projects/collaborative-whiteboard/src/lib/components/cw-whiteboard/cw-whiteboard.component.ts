@@ -2,9 +2,9 @@ import { Subscription } from 'rxjs';
 
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 
-import { DrawOptions, DrawTransport, Owner } from '../../cw.model';
+import { DrawTransport, Owner } from '../../cw.model';
+import { getDefaultDrawOptions } from '../../cw.operator';
 import { CwService } from '../../cw.service';
-import { defaultColor } from '../cw-color-picker/cw-color-picker.operator';
 
 @Component({
   selector: 'cw-whiteboard',
@@ -24,10 +24,7 @@ export class CwWhiteboardComponent implements OnInit, OnDestroy {
 
   @Output() emit = new EventEmitter<DrawTransport>();
 
-  drawOptions: DrawOptions = {
-    strokeStyle: defaultColor,
-    lineWidth: 6
-  };
+  drawOptions = getDefaultDrawOptions();
 
   showDrawLineTool = false;
 

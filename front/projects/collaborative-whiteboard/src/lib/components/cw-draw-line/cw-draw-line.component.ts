@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { DrawOptions } from '../../cw.model';
-import { defaultColor } from '../cw-color-picker/cw-color-picker.operator';
+import { getDefaultDrawOptions } from '../../cw.operator';
 
 @Component({
   selector: 'cw-draw-line',
@@ -13,10 +13,7 @@ export class CwDrawLineComponent {
 
   @Input() lineWidthMax = 30;
 
-  @Input() drawOptions: DrawOptions = {
-    strokeStyle: defaultColor,
-    lineWidth: 6
-  };
+  @Input() drawOptions = getDefaultDrawOptions();
 
   @Output() drawOptionsChange = new EventEmitter<DrawOptions>();
 

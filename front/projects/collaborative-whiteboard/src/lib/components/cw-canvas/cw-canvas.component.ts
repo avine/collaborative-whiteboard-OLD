@@ -31,7 +31,7 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
 
   @Input() broadcast: BroadcastDrawEvents;
 
-  @Input() drawOptions: DrawOptions = getDefaultDrawOptions();
+  @Input() drawOptions = getDefaultDrawOptions();
 
   @Input() drawDisabled = false;
 
