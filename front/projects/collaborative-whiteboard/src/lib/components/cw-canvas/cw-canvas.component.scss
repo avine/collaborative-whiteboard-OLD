@@ -1,4 +1,4 @@
-$color: rgba(0, 0, 0, 0.2);
+@import "../../cw.styles.scss";
 
 :host {
   display: inline-block;
@@ -9,9 +9,9 @@ $color: rgba(0, 0, 0, 0.2);
 }
 
 .canvas--guides {
-  background-size: 15px 15px;
+  background-size: $canvas-guides-distance $canvas-guides-distance;
   background-position: -1px 0px;
   background-image:
-    linear-gradient(0deg, $color 0, transparent 1px),
-    linear-gradient(90deg, $color 0, transparent 1px);
+    linear-gradient(0deg, $canvas-guides-color 0, transparent 1px),
+    linear-gradient(90deg, $canvas-guides-color 0, transparent 1px);
 }

@@ -1,16 +1,16 @@
 import {
-    ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
+    ChangeDetectionStrategy, Component, EventEmitter, Input, Output
 } from '@angular/core';
 
 import { defaultColors } from './cw-color-picker.operator';
 
 @Component({
-  selector: 'cw-cw-color-picker',
+  selector: 'cw-color-picker',
   templateUrl: './cw-color-picker.component.html',
   styleUrls: ['./cw-color-picker.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CwColorPickerComponent implements OnInit {
+export class CwColorPickerComponent {
 
   @Input() colors = defaultColors;
 
@@ -19,11 +19,6 @@ export class CwColorPickerComponent implements OnInit {
   @Output() colorChange = new EventEmitter<string>();
 
   breakIndex = Math.round(this.colors.length / 3);
-
-  constructor() { }
-
-  ngOnInit() {
-  }
 
   updateColor(color: string) {
     this.color = color;

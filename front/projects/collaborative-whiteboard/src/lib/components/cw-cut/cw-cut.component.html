@@ -1,25 +1,27 @@
-<input
-  class="field"
-  type="range"
-  min="0"
-  [max]="cutLastIndex"
-  [(ngModel)]="cutIndex"
-  (ngModelChange)="updateCutRange()">
+<div class="controller">
+  <input
+    class="field"
+    type="range"
+    min="0"
+    [max]="cutLastIndex"
+    [(ngModel)]="cutIndex"
+    (ngModelChange)="updateCutRange()">
 
-<span class="number">{{ cutIndex }}</span>
+  <span class="number">{{ cutIndex }}</span>
 
-<br>
+  <br>
 
-<input
-  class="field"
-  type="range"
-  min="1"
-  [max]="cutMaxSpread"
-  [(ngModel)]="cutSpread"
-  (ngModelChange)="updateCutRange()">
+  <input
+    class="field"
+    type="range"
+    min="1"
+    [max]="cutMaxSpread"
+    [(ngModel)]="cutSpread"
+    (ngModelChange)="updateCutRange()">
 
-<span class="number">{{ cutSpread }}</span>
+  <span class="number">{{ cutSpread }}</span>
+</div>
 
-<br><br>
-
-<button class="button" (click)="cut()">Cut</button>
+<div class="controller">
+  <button class="button" (click)="cut()">Cut</button>
+</div>

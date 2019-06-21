@@ -4,6 +4,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 
 import { DrawOptions, DrawTransport, Owner } from '../../cw.model';
 import { CwService } from '../../cw.service';
+import { defaultColor } from '../cw-color-picker/cw-color-picker.operator';
 
 @Component({
   selector: 'cw-whiteboard',
@@ -24,7 +25,7 @@ export class CwWhiteboardComponent implements OnInit, OnDestroy {
   @Output() emit = new EventEmitter<DrawTransport>();
 
   drawOptions: DrawOptions = {
-    strokeStyle: '#29B6F6',
+    strokeStyle: defaultColor,
     lineWidth: 6
   };
 

@@ -1,11 +1,24 @@
-<div class="container"
+<div
+  class="container"
   cdkDrag
   cdkDragRootElement=".cdk-overlay-pane">
-  <cw-icon icon="drag" class="btn btn--drag" cdkDragHandle></cw-icon>
+  <div class="header">
+    <cw-icon
+      icon="drag"
+      class="action"
+      cdkDragHandle>
+    </cw-icon>
 
-  <cw-icon icon="dispose" class="btn btn--dispose" (click)="dispose.emit()"></cw-icon>
+    <span class="title">{{ title }}</span>
 
-  <div class="title">{{ title }}</div>
+    <cw-icon
+      icon="dispose"
+      class="action"
+      (click)="dispose.emit()">
+    </cw-icon>
+  </div>
 
-  <ng-container [ngTemplateOutlet]="content"></ng-container>
+  <div class="content">
+    <ng-container [ngTemplateOutlet]="content"></ng-container>
+  </div>
 </div>

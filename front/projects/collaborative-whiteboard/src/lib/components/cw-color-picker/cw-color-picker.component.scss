@@ -1,19 +1,32 @@
+:host {
+  display: block;
+}
+
 .color {
+  position: relative;
   display: inline-block;
-  width: 1.5rem;
-  height: 1.5rem;
-  margin: 0 0.5rem 0.5rem 0;
+  overflow: hidden;
+  width: 1.5em;
+  height: 1.5em;
+  margin: 0.25em;
   border-radius: 50%;
-  border: 1px solid transparent;
-  box-sizing: border-box;
   cursor: pointer;
 }
 
-.color--selected {
-  background: radial-gradient(
-    white 0%,
-    white 60%,
-    transparent 61%,
-    transparent 100%
-  );
+.color--selected:after {
+  content: "";
+  position: absolute;
+  left: 13%;
+  top: 13%;
+  width: 74%;
+  height: 74%;
+  border-radius: 50%;
+  background-color: white;
+  transform-origin: center center;
+  animation: cwColorSelected 80ms linear;
+}
+
+@keyframes cwColorSelected {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
 }

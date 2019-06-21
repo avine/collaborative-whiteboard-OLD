@@ -1,16 +1,17 @@
-<input
-  class="field"
-  type="range"
-  min="1"
-  max="20"
-  [(ngModel)]="drawOptions.lineWidth"
-  (ngModelChange)="emit()">
+<div class="controller">
+  <input
+    class="field"
+    type="range"
+    min="1"
+    [max]="lineWidthMax"
+    [(ngModel)]="drawOptions.lineWidth"
+    (ngModelChange)="emit()">
 
-<span class="number">{{ drawOptions.lineWidth }}</span>
+  <span class="number">{{ drawOptions.lineWidth }}</span>
+</div>
 
-<br><br><br>
-
-<cw-cw-color-picker
+<cw-color-picker
+  class="controller"
   [(color)]="drawOptions.strokeStyle"
   (colorChange)="emit()">
-</cw-cw-color-picker>
+</cw-color-picker>

@@ -1,3 +1,9 @@
+@import "../../cw.styles.scss";
+
+.controller + .controller {
+  margin-top: 1.5rem;
+}
+
 .field {
   display: inline-block;
   vertical-align: middle;
@@ -11,11 +17,11 @@
 }
 
 .button {
-  border: none;
-  background-color: dodgerblue;
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 3px;
-  font: inherit;
   outline: none;
+  padding: 0.35rem 0.70rem;
+  border-radius: $border-radius;
+  border: none;
+  background-color: $link-color;
+  color: white;
+  font: inherit;
 }

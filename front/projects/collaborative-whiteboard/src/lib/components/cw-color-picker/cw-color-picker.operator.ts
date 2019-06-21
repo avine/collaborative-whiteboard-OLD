@@ -18,3 +18,5 @@ export const defaultColors = [
   '#8D6E63',
   '#BDBDBD',
 ];
+
+export const defaultColor = '#29B6F6';

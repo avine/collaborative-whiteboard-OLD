@@ -1,6 +1,8 @@
+@import "../../cw.styles.scss";
+
 .nav {
   display: inline-flex;
-  border-radius: 3px;
+  border-radius: $border-radius;
   border: 1px solid #eee;
   background-color: #fff;
 }
