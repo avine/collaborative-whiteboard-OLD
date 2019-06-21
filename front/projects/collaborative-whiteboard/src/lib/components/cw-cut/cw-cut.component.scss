@@ -11,8 +11,8 @@
 
 .number {
   display: inline-block;
-  min-width: 1.5em;
-  margin-left: 0.5em;
+  min-width: 1.5rem;
+  margin-left: 0.5rem;
   text-align: right;
 }
 
@@ -21,7 +21,7 @@
   padding: 0.35rem 0.70rem;
   border-radius: $border-radius;
   border: none;
-  background-color: $link-color;
+  background-color: $primary-color;
   color: white;
   font: inherit;
 }

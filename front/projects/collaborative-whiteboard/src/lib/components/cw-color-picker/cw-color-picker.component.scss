@@ -1,3 +1,7 @@
+@import "../../cw.styles.scss";
+
+$offset-active: ($color-picker-width - $color-picker-width-active) / 2;
+
 :host {
   display: block;
 }
@@ -6,24 +10,25 @@
   position: relative;
   display: inline-block;
   overflow: hidden;
-  width: 1.5em;
-  height: 1.5em;
-  margin: 0.25em;
+  width: $color-picker-width;
+  height: $color-picker-width;
+  margin: $color-picker-margin;
   border-radius: 50%;
+  line-height: 0;
   cursor: pointer;
 }
 
 .color--selected:after {
   content: "";
   position: absolute;
-  left: 13%;
-  top: 13%;
-  width: 74%;
-  height: 74%;
+  left: $offset-active;
+  top: $offset-active;
+  width: $color-picker-width-active;
+  height: $color-picker-width-active;
   border-radius: 50%;
-  background-color: white;
-  transform-origin: center center;
-  animation: cwColorSelected 80ms linear;
+  background-color: $bg-color;
+  transform-origin: center;
+  animation: cwColorSelected $color-picker-anim-duration linear;
 }
 
 @keyframes cwColorSelected {

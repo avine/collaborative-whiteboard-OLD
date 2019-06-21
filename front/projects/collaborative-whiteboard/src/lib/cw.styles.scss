@@ -1,8 +1,25 @@
+$primary-color: dodgerblue !default;
 
-$canvas-guides-color: rgba(0, 0, 0, 0.2) !default;
-
-$canvas-guides-distance: 20px !default;
-
-$link-color: dodgerblue !default;
+$box-shadow: 0 3px 6px -3px rgba(0, 0, 0, 0.3) !default;
 
 $border-radius: 3px !default;
+$border-color: #ddd !default;
+
+$bg-color: #f7f7f7 !default;
+
+$spacing-lg: 1.5rem !default;
+$spacing-md: 1rem !default;
+$spacing-sm: 0.5rem !default;
+
+$opacity-low: 0.2 !default;
+
+$anim-duration-slow: 250ms !default;
+$anim-duration-fast: 150ms !default;
+
+$canvas-guides-color: rgba(0, 0, 0, 0.2) !default;
+$canvas-guides-distance: 20px !default;
+
+$color-picker-margin: 0.25rem !default;
+$color-picker-width: 1.5rem !default;
+$color-picker-width-active: 1.125rem !default;
+$color-picker-anim-duration: 80ms !default;

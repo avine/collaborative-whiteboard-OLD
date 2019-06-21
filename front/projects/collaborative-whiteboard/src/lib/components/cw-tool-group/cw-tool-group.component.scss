@@ -1,35 +1,33 @@
 @import "../../cw.styles.scss";
 
-.nav {
+.group {
   display: inline-flex;
+  box-shadow: $box-shadow;
   border-radius: $border-radius;
-  border: 1px solid #eee;
-  background-color: #fff;
+  border: 1px solid $border-color;
+  background-color: $bg-color;
 }
 
-.nav--vertical {
+.group--vertical {
   flex-direction: column;
 }
 
-.btn {
+.drag {
   cursor: pointer;
   user-select: none;
-  padding: 0.5em;
-  opacity: 0.2;
-  transition: opacity 200ms ease;
-
-  &:hover {
-    opacity: 1;
-  }
+  padding: $spacing-sm;
+  transition: opacity $anim-duration-slow ease;
+  opacity: $opacity-low;
+  &:hover { opacity: 1; }
 }
 
 .action {
   cursor: pointer;
   user-select: none;
-  padding: 0.5em;
+  padding: $spacing-sm;
   transition:
-    background-color ease 150ms,
-    color ease 150ms;
+    background-color ease $anim-duration-fast,
+    color ease $anim-duration-fast;
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.025);
@@ -39,5 +37,5 @@
 .action:active,
 .action--active {
   background-color: transparent !important;
-  color: dodgerblue;
+  color: $primary-color;
 }

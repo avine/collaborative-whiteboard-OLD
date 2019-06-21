@@ -3,36 +3,33 @@
 .container {
   position: relative;
   border-radius: $border-radius;
-  box-shadow: 0 6px 6px -3px rgba(0, 0, 0, 0.1);
-  border: 1px solid #eee;
-  background-color:#fff;
-  padding: 1rem;
+  box-shadow: $box-shadow;
+  border: 1px solid $border-color;
+  background-color: $bg-color;
 }
 
 .header {
   display: flex;
   align-items: center;
-  margin-bottom: 1.5rem;
+  padding-top: $spacing-md;
   text-align: center;
-  font-size: 1.125em;
+  font-size: 1.125rem;
 }
 
 .title {
   flex-grow: 1;
-  padding: 0 0.5rem;
 }
 
-.btn {
+.action {
   cursor: pointer;
-  opacity: 0.2;
-  transition: opacity 200ms ease;
-  cursor: pointer;
-
-  &:hover {
-    opacity: 1;
-  }
+  padding: 0 $spacing-md;
+  transition: opacity $anim-duration-slow ease;
+  opacity: $opacity-low;
+  &:hover { opacity: 1; }
 }
 
 .content {
+  padding: $spacing-md;
+  padding-top: $spacing-lg;
   text-align: center;
 }
