@@ -30,8 +30,8 @@ export const getDefaultColors = () => ([
 export const defaultColor = '#29B6F6';
 
 export const getDefaultCanvasSize = (): CanvasSize => ({
-  width: 600,
-  height: 600
+  width: 300,
+  height: 300
 });
 
 export const getDefaultDrawOptions = (): DrawOptions => ({

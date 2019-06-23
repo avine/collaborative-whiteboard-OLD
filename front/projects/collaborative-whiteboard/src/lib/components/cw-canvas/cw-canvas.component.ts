@@ -11,10 +11,6 @@ import {
     getClearEvent, getDefaultCanvasSize, getDefaultDrawOptions, keepDrawEventsAfterClearEvent
 } from '../../cw.operator';
 
-type ComponentInputType =
-  | 'canvasSize'
-  | 'broadcast';
-
 @Component({
   selector: 'cw-canvas',
   templateUrl: './cw-canvas.component.html',
@@ -55,17 +51,13 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
     this.initContext();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (this.getCurrentValue(changes, 'canvasSize')) {
+  ngOnChanges({ canvasSize, broadcast }: SimpleChanges) {
+    if (canvasSize && canvasSize.currentValue && !canvasSize.firstChange) {
       this.applyCanvasSize();
     }
-    if (this.getCurrentValue(changes, 'broadcast')) {
+    if (broadcast && broadcast.currentValue) {
       this.broadcastHandler();
     }
-  }
-
-  private getCurrentValue(changes: SimpleChanges, input: ComponentInputType) {
-    return changes[input] && changes[input].currentValue;
   }
 
   private initMousemoveListener() {

@@ -1,11 +1,8 @@
 @import "../../cw.styles.scss";
 
-:host {
-  display: inline-block;
-}
-
 .canvas {
   display: block;
+  background: inherit;
 }
 
 .canvas--guides {

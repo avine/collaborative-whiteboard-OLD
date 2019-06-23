@@ -1,5 +1,6 @@
-<div class="canvas-container">
+<div class="canvas-container" #canvasContainer>
   <cw-canvas
+    [canvasSize]="canvasSize"
     [drawOptions]="drawOptions"
     class="canvas-draw"
     [showGuides]="!hideGuides && !showCutTool"
@@ -10,6 +11,7 @@
   <cw-canvas
     *ngIf="showCutTool"
     class="canvas-cut"
+    [canvasSize]="canvasSize"
     [showGuides]="!hideGuides"
     [drawDisabled]="true"
     [broadcast]="service.broadcastHistoryCut$ | async">
