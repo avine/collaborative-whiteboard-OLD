@@ -9,10 +9,12 @@
 
 .header {
   grid-area: header;
+  z-index: 2;
   display: flex;
   justify-content: space-between;
   position: relative;
   box-sizing: border-box;
+  box-shadow: 0 -5px 5px 5px rgba(0, 0, 0, 0.15);
   border-bottom: 1px solid #E0E0E0;
   background-color: #FFFFFF;
   line-height: 2.5rem;
@@ -20,6 +22,7 @@
 
 .main {
   grid-area: main;
+  z-index: 1;
   position: relative;
   box-sizing: border-box;
   background-color: #EEEEEE;

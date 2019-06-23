@@ -7,6 +7,12 @@
   margin: auto;
 }
 
+.icon {
+  width: 1.75em;
+  margin-bottom: 0.5em;
+  opacity: 0.2;
+}
+
 .title {
   line-height: 1em;
   font-size: 4rem;
@@ -14,4 +20,14 @@
 
 .highlight {
   color: #689F38;
+}
+
+.github {
+  display: block;
+  margin-top: 2.5rem;
+  color: inherit;
+  
+  svg {
+    width: 2rem;
+  }
 }
