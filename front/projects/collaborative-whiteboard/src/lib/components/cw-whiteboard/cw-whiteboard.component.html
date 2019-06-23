@@ -39,12 +39,12 @@
     <cw-icon icon="undoAll"></cw-icon>
   </cw-tool>
 
-  <cw-tool title="Redraw" (activeChange)="service.redraw()">
-    <cw-icon icon="redraw"></cw-icon>
-  </cw-tool>
-
   <cw-tool title="Hide guides" [noContentSwitchMode]="true" [(active)]="hideGuides">
     <cw-icon icon="noGuides"></cw-icon>
+  </cw-tool>
+
+  <cw-tool title="Redraw" (activeChange)="service.redraw()">
+    <cw-icon icon="redraw"></cw-icon>
   </cw-tool>
 </cw-tool-group>
 

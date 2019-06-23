@@ -12,10 +12,9 @@
   display: flex;
   justify-content: space-between;
   position: relative;
-  padding: 0 1rem;
   box-sizing: border-box;
-  border-bottom: 1px solid #ddd;
-  background-color: #fff;
+  border-bottom: 1px solid #E0E0E0;
+  background-color: #FFFFFF;
   line-height: 2.5rem;
 }
 
@@ -23,24 +22,35 @@
   grid-area: main;
   position: relative;
   box-sizing: border-box;
-  background-color: #f7f7f7;
+  background-color: #EEEEEE;
   overflow: auto;
 }
 
 .title {
-  //font-family: 'Fredericka the Great', cursive;
+  padding: 0 0.5rem;
   font-size: 1.5rem;
+  text-shadow: -1px -1px 0 #558B2F;
+  background-color: #689F38;
+  color: #C5E1A5;
+  cursor: pointer;
+  outline: none;
 }
 
 .menu {
-
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 0 0.25rem;
 }
 
 .menu-link {
-  color: #999;
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 0.5rem;
+  color: #9E9E9E;
   text-decoration: none;
 }
 
 .menu-link--active {
-  color: dodgerblue;
+  color: #689F38;
 }

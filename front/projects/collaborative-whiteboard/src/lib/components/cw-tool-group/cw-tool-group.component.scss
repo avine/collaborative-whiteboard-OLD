@@ -1,4 +1,4 @@
-@import "../../cw.styles.scss";
+@import "../../themes/cw.variables.scss";
 
 .group {
   display: inline-flex;
@@ -30,7 +30,7 @@
     color ease $anim-duration-fast;
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.025);
+    background-color: rgba(#689F38, 0.1);
   }
 }
 

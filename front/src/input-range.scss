@@ -1,5 +1,5 @@
-$track-color: #ddd;
-$thumb-color: dodgerblue;
+$track-color: #EEEEEE;
+$thumb-color: #689F38;
 
 $thumb-radius: 9px;
 $thumb-height: 18px;
@@ -8,7 +8,7 @@ $thumb-shadow-size: 2px;
 $thumb-shadow-blur: 2px;
 $thumb-shadow-color: rgba(0, 0, 0, 0.2);
 $thumb-border-width: 1px;
-$thumb-border-color: darken(dodgerblue, 3);
+$thumb-border-color: darken(#689F38, 3);
 
 $track-width: auto;
 $track-height: 6px;
@@ -16,7 +16,7 @@ $track-shadow-size: 1px;
 $track-shadow-blur: 1px;
 $track-shadow-color: transparent;
 $track-border-width: 1px;
-$track-border-color: darken(#ddd, 3);
+$track-border-color: darken(#EEEEEE, 3);
 
 $track-radius: 3px;
 $contrast: 0%;
