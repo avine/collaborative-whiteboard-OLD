@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { CanvasMirrorComponent } from './components/canvas-mirror/canvas-mirror.component';
 import { CanvasComponent } from './components/canvas/canvas.component';
+import { HomeComponent } from './components/home/home.component';
 import { TabsComponent } from './components/tabs/tabs.component';
 import { WhiteboardComponent } from './components/whiteboard/whiteboard.component';
 import { Whiteboard2Component } from './components/whiteboard2/whiteboard2.component';
@@ -10,8 +11,12 @@ import { Whiteboard2Component } from './components/whiteboard2/whiteboard2.compo
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/canvas',
+    redirectTo: '/home',
     pathMatch: 'full'
+  },
+  {
+    path: 'home',
+    component: HomeComponent
   },
   {
     path: 'canvas',

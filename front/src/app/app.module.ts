@@ -10,6 +10,7 @@ import { CanvasComponent } from './components/canvas/canvas.component';
 import { WhiteboardComponent } from './components/whiteboard/whiteboard.component';
 import { Whiteboard2Component } from './components/whiteboard2/whiteboard2.component';
 import { TabsComponent } from './components/tabs/tabs.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { TabsComponent } from './components/tabs/tabs.component';
     CanvasMirrorComponent,
     WhiteboardComponent,
     Whiteboard2Component,
-    TabsComponent
+    TabsComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

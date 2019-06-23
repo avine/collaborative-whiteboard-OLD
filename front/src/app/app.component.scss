@@ -28,7 +28,7 @@
 }
 
 .title {
-  font-family: 'Fredericka the Great', cursive;
+  //font-family: 'Fredericka the Great', cursive;
   font-size: 1.5rem;
 }
 
@@ -39,4 +39,8 @@
 .menu-link {
   color: #999;
   text-decoration: none;
+}
+
+.menu-link--active {
+  color: dodgerblue;
 }
