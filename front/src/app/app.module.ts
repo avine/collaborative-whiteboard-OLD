@@ -7,18 +7,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CanvasMirrorComponent } from './components/canvas-mirror/canvas-mirror.component';
 import { CanvasComponent } from './components/canvas/canvas.component';
-import { WhiteboardComponent } from './components/whiteboard/whiteboard.component';
-import { Whiteboard2Component } from './components/whiteboard2/whiteboard2.component';
-import { TabsComponent } from './components/tabs/tabs.component';
+import { DemoComponent } from './components/demo/demo.component';
 import { HomeComponent } from './components/home/home.component';
+import { TabsComponent } from './components/tabs/tabs.component';
+import { WhiteboardComponent } from './components/whiteboard/whiteboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CanvasComponent,
     CanvasMirrorComponent,
+    DemoComponent,
     WhiteboardComponent,
-    Whiteboard2Component,
     TabsComponent,
     HomeComponent
   ],
