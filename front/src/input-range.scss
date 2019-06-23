@@ -1,25 +1,24 @@
-
-$track-color: #ddd /*#eceff1*/ !default;
-$thumb-color: dodgerblue !default;
+$track-color: #ddd;
+$thumb-color: dodgerblue;
 
 $thumb-radius: 9px;
 $thumb-height: 18px;
 $thumb-width: 18px;
-$thumb-shadow-size: 3px;
-$thumb-shadow-blur: 3px;
-$thumb-shadow-color: rgba(0, 0, 0, .2) !default;
-$thumb-border-width: 0px;
-$thumb-border-color: #eceff1 !default;
+$thumb-shadow-size: 2px;
+$thumb-shadow-blur: 2px;
+$thumb-shadow-color: rgba(0, 0, 0, 0.2);
+$thumb-border-width: 1px;
+$thumb-border-color: darken(dodgerblue, 3);
 
 $track-width: auto;
-$track-height: 6px !default;
-$track-shadow-size: 1px !default;
-$track-shadow-blur: 1px !default;
-$track-shadow-color: rgba(0, 0, 0, .0);
-$track-border-width: 0px;
-$track-border-color: #cfd8dc !default;
+$track-height: 6px;
+$track-shadow-size: 1px;
+$track-shadow-blur: 1px;
+$track-shadow-color: transparent;
+$track-border-width: 1px;
+$track-border-color: darken(#ddd, 3);
 
-$track-radius: 5px !default;
+$track-radius: 3px;
 $contrast: 0%;
 
 @import "~input-range-scss/inputrange";
