@@ -1,7 +1,10 @@
 <div cdkDrag
   class="group"
   [class.group--vertical]="layoutVertical">
-  <a class="drag">
+  <a
+    class="drag"
+    title="Drag / Change direction"
+    (dblclick)="layoutVertical = !layoutVertical">
     <cw-icon icon="drag" cdkDragHandle></cw-icon>
   </a>
 

@@ -12,8 +12,10 @@ export class CwIconComponent {
     | 'redo'
     | 'cut'
     | 'undoAll'
-    | 'redraw'
     | 'noGuides'
+    | 'redraw'
+    | 'expand'
+    | 'collapse'
     | 'drag'
     | 'dispose'
   ;
