@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { CanvasBasicComponent } from './components/canvas-basic/canvas-basic.component';
 import { CanvasMirrorComponent } from './components/canvas-mirror/canvas-mirror.component';
-import { CanvasComponent } from './components/canvas/canvas.component';
 import { DemoComponent } from './components/demo/demo.component';
 import { HomeComponent } from './components/home/home.component';
 import { TabsComponent } from './components/tabs/tabs.component';
@@ -19,8 +19,8 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'canvas',
-    component: CanvasComponent
+    path: 'canvas-basic',
+    component: CanvasBasicComponent
   },
   {
     path: 'canvas-mirror',

@@ -6,21 +6,21 @@ import { CollaborativeWhiteboardModule } from '@collaborative-whiteboard';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CanvasMirrorComponent } from './components/canvas-mirror/canvas-mirror.component';
-import { CanvasComponent } from './components/canvas/canvas.component';
 import { DemoComponent } from './components/demo/demo.component';
 import { HomeComponent } from './components/home/home.component';
 import { TabsComponent } from './components/tabs/tabs.component';
 import { WhiteboardComponent } from './components/whiteboard/whiteboard.component';
+import { CanvasBasicComponent } from './components/canvas-basic/canvas-basic.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CanvasComponent,
     CanvasMirrorComponent,
     DemoComponent,
     WhiteboardComponent,
     TabsComponent,
-    HomeComponent
+    HomeComponent,
+    CanvasBasicComponent
   ],
   imports: [
     BrowserModule,
