@@ -13,8 +13,6 @@ import {
 
 type CanvasEvent = MouseEvent | TouchEvent;
 
-interface CanvasEventPositon { x: number; y: number; }
-
 @Component({
   selector: 'cw-canvas',
   templateUrl: './cw-canvas.component.html',
@@ -235,37 +233,34 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
     return isTouchEvent;
   }
 
-  private getCanvasEventPosition(e: CanvasEvent, isTouchEvent: boolean): CanvasEventPositon {
+  private getCanvasPoint(e: CanvasEvent, isTouchEvent: boolean): CanvasPoint {
     const { clientX: eventX, clientY: eventY } = isTouchEvent ?
       (e as TouchEvent).touches[0] :
       (e as MouseEvent);
     const { left: canvasX, top: canvasY } = this.canvasRef.nativeElement.getBoundingClientRect();
-    return { x: eventX - canvasX, y: eventY - canvasY };
+    return [eventX - canvasX, eventY - canvasY];
   }
 
   drawStart(e: CanvasEvent) {
-    const isTouchEvent = this.touchEventHandler(e);
-    const position = this.getCanvasEventPosition(e, isTouchEvent);
+    const isTouchEvent = this.touchEventHandler(e); // Do this on top (NOT in the "if" statement)
     if (!this.drawDisabled) {
-      this.lineSerieBuffer = [position.x, position.y];
+      this.lineSerieBuffer = this.getCanvasPoint(e, isTouchEvent);
     }
   }
 
   drawMove(e: CanvasEvent) {
-    const isTouchEvent = this.touchEventHandler(e);
-    const position = this.getCanvasEventPosition(e, isTouchEvent);
+    const isTouchEvent = this.touchEventHandler(e); // Do this on top (NOT in the "if" statement)
     if (this.lineSerieBuffer.length) {
       const fromX = this.lineSerieBuffer[this.lineSerieBuffer.length - 2];
       const fromY = this.lineSerieBuffer[this.lineSerieBuffer.length - 1];
-      const toX = position.x;
-      const toY = position.y;
+      const [toX, toY] = this.getCanvasPoint(e, isTouchEvent);
       this.drawLine([fromX, fromY, toX, toY]);
       this.lineSerieBuffer.push(toX, toY);
     }
   }
 
   drawEnd(e: CanvasEvent) {
-    this.touchEventHandler(e);
+    this.touchEventHandler(e); // Do this on top (NOT in the "if" statement)
     if (this.lineSerieBuffer.length === 2) {
       const data = this.lineSerieBuffer as CanvasPoint;
       this.drawPoint(data);
