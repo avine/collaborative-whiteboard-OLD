@@ -11,6 +11,10 @@ import {
     getClearEvent, getDefaultCanvasSize, getDefaultDrawOptions, keepDrawEventsAfterClearEvent
 } from '../../cw.operator';
 
+type CanvasEvent = MouseEvent | TouchEvent;
+
+interface CanvasEventPositon { x: number; y: number; }
+
 @Component({
   selector: 'cw-canvas',
   templateUrl: './cw-canvas.component.html',
@@ -222,7 +226,7 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
     this.draw.emit(event);
   }
 
-  private touchEventHandler(e: MouseEvent | TouchEvent): boolean {
+  private touchEventHandler(e: CanvasEvent): boolean {
     const isTouchEvent = e.type === 'touchstart' || e.type === 'touchmove' || e.type === 'touchend';
     if (isTouchEvent) {
       // Cancel "mouse" event when "touch" event is detected
@@ -231,7 +235,7 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
     return isTouchEvent;
   }
 
-  private getCoords(e: MouseEvent | TouchEvent, isTouchEvent: boolean) {
+  private getCanvasEventPosition(e: CanvasEvent, isTouchEvent: boolean): CanvasEventPositon {
     const { clientX: eventX, clientY: eventY } = isTouchEvent ?
       (e as TouchEvent).touches[0] :
       (e as MouseEvent);
@@ -239,34 +243,34 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
     return { x: eventX - canvasX, y: eventY - canvasY };
   }
 
-  drawStart(e: MouseEvent | TouchEvent) {
+  drawStart(e: CanvasEvent) {
     const isTouchEvent = this.touchEventHandler(e);
-    const coords = this.getCoords(e, isTouchEvent);
+    const position = this.getCanvasEventPosition(e, isTouchEvent);
     if (!this.drawDisabled) {
-      this.lineSerieBuffer = [coords.x, coords.y];
+      this.lineSerieBuffer = [position.x, position.y];
     }
   }
 
-  drawMove(e: MouseEvent | TouchEvent) {
+  drawMove(e: CanvasEvent) {
     const isTouchEvent = this.touchEventHandler(e);
-    const coords = this.getCoords(e, isTouchEvent);
+    const position = this.getCanvasEventPosition(e, isTouchEvent);
     if (this.lineSerieBuffer.length) {
       const fromX = this.lineSerieBuffer[this.lineSerieBuffer.length - 2];
       const fromY = this.lineSerieBuffer[this.lineSerieBuffer.length - 1];
-      const toX = coords.x;
-      const toY = coords.y;
+      const toX = position.x;
+      const toY = position.y;
       this.drawLine([fromX, fromY, toX, toY]);
       this.lineSerieBuffer.push(toX, toY);
     }
   }
 
-  drawEnd(e: MouseEvent | TouchEvent) {
+  drawEnd(e: CanvasEvent) {
     this.touchEventHandler(e);
     if (this.lineSerieBuffer.length === 2) {
       const data = this.lineSerieBuffer as CanvasPoint;
       this.drawPoint(data);
       this.emit({ owner: null, type: 'point', options: this.drawOptions, data });
-    } else {
+    } else if (this.lineSerieBuffer.length > 2) {
       const data = this.lineSerieBuffer as CanvasLineSerie;
       this.emit({ owner: null, type: 'lineSerie', options: this.drawOptions, data });
     }
