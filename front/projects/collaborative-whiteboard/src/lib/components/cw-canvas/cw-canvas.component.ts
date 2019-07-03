@@ -63,8 +63,8 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
   private initMousemoveListener() {
     // Prevent unnecessary changes detection
     this.ngZone.runOutsideAngular(() => {
-      this.canvasRef.nativeElement.addEventListener('touchmove', e => this.mousemove(e, true));
-      this.canvasRef.nativeElement.addEventListener('mousemove', e => this.mousemove(e));
+      this.canvasRef.nativeElement.addEventListener('touchmove', this.drawMove.bind(this));
+      this.canvasRef.nativeElement.addEventListener('mousemove', this.drawMove.bind(this));
     });
   }
 
@@ -222,30 +222,34 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
     this.draw.emit(event);
   }
 
-  private getCoords(e: MouseEvent | TouchEvent, isTouch = false) {
-    if (isTouch) {
-      e.preventDefault(); // TODO: single responsability principle is violated here...
-      return {
-        x: (e as TouchEvent).touches[0].clientX,
-        y: (e as TouchEvent).touches[0].clientY
-      };
-    } else {
-      return {
-        x: (e as MouseEvent).offsetX,
-        y: (e as MouseEvent).offsetY
-      };
+  private touchEventHandler(e: MouseEvent | TouchEvent): boolean {
+    const isTouchEvent = e.type === 'touchstart' || e.type === 'touchmove' || e.type === 'touchend';
+    if (isTouchEvent) {
+      // Cancel "mouse" event when "touch" event is detected
+      e.preventDefault();
     }
+    return isTouchEvent;
   }
 
-  mousedown(e: MouseEvent | TouchEvent, isTouch = false) {
-    const coords = this.getCoords(e, isTouch);
+  private getCoords(e: MouseEvent | TouchEvent, isTouchEvent: boolean) {
+    const { clientX: eventX, clientY: eventY } = isTouchEvent ?
+      (e as TouchEvent).touches[0] :
+      (e as MouseEvent);
+    const { left: canvasX, top: canvasY } = this.canvasRef.nativeElement.getBoundingClientRect();
+    return { x: eventX - canvasX, y: eventY - canvasY };
+  }
+
+  drawStart(e: MouseEvent | TouchEvent) {
+    const isTouchEvent = this.touchEventHandler(e);
+    const coords = this.getCoords(e, isTouchEvent);
     if (!this.drawDisabled) {
       this.lineSerieBuffer = [coords.x, coords.y];
     }
   }
 
-  mousemove(e: MouseEvent | TouchEvent, isTouch = false) {
-    const coords = this.getCoords(e, isTouch);
+  drawMove(e: MouseEvent | TouchEvent) {
+    const isTouchEvent = this.touchEventHandler(e);
+    const coords = this.getCoords(e, isTouchEvent);
     if (this.lineSerieBuffer.length) {
       const fromX = this.lineSerieBuffer[this.lineSerieBuffer.length - 2];
       const fromY = this.lineSerieBuffer[this.lineSerieBuffer.length - 1];
@@ -256,10 +260,8 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  mouseup(e: MouseEvent | TouchEvent, isTouch = false) {
-    if (isTouch) {
-      e.preventDefault();
-    }
+  drawEnd(e: MouseEvent | TouchEvent) {
+    this.touchEventHandler(e);
     if (this.lineSerieBuffer.length === 2) {
       const data = this.lineSerieBuffer as CanvasPoint;
       this.drawPoint(data);
