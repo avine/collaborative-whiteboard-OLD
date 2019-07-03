@@ -63,7 +63,8 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
   private initMousemoveListener() {
     // Prevent unnecessary changes detection
     this.ngZone.runOutsideAngular(() => {
-      this.canvasRef.nativeElement.addEventListener('mousemove', this.mousemove.bind(this));
+      this.canvasRef.nativeElement.addEventListener('touchmove', e => this.mousemove(e, true));
+      this.canvasRef.nativeElement.addEventListener('mousemove', e => this.mousemove(e));
     });
   }
 
@@ -221,24 +222,44 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
     this.draw.emit(event);
   }
 
-  mousedown(e: MouseEvent) {
-    if (!this.drawDisabled) {
-      this.lineSerieBuffer = [e.offsetX, e.offsetY];
+  private getCoords(e: MouseEvent | TouchEvent, isTouch = false) {
+    if (isTouch) {
+      e.preventDefault(); // TODO: single responsability principle is violated here...
+      return {
+        x: (e as TouchEvent).touches[0].clientX,
+        y: (e as TouchEvent).touches[0].clientY
+      };
+    } else {
+      return {
+        x: (e as MouseEvent).offsetX,
+        y: (e as MouseEvent).offsetY
+      };
     }
   }
 
-  mousemove(e: MouseEvent) {
+  mousedown(e: MouseEvent | TouchEvent, isTouch = false) {
+    const coords = this.getCoords(e, isTouch);
+    if (!this.drawDisabled) {
+      this.lineSerieBuffer = [coords.x, coords.y];
+    }
+  }
+
+  mousemove(e: MouseEvent | TouchEvent, isTouch = false) {
+    const coords = this.getCoords(e, isTouch);
     if (this.lineSerieBuffer.length) {
       const fromX = this.lineSerieBuffer[this.lineSerieBuffer.length - 2];
       const fromY = this.lineSerieBuffer[this.lineSerieBuffer.length - 1];
-      const toX = e.offsetX;
-      const toY = e.offsetY;
+      const toX = coords.x;
+      const toY = coords.y;
       this.drawLine([fromX, fromY, toX, toY]);
       this.lineSerieBuffer.push(toX, toY);
     }
   }
 
-  mouseup() {
+  mouseup(e: MouseEvent | TouchEvent, isTouch = false) {
+    if (isTouch) {
+      e.preventDefault();
+    }
     if (this.lineSerieBuffer.length === 2) {
       const data = this.lineSerieBuffer as CanvasPoint;
       this.drawPoint(data);

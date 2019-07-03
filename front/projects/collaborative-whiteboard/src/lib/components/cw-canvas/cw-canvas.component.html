@@ -1,6 +1,8 @@
 <canvas #canvas
   class="canvas"
   [class.canvas--guides]="showGuides"
+  (touchstart)="mousedown($event, true)"
+  (touchend)="mouseup($event, true)"
   (mousedown)="mousedown($event)"
-  (mouseup)="mouseup()">
+  (mouseup)="mouseup($event)">
 </canvas>
