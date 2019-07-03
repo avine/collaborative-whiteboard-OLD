@@ -18,7 +18,10 @@
   </cw-canvas>
 </div>
 
-<cw-tool-group [layoutVertical]="true" class="tools">
+<cw-tool-group
+  [layoutVertical]="true"
+  [dragBoundarySelector]="dragBoundarySelector"
+  class="tools">
   <cw-tool *ngIf="!collapseTools" [content]="drawLineTool" title="Draw line" [(active)]="showDrawLineTool">
     <cw-icon icon="drawLine"></cw-icon>
   </cw-tool>

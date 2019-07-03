@@ -19,6 +19,8 @@ import { CwToolComponent } from '../cw-tool/cw-tool.component';
 export class CwToolGroupComponent implements AfterViewInit, OnDestroy {
   @Input() layoutVertical = false;
 
+  @Input() dragBoundarySelector: string;
+
   @ContentChildren(CwToolComponent) tools: QueryList<CwToolComponent>;
 
   @ViewChild('portal', { static: false, read: ViewContainerRef }) portal: ViewContainerRef;

@@ -18,6 +18,8 @@ export class CwWhiteboardComponent implements OnInit, OnDestroy {
 
   @Input() fitParentElement = true;
 
+  @Input() dragBoundarySelector: string;
+
   @Input() set onwer(owner: Owner) {
     this.service.owner = owner;
   }
