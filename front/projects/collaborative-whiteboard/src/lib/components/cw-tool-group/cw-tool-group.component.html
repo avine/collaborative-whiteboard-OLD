@@ -11,13 +11,23 @@
     <cw-icon icon="drag" cdkDragHandle></cw-icon>
   </a>
 
+  <ng-container *ngIf="!collapse">
+    <a
+      *ngFor="let tool of tools"
+      class="action"
+      [class.action--active]="tool.active"
+      [title]="tool.title"
+      (click)="toggleActive(tool)">
+      <ng-container *ngTemplateOutlet="tool.label"></ng-container>
+    </a>
+  </ng-container>
+
   <a
-    *ngFor="let tool of tools"
-    [title]="tool.title"
     class="action"
-    [class.action--active]="tool.active"
-    (click)="toggleActive(tool)">
-    <ng-container *ngTemplateOutlet="tool.label"></ng-container>
+    [class.action--active]="collapse"
+    [title]="collapse ? 'Expand' : 'Collapse'"
+    (click)="collapse = !collapse">
+    <cw-icon [icon]="collapse ? 'expand' : 'collapse'"></cw-icon>
   </a>
 </div>
 

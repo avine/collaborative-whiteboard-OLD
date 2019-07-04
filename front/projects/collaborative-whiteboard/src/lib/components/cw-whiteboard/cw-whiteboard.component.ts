@@ -36,8 +36,6 @@ export class CwWhiteboardComponent implements OnInit, OnDestroy {
 
   drawOptions = getDefaultDrawOptions();
 
-  collapseTools = false;
-
   showDrawLineTool = false;
 
   showCutTool = false;

@@ -31,6 +31,8 @@ export class CwToolGroupComponent implements AfterViewInit, OnDestroy {
   private activeChangeSubscriptions: Subscription[] = [];
   private toolsChangeSubscription: Subscription;
 
+  collapse = false;
+
   constructor(private overlay: Overlay) {}
 
   ngAfterViewInit() {

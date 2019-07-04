@@ -22,39 +22,32 @@
   [layoutVertical]="true"
   [dragBoundarySelector]="dragBoundarySelector"
   class="tools">
-  <cw-tool *ngIf="!collapseTools" [content]="drawLineTool" title="Draw line" [(active)]="showDrawLineTool">
+  <cw-tool [content]="drawLineTool" title="Draw line" [(active)]="showDrawLineTool">
     <cw-icon icon="drawLine"></cw-icon>
   </cw-tool>
 
-  <cw-tool *ngIf="!collapseTools" title="Undo" (activeChange)="service.undo()">
+  <cw-tool title="Undo" (activeChange)="service.undo()">
     <cw-icon icon="undo"></cw-icon>
   </cw-tool>
 
-  <cw-tool *ngIf="!collapseTools" title="Redo" (activeChange)="service.redo()">
+  <cw-tool title="Redo" (activeChange)="service.redo()">
     <cw-icon icon="redo"></cw-icon>
   </cw-tool>
 
-  <cw-tool *ngIf="!collapseTools" [content]="cutTool" title="Cut" [(active)]="showCutTool">
+  <cw-tool [content]="cutTool" title="Cut" [(active)]="showCutTool">
     <cw-icon icon="cut"></cw-icon>
   </cw-tool>
 
-  <cw-tool *ngIf="!collapseTools" title="Undo all" (activeChange)="service.undoAll()">
+  <cw-tool title="Undo all" (activeChange)="service.undoAll()">
     <cw-icon icon="undoAll"></cw-icon>
   </cw-tool>
 
-  <cw-tool *ngIf="!collapseTools" title="Hide guides" [noContentSwitchMode]="true" [(active)]="hideGuides">
+  <cw-tool title="Hide guides" [noContentSwitchMode]="true" [(active)]="hideGuides">
     <cw-icon icon="noGuides"></cw-icon>
   </cw-tool>
 
-  <cw-tool *ngIf="!collapseTools" title="Redraw" (activeChange)="service.redraw()">
+  <cw-tool title="Redraw" (activeChange)="service.redraw()">
     <cw-icon icon="redraw"></cw-icon>
-  </cw-tool>
-
-  <cw-tool [noContentSwitchMode]="true" [(active)]="collapseTools">
-    <cw-icon
-      [icon]="collapseTools ? 'expand' : 'collapse'"
-      [title]="collapseTools ? 'Expand' : 'Collapse'">
-    </cw-icon>
   </cw-tool>
 </cw-tool-group>
 
