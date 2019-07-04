@@ -221,7 +221,7 @@ export class CwService {
   }
 
   undoAll() {
-    const events = this.getOwnerDrawEvents(this.history).reverse();
+    const events = this.getOwnerDrawEvents(this.history);
     this.cut(events);
   }
 
