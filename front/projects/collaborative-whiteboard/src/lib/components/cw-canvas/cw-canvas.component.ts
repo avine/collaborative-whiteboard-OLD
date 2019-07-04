@@ -224,36 +224,50 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
     this.draw.emit(event);
   }
 
-  private touchEventHandler(e: CanvasEvent): boolean {
+  /**
+   * @returns The number of touches for touch event or 0 for mouse event
+   */
+  private touchEventHandler(e: CanvasEvent): number {
     const isTouchEvent = e.type === 'touchstart' || e.type === 'touchmove' || e.type === 'touchend';
     if (isTouchEvent) {
-      // Cancel "mouse" event when "touch" event is detected
-      e.preventDefault();
+      const touchesLength = (e as TouchEvent).touches.length;
+      if (touchesLength === 1) {
+        // Prevent "mouse" event from being fired when "touch" event is detected.
+        // Notice that only "single-touch" event is considered as draw event.
+        e.preventDefault();
+      }
+      return touchesLength;
     }
-    return isTouchEvent;
+    return 0;
   }
 
-  private getCanvasPoint(e: CanvasEvent, isTouchEvent: boolean): CanvasPoint {
-    const { clientX: eventX, clientY: eventY } = isTouchEvent ?
+  private getCanvasPoint(e: CanvasEvent, touchesLength: number): CanvasPoint {
+    const { clientX: eventX, clientY: eventY } = touchesLength === 1 ?
       (e as TouchEvent).touches[0] :
       (e as MouseEvent);
     const { left: canvasX, top: canvasY } = this.canvasRef.nativeElement.getBoundingClientRect();
-    return [eventX - canvasX, eventY - canvasY];
+    return [
+      eventX - canvasX,
+      eventY - canvasY
+    ];
   }
 
   drawStart(e: CanvasEvent) {
-    const isTouchEvent = this.touchEventHandler(e); // Do this on top (NOT in the "if" statement)
+    const touchesLength = this.touchEventHandler(e); // Do this on top (NOT in the "if" statement)
+    if (touchesLength > 1) {
+      return; // Remember that only "single-touch" event is considered as draw event.
+    }
     if (!this.drawDisabled) {
-      this.lineSerieBuffer = this.getCanvasPoint(e, isTouchEvent);
+      this.lineSerieBuffer = this.getCanvasPoint(e, touchesLength);
     }
   }
 
   drawMove(e: CanvasEvent) {
-    const isTouchEvent = this.touchEventHandler(e); // Do this on top (NOT in the "if" statement)
+    const touchesLength = this.touchEventHandler(e); // Do this on top (NOT in the "if" statement)
     if (this.lineSerieBuffer.length) {
       const fromX = this.lineSerieBuffer[this.lineSerieBuffer.length - 2];
       const fromY = this.lineSerieBuffer[this.lineSerieBuffer.length - 1];
-      const [toX, toY] = this.getCanvasPoint(e, isTouchEvent);
+      const [toX, toY] = this.getCanvasPoint(e, touchesLength);
       this.drawLine([fromX, fromY, toX, toY]);
       this.lineSerieBuffer.push(toX, toY);
     }
