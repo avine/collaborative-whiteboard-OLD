@@ -2,7 +2,8 @@
   cdkDrag
   [cdkDragBoundary]="dragBoundarySelector"
   class="group"
-  [class.group--vertical]="layoutVertical">
+  [class.group--vertical]="layoutVertical"
+  (cdkDragEnded)="cleanCachedDimensions($event)">
   <a
     class="drag"
     title="Drag / Change direction"

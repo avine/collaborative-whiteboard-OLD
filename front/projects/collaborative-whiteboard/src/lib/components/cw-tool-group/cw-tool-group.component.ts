@@ -1,6 +1,7 @@
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 
+import { CdkDrag } from '@angular/cdk/drag-drop';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import {
@@ -116,5 +117,13 @@ export class CwToolGroupComponent implements AfterViewInit, OnDestroy {
     } else {
       tool.activeChange.emit(true);
     }
+  }
+
+  /**
+   * Because the tool group is resizable, we need to clean the cached dimensions of the preview element.
+   */
+  cleanCachedDimensions({ source }: { source: CdkDrag }) {
+    // HACK: https://stackoverflow.com/questions/55098093/angular-cdk-drag-and-drop-boundary
+    source['_dragRef']['_previewRect'] = null; // tslint:disable-line: no-string-literal
   }
 }
