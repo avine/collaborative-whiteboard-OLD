@@ -63,6 +63,9 @@ MIT
 @angular/router
 MIT
 
+@angular/service-worker
+MIT
+
 after
 MIT
 Copyright (c) 2011 Raynos.
