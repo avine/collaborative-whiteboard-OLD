@@ -2,8 +2,8 @@
   <br *ngIf="i && i % breakIndex === 0">
   <span
     [style.backgroundColor]="clr"
-    class="color"
-    [class.color--selected]="clr === color"
+    class="cw-color-picker"
+    [class.cw-color-picker--selected]="clr === color"
     (click)="updateColor(clr)">
   </span>
 </ng-container>

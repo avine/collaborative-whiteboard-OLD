@@ -1,8 +1,8 @@
-<div class="canvas-container" #canvasContainer>
+<div class="cw-whiteboard__canvas" #canvasContainer>
   <cw-canvas
     [canvasSize]="canvasSize"
     [drawOptions]="drawOptions"
-    class="canvas-draw"
+    class="cw-whiteboard__canvas-draw"
     [showGuides]="!hideGuides && !showCutTool"
     [broadcast]="service.broadcast$ | async"
     (draw)="service.emit($event)">
@@ -10,7 +10,7 @@
 
   <cw-canvas
     *ngIf="showCutTool"
-    class="canvas-cut"
+    class="cw-whiteboard__canvas-cut"
     [canvasSize]="canvasSize"
     [showGuides]="!hideGuides"
     [drawDisabled]="true"
@@ -21,7 +21,7 @@
 <cw-tool-group
   [layoutVertical]="true"
   [dragBoundarySelector]="dragBoundarySelector"
-  class="tools">
+  class="cw-whiteboard__tools">
   <cw-tool [content]="drawLineTool" title="Draw line" [(active)]="showDrawLineTool">
     <cw-icon icon="drawLine"></cw-icon>
   </cw-tool>

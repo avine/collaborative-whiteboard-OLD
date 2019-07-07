@@ -1,0 +1,192 @@
+.cw-canvas {
+  display: block;
+  background: inherit;
+}
+
+.cw-canvas--guides {
+  background-size: $cw-canvas-guides-distance $cw-canvas-guides-distance;
+  background-position: -1px 0px;
+  background-image:
+    linear-gradient(0deg, $cw-canvas-guides-color 0, transparent 1px),
+    linear-gradient(90deg, $cw-canvas-guides-color 0, transparent 1px);
+}
+
+cw-color-picker {
+  display: block;
+}
+
+.cw-color-picker {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  width: $cw-color-picker-width;
+  height: $cw-color-picker-width;
+  margin: $cw-color-picker-margin;
+  border-radius: 50%;
+  line-height: 0;
+  cursor: pointer;
+}
+
+.cw-color-picker--selected:after {
+  content: "";
+  position: absolute;
+  left: ($cw-color-picker-width - $cw-color-picker-width-active) / 2;
+  top: ($cw-color-picker-width - $cw-color-picker-width-active) / 2;
+  width: $cw-color-picker-width-active;
+  height: $cw-color-picker-width-active;
+  border-radius: 50%;
+  background-color: $cw-bg-color;
+  transform-origin: center;
+  animation: cwColorPickerSelected $cw-color-picker-anim-duration linear;
+}
+
+@keyframes cwColorPickerSelected {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+
+.cw-cut__controller + .cw-cut__controller {
+  margin-top: 1.5rem;
+}
+
+.cw-cut__field {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.cw-cut__number {
+  display: inline-block;
+  min-width: 1.5rem;
+  margin-left: 0.5rem;
+  text-align: right;
+}
+
+.cw-cut__button {
+  outline: none;
+  padding: 0.35rem 0.70rem;
+  border-radius: $cw-border-radius;
+  border: none;
+  background-color: $cw-primary-color;
+  color: white;
+  font: inherit;
+}
+
+.cw-draw-line__controller + .cw-draw-line__controller {
+  margin-top: 1.5rem;
+}
+
+.cw-draw-line__field {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.cw-draw-line__number {
+  display: inline-block;
+  min-width: 1.5rem;
+  margin-left: 0.5rem;
+  text-align: right;
+}
+
+.cw-tool-content {
+  position: relative;
+  border-radius: $cw-border-radius;
+  box-shadow: $cw-box-shadow;
+  border: 1px solid $cw-border-color;
+  background-color: $cw-bg-color;
+}
+
+.cw-tool-content__header {
+  display: flex;
+  align-items: center;
+  padding-top: $cw-spacing-md;
+  text-align: center;
+  font-size: 1.125rem;
+}
+
+.cw-tool-content__title {
+  flex-grow: 1;
+}
+
+.cw-tool-content__action {
+  cursor: pointer;
+  padding: 0 $cw-spacing-md;
+  transition: opacity $cw-anim-duration-slow ease;
+  opacity: $cw-opacity-low;
+  &:hover { opacity: 1; }
+}
+
+.cw-tool-content__content {
+  padding: $cw-spacing-md;
+  padding-top: $cw-spacing-lg;
+  text-align: center;
+}
+
+.cw-tool-group {
+  display: inline-flex;
+  box-shadow: $cw-box-shadow;
+  border-radius: $cw-border-radius;
+  border: 1px solid $cw-border-color;
+  background-color: $cw-bg-color;
+}
+
+.cw-tool-group--vertical {
+  flex-direction: column;
+}
+
+.cw-tool-group__drag {
+  cursor: pointer;
+  user-select: none;
+  padding: $cw-spacing-sm;
+  transition: opacity $cw-anim-duration-slow ease;
+  opacity: $cw-opacity-low;
+  &:hover { opacity: 1; }
+}
+
+.cw-tool-group__action {
+  cursor: pointer;
+  user-select: none;
+  padding: $cw-spacing-sm;
+  transition:
+    background-color ease $cw-anim-duration-fast,
+    color ease $cw-anim-duration-fast;
+
+  &:hover {
+    background-color: rgba($cw-primary-color, 0.1);
+  }
+}
+
+.cw-tool-group__action:active,
+.cw-tool-group__action--active {
+  background-color: transparent !important;
+  color: $cw-primary-color;
+}
+
+cw-whiteboard {
+  display: flex;
+  overflow: auto;
+}
+
+.cw-whiteboard__canvas {
+  flex-grow: 0;
+  flex-shrink: 0;
+  margin: auto;
+  position: relative;
+  box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.125);
+}
+
+.cw-whiteboard__canvas-draw {
+  background-color: white;
+}
+
+.cw-whiteboard__canvas-cut {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color:rgb(255, 253, 231, 0.6);
+}
+
+.cw-whiteboard__tools {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}

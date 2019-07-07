@@ -1,11 +1,11 @@
 <div
   cdkDrag
   [cdkDragBoundary]="dragBoundarySelector"
-  class="group"
-  [class.group--vertical]="layoutVertical"
+  class="cw-tool-group"
+  [class.cw-tool-group--vertical]="layoutVertical"
   (cdkDragEnded)="cleanCachedDimensions($event)">
   <a
-    class="drag"
+    class="cw-tool-group__drag"
     title="Drag / Change direction"
     (dblclick)="layoutVertical = !layoutVertical">
     <cw-icon icon="drag" cdkDragHandle></cw-icon>
@@ -14,8 +14,8 @@
   <ng-container *ngIf="!collapse">
     <a
       *ngFor="let tool of tools"
-      class="action"
-      [class.action--active]="tool.active"
+      class="cw-tool-group__action"
+      [class.cw-tool-group__action--active]="tool.active"
       [title]="tool.title"
       (click)="toggleActive(tool)">
       <ng-container *ngTemplateOutlet="tool.label"></ng-container>
@@ -23,8 +23,8 @@
   </ng-container>
 
   <a
-    class="action"
-    [class.action--active]="collapse"
+    class="cw-tool-group__action"
+    [class.cw-tool-group__action--active]="collapse"
     [title]="collapse ? 'Expand' : 'Collapse'"
     (click)="collapse = !collapse">
     <cw-icon [icon]="collapse ? 'expand' : 'collapse'"></cw-icon>
