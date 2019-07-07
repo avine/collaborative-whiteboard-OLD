@@ -181,6 +181,7 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
 
   private setDefaultContext() {
     this.context.lineCap = 'round';
+    this.context.lineJoin = 'round';
   }
 
   private applyDrawOptions(options = this.drawOptions) {
