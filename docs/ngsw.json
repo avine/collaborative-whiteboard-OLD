@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1562539300822,
+  "timestamp": 1562595478822,
   "index": "/collaborative-whiteboard-2/index.html",
   "assetGroups": [
     {
@@ -11,8 +11,8 @@
         "/collaborative-whiteboard-2/favicon.ico",
         "/collaborative-whiteboard-2/index.html",
         "/collaborative-whiteboard-2/404.html",
-        "/collaborative-whiteboard-2/main-es2015.a8476a5bde1b0b37a1d0.js",
-        "/collaborative-whiteboard-2/main-es5.b4915be93284220d6411.js",
+        "/collaborative-whiteboard-2/main-es2015.6af4428875f08bc893b0.js",
+        "/collaborative-whiteboard-2/main-es5.3fe8729ae8e25a2f836e.js",
         "/collaborative-whiteboard-2/polyfills-es2015.06d307833d0d147d8bc0.js",
         "/collaborative-whiteboard-2/polyfills-es5.bf15ac6dcfce890f87b1.js",
         "/collaborative-whiteboard-2/runtime-es2015.d5623f03f1e64ac8e12f.js",
@@ -49,9 +49,9 @@
     "/collaborative-whiteboard-2/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
     "/collaborative-whiteboard-2/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
     "/collaborative-whiteboard-2/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
-    "/collaborative-whiteboard-2/index.html": "d60384b57ae4bde90af8ab466a1ef9974cecf75b",
-    "/collaborative-whiteboard-2/main-es2015.a8476a5bde1b0b37a1d0.js": "8e69bfce9dd30e02f902b7bc2b147449052399f4",
-    "/collaborative-whiteboard-2/main-es5.b4915be93284220d6411.js": "47b7b4d9d7cb60d22a909967dbdb689e451ce744",
+    "/collaborative-whiteboard-2/index.html": "5165f1b77e5659ef5b5104df3ad516a1aec18c91",
+    "/collaborative-whiteboard-2/main-es2015.6af4428875f08bc893b0.js": "fe428d8da3bb2e385d32675a0d0c87e82bb953c3",
+    "/collaborative-whiteboard-2/main-es5.3fe8729ae8e25a2f836e.js": "02bbda2a8e397f7b7f898cf624305b6e895a0be3",
     "/collaborative-whiteboard-2/polyfills-es2015.06d307833d0d147d8bc0.js": "17c13c9d3845dc84d005da7179977cc0fcafe0c0",
     "/collaborative-whiteboard-2/polyfills-es5.bf15ac6dcfce890f87b1.js": "6232aa1a4fbb70def0d289f58938c9022d944331",
     "/collaborative-whiteboard-2/runtime-es2015.d5623f03f1e64ac8e12f.js": "b62956c2192bfe5516d6374e753773901ed50ec5",
