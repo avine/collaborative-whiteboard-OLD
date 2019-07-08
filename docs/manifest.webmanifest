@@ -1,8 +1,8 @@
 {
-  "name": "showcase",
-  "short_name": "showcase",
-  "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "name": "Collaborative Whiteboard",
+  "short_name": "CW",
+  "theme_color": "#689F38",
+  "background_color": "#F5F5F5",
   "display": "standalone",
   "scope": "/collaborative-whiteboard-2/",
   "start_url": "/collaborative-whiteboard-2/",

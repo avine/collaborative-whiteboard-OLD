@@ -17,9 +17,8 @@ input, option {
   font-family: inherit;
 }
 
-@import './input-range.scss';
+@import "./input-range.scss";
 
-@import '~@angular/cdk/overlay-prebuilt.css';
+@import "~@angular/cdk/overlay-prebuilt.css";
 
-@import '../projects/collaborative-whiteboard/src/lib/themes/cw.variables.scss';
-@import '../projects/collaborative-whiteboard/src/lib/themes/cw.light.scss';
+@import "../projects/collaborative-whiteboard/src/lib/themes/cw.light.scss";

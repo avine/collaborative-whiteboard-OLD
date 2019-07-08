@@ -39,7 +39,7 @@ export class CwService {
 
   cutRange$ = this.cutRange$$.asObservable();
 
-  broadcastHistoryCut$ = combineLatest(this.historyCut$, this.cutRange$$).pipe(
+  broadcastHistoryCut$ = combineLatest([this.historyCut$, this.cutRange$$]).pipe(
     map(([historyCut, [from, to]]) => {
       const slice = [getClearEvent(), ...historyCut.slice(from, to + 1)];
       return broadcastDrawEventsMapper(slice);
