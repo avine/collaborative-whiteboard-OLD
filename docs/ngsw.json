@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1562714876472,
+  "timestamp": 1562715443253,
   "index": "/collaborative-whiteboard-2/index.html",
   "assetGroups": [
     {
@@ -17,7 +17,7 @@
         "/collaborative-whiteboard-2/polyfills-es5.bf15ac6dcfce890f87b1.js",
         "/collaborative-whiteboard-2/runtime-es2015.d5623f03f1e64ac8e12f.js",
         "/collaborative-whiteboard-2/runtime-es5.a8c9c2928baa49aa82ad.js",
-        "/collaborative-whiteboard-2/styles.d085248d544cf38c6693.css"
+        "/collaborative-whiteboard-2/styles.491aaaaf1117d1199e0d.css"
       ],
       "patterns": []
     },
@@ -49,14 +49,14 @@
     "/collaborative-whiteboard-2/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
     "/collaborative-whiteboard-2/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
     "/collaborative-whiteboard-2/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
-    "/collaborative-whiteboard-2/index.html": "0aac3a77b3eeeaea79327c33edcc82f3e41eb06c",
+    "/collaborative-whiteboard-2/index.html": "cf747cd5d98bbb6652db10e77bc2b8aca31197e0",
     "/collaborative-whiteboard-2/main-es2015.9fc618fb33eed2235f7f.js": "94a603086bc15588102e871a583235bb6bbf8def",
     "/collaborative-whiteboard-2/main-es5.1aa3c6b0eacba917c0d5.js": "7ae28d714fda444abccaf0ed87b0eccaa3e085a5",
     "/collaborative-whiteboard-2/polyfills-es2015.06d307833d0d147d8bc0.js": "17c13c9d3845dc84d005da7179977cc0fcafe0c0",
     "/collaborative-whiteboard-2/polyfills-es5.bf15ac6dcfce890f87b1.js": "6232aa1a4fbb70def0d289f58938c9022d944331",
     "/collaborative-whiteboard-2/runtime-es2015.d5623f03f1e64ac8e12f.js": "b62956c2192bfe5516d6374e753773901ed50ec5",
     "/collaborative-whiteboard-2/runtime-es5.a8c9c2928baa49aa82ad.js": "b62956c2192bfe5516d6374e753773901ed50ec5",
-    "/collaborative-whiteboard-2/styles.d085248d544cf38c6693.css": "d13ce5cd5b9d2303421fd74844281cc6be37a013"
+    "/collaborative-whiteboard-2/styles.491aaaaf1117d1199e0d.css": "051f3d287f5fbcf2ebf915c06c8d311c8567af4a"
   },
   "navigationUrls": [
     {

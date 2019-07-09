@@ -39,13 +39,13 @@ cw-color-picker {
   border-radius: 50%;
   background-color: $cw-surface-color;
   transform-origin: center;
-  animation: cwColorPickerSelected $cw-color-picker-anim-duration linear;
+  //animation: cwColorPickerSelected $cw-color-picker-anim-duration linear;
 }
 
-@keyframes cwColorPickerSelected {
-  from { transform: scale(0); }
-  to { transform: scale(1); }
-}
+//@keyframes cwColorPickerSelected {
+//  from { transform: scale(0); }
+//  to { transform: scale(1); }
+//}
 
 .cw-cut__controller + .cw-cut__controller {
   margin-top: 1.5rem;
