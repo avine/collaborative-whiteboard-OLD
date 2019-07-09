@@ -1,3 +1,5 @@
+@import "./mixins.scss";
+
 @import url("https://fonts.googleapis.com/css?family=Mali&display=swap");
 
 html,
@@ -8,24 +10,37 @@ body {
 body {
   margin: 0;
   font-family: "Mali", cursive;
-  background-color: map-get($app-theme-light, background-color);
-  color: map-get($app-theme-light, text-color);
 }
 
 a {
   &, &:visited {
     cursor: pointer;
-    color: map-get($app-theme-light, link-color);
     text-decoration: none;
     transition: color 150ms ease;
   }
 
   &:hover, &:active, &:focus {
-    color: map-get($app-theme-light, link-active-color);
     text-decoration: underline;
   }
 }
 
 input, option {
   font-family: inherit;
+}
+
+@include themes {
+  body {
+    background-color: map-get($app-theme, background-color);
+    color: map-get($app-theme, text-color);
+  }
+
+  a {
+    &, &:visited {
+      color: map-get($app-theme, link-color);
+    }
+
+    &:hover, &:active, &:focus {
+      color: map-get($app-theme, link-active-color);
+    }
+  }
 }

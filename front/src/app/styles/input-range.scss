@@ -1,24 +1,28 @@
-$track-color: map-get($app-theme-light, pale-color);
-$thumb-color: map-get($app-theme-light, primary-color);
+@import "./mixins.scss";
 
-$thumb-radius: 9px;
-$thumb-height: 18px;
-$thumb-width: 18px;
-$thumb-shadow-size: 2px;
-$thumb-shadow-blur: 2px;
-$thumb-shadow-color: rgba(0, 0, 0, 0.2);
-$thumb-border-width: 1px;
-$thumb-border-color: darken(map-get($app-theme-light, primary-color), 3);
+@include themes {
+  $track-color: map-get($app-theme, pale-color);
+  $thumb-color: map-get($app-theme, primary-color);
 
-$track-width: auto;
-$track-height: 6px;
-$track-shadow-size: 1px;
-$track-shadow-blur: 1px;
-$track-shadow-color: transparent;
-$track-border-width: 1px;
-$track-border-color: darken($track-color, 3);
+  $thumb-radius: 9px;
+  $thumb-height: 18px;
+  $thumb-width: 18px;
+  $thumb-shadow-size: 2px;
+  $thumb-shadow-blur: 2px;
+  $thumb-shadow-color: rgba(0, 0, 0, 0.2);
+  $thumb-border-width: 1px;
+  $thumb-border-color: darken(map-get($app-theme, primary-color), 3);
 
-$track-radius: 3px;
-$contrast: 0%;
+  $track-width: auto;
+  $track-height: 6px;
+  $track-shadow-size: 1px;
+  $track-shadow-blur: 1px;
+  $track-shadow-color: transparent;
+  $track-border-width: 1px;
+  $track-border-color: darken($track-color, 3);
 
-@import "~input-range-scss/inputrange";
+  $track-radius: 3px;
+  $contrast: 0%;
+
+  @import "~input-range-scss/inputrange";
+}
