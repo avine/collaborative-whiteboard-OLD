@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1562595478822,
+  "timestamp": 1562714876472,
   "index": "/collaborative-whiteboard-2/index.html",
   "assetGroups": [
     {
@@ -11,13 +11,13 @@
         "/collaborative-whiteboard-2/favicon.ico",
         "/collaborative-whiteboard-2/index.html",
         "/collaborative-whiteboard-2/404.html",
-        "/collaborative-whiteboard-2/main-es2015.6af4428875f08bc893b0.js",
-        "/collaborative-whiteboard-2/main-es5.3fe8729ae8e25a2f836e.js",
+        "/collaborative-whiteboard-2/main-es2015.9fc618fb33eed2235f7f.js",
+        "/collaborative-whiteboard-2/main-es5.1aa3c6b0eacba917c0d5.js",
         "/collaborative-whiteboard-2/polyfills-es2015.06d307833d0d147d8bc0.js",
         "/collaborative-whiteboard-2/polyfills-es5.bf15ac6dcfce890f87b1.js",
         "/collaborative-whiteboard-2/runtime-es2015.d5623f03f1e64ac8e12f.js",
         "/collaborative-whiteboard-2/runtime-es5.a8c9c2928baa49aa82ad.js",
-        "/collaborative-whiteboard-2/styles.fc04148a3d87445b2307.css"
+        "/collaborative-whiteboard-2/styles.d085248d544cf38c6693.css"
       ],
       "patterns": []
     },
@@ -49,14 +49,14 @@
     "/collaborative-whiteboard-2/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
     "/collaborative-whiteboard-2/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
     "/collaborative-whiteboard-2/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
-    "/collaborative-whiteboard-2/index.html": "5165f1b77e5659ef5b5104df3ad516a1aec18c91",
-    "/collaborative-whiteboard-2/main-es2015.6af4428875f08bc893b0.js": "fe428d8da3bb2e385d32675a0d0c87e82bb953c3",
-    "/collaborative-whiteboard-2/main-es5.3fe8729ae8e25a2f836e.js": "02bbda2a8e397f7b7f898cf624305b6e895a0be3",
+    "/collaborative-whiteboard-2/index.html": "0aac3a77b3eeeaea79327c33edcc82f3e41eb06c",
+    "/collaborative-whiteboard-2/main-es2015.9fc618fb33eed2235f7f.js": "94a603086bc15588102e871a583235bb6bbf8def",
+    "/collaborative-whiteboard-2/main-es5.1aa3c6b0eacba917c0d5.js": "7ae28d714fda444abccaf0ed87b0eccaa3e085a5",
     "/collaborative-whiteboard-2/polyfills-es2015.06d307833d0d147d8bc0.js": "17c13c9d3845dc84d005da7179977cc0fcafe0c0",
     "/collaborative-whiteboard-2/polyfills-es5.bf15ac6dcfce890f87b1.js": "6232aa1a4fbb70def0d289f58938c9022d944331",
     "/collaborative-whiteboard-2/runtime-es2015.d5623f03f1e64ac8e12f.js": "b62956c2192bfe5516d6374e753773901ed50ec5",
     "/collaborative-whiteboard-2/runtime-es5.a8c9c2928baa49aa82ad.js": "b62956c2192bfe5516d6374e753773901ed50ec5",
-    "/collaborative-whiteboard-2/styles.fc04148a3d87445b2307.css": "4f95b9dfff1ee587aca6f58c1825e6ce4f274de6"
+    "/collaborative-whiteboard-2/styles.d085248d544cf38c6693.css": "d13ce5cd5b9d2303421fd74844281cc6be37a013"
   },
   "navigationUrls": [
     {
