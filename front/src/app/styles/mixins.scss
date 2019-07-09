@@ -1,0 +1,47 @@
+@import "./variables.light.scss";
+@import "./variables.dark.scss";
+
+// Usage
+// -----
+//
+//   @include ngThemes {
+//     .example { color: map-get($app-theme, text-color); }
+//   }
+
+@mixin theme($name: light) {
+  @if $name == light {
+    $app-theme: $app-theme-light !global;
+  } @else {
+    $app-theme: $app-theme-dark !global;
+  }
+
+  .theme--#{$name} {
+    @content;
+  }
+
+  $app-theme: ();
+}
+
+@mixin themes() {
+  @include theme(light) { @content; }
+  @include theme(dark) { @content; }
+}
+
+@mixin ngTheme($name: light) {
+  @if $name == light {
+    $app-theme: $app-theme-light !global;
+  } @else {
+    $app-theme: $app-theme-dark !global;
+  }
+
+  :host-context(.theme--#{$name}) {
+    @content;
+  }
+
+  $app-theme: ();
+}
+
+@mixin ngThemes() {
+  @include ngTheme(light) { @content; }
+  @include ngTheme(dark) { @content; }
+}

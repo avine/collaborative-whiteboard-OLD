@@ -1,7 +1,7 @@
-$cw-primary-color: $app-primary-color;
-$cw-border-color: $app-border-color;
-$cw-surface-color: $app-surface-color;
-$cw-text-color: $app-text-color;
-$cw-canvas-draw-bg-color: $app-canvas-draw-bg-color;
+$cw-primary-color: map-get($app-theme-light, primary-color);
+$cw-border-color: map-get($app-theme-light, border-color);
+$cw-surface-color: map-get($app-theme-light, surface-color);
+$cw-text-color: map-get($app-theme-light, text-color);
+$cw-canvas-draw-bg-color: map-get($app-theme-light, canvas-draw-bg-color);
 
 @import "../projects/collaborative-whiteboard/src/lib/styles/cw.core.scss";

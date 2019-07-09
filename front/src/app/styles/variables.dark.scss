@@ -1,21 +1,25 @@
 $app-primary-color: #7CB342;
 
-$app-link-color: #AED581;
-$app-link-active-color: $app-primary-color;
+$app-theme-dark: (
+  primary-color: $app-primary-color,
 
-$app-background-color: #424242;
+  link-color: #AED581,
+  link-active-color: $app-primary-color,
 
-$app-text-color: #E0E0E0;
+  background-color: #424242,
 
-$app-pale-color: rgba(160, 160, 160, 0.25);
+  text-color: #E0E0E0,
 
-$app-border-color: #757575;
+  pale-color: rgba(160, 160, 160, 0.25),
 
-$app-surface-color: #616161;
+  border-color: #757575,
 
-$app-header-border-color: #101010;
-$app-header-background-color: #212121;
-$app-header-link-color: #616161;
-$app-header-link-active-color: $app-primary-color;
+  surface-color: #616161,
 
-$app-canvas-draw-bg-color: #424242;
+  header-border-color: #101010,
+  header-background-color: #212121,
+  header-link-color: #616161,
+  header-link-active-color: $app-primary-color,
+
+  canvas-draw-bg-color: #424242,
+);

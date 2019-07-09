@@ -1,4 +1,5 @@
 @import "../../styles/variables.light.scss";
+@import "../../styles/mixins.scss";
 
 :host {
   display: flex;
@@ -22,7 +23,7 @@
 }
 
 .highlight {
-  color: $app-primary-color;
+  color: map-get($app-theme-light, primary-color);
 }
 
 .github {

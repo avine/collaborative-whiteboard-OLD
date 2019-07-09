@@ -1,11 +1,12 @@
 @import "../../styles/variables.light.scss";
+@import "../../styles/mixins.scss";
 
 .button {
   outline: none;
   padding: 0.35rem 0.70rem;
   border-radius: 3px;
   border: none;
-  background-color: $app-primary-color;
+  background-color: map-get($app-theme-light, primary-color);
   color: white;
   font: inherit;
 }

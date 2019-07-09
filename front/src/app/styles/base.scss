@@ -8,20 +8,20 @@ body {
 body {
   margin: 0;
   font-family: "Mali", cursive;
-  background-color: $app-background-color;
-  color: $app-text-color;
+  background-color: map-get($app-theme-light, background-color);
+  color: map-get($app-theme-light, text-color);
 }
 
 a {
   &, &:visited {
     cursor: pointer;
-    color: $app-link-color;
+    color: map-get($app-theme-light, link-color);
     text-decoration: none;
     transition: color 150ms ease;
   }
 
   &:hover, &:active, &:focus {
-    color: $app-link-active-color;
+    color: map-get($app-theme-light, link-active-color);
     text-decoration: underline;
   }
 }
