@@ -13,6 +13,7 @@ import { DemoComponent } from './components/demo/demo.component';
 import { HomeComponent } from './components/home/home.component';
 import { TabsComponent } from './components/tabs/tabs.component';
 import { WhiteboardComponent } from './components/whiteboard/whiteboard.component';
+import { TextComponent } from './components/text/text.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { WhiteboardComponent } from './components/whiteboard/whiteboard.componen
     WhiteboardComponent,
     TabsComponent,
     HomeComponent,
-    CanvasBasicComponent
+    CanvasBasicComponent,
+    TextComponent
   ],
   imports: [
     BrowserModule,

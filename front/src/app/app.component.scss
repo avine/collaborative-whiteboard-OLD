@@ -1,3 +1,5 @@
+@import "./styles/variables.light.scss";
+
 .layout {
   display: grid;
   grid-template-columns: auto;
@@ -15,8 +17,8 @@
   position: relative;
   box-sizing: border-box;
   box-shadow: 0 -5px 5px 5px rgba(0, 0, 0, 0.15);
-  border-bottom: 1px solid #E0E0E0;
-  background-color: #FFFFFF;
+  border-bottom: 1px solid $app-header-border-color;
+  background-color: $app-header-background-color;
   line-height: 2.5rem;
 }
 
@@ -25,16 +27,17 @@
   z-index: 1;
   position: relative;
   box-sizing: border-box;
-  background-color: #EEEEEE;
+  background-color: $app-background-color;
   overflow: auto;
 }
 
-.title {
+.logo {
   padding: 0 0.5rem;
   font-size: 1.5rem;
-  text-shadow: -1px -1px 0 #558B2F;
-  background-color: #689F38;
-  color: #C5E1A5;
+  box-shadow: 0 1px 0 darken(#558B2F, 5);
+  background-color: #558B2F;
+  text-shadow: -1px -1px 0 #33691E;
+  color: #AED581;
   cursor: pointer;
   outline: none;
 }
@@ -50,10 +53,10 @@
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 0 0.5rem;
-  color: #9E9E9E;
+  color: $app-header-link-color;
   text-decoration: none;
 }
 
 .menu-link--active {
-  color: #689F38;
+  color: $app-header-link-active-color;
 }

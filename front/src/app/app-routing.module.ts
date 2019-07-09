@@ -6,6 +6,7 @@ import { CanvasMirrorComponent } from './components/canvas-mirror/canvas-mirror.
 import { DemoComponent } from './components/demo/demo.component';
 import { HomeComponent } from './components/home/home.component';
 import { TabsComponent } from './components/tabs/tabs.component';
+import { TextComponent } from './components/text/text.component';
 import { WhiteboardComponent } from './components/whiteboard/whiteboard.component';
 
 const routes: Routes = [
@@ -37,6 +38,10 @@ const routes: Routes = [
   {
     path: 'tabs',
     component: TabsComponent
+  },
+  {
+    path: 'text',
+    component: TextComponent
   },
 ];
 

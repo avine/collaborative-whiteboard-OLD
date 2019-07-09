@@ -1,7 +1,5 @@
-@import "../projects/collaborative-whiteboard/src/lib/styles/cw.variables.scss";
-
-$track-color: #EEEEEE;
-$thumb-color: $cw-primary-color;
+$track-color: $app-pale-color;
+$thumb-color: $app-primary-color;
 
 $thumb-radius: 9px;
 $thumb-height: 18px;
@@ -10,7 +8,7 @@ $thumb-shadow-size: 2px;
 $thumb-shadow-blur: 2px;
 $thumb-shadow-color: rgba(0, 0, 0, 0.2);
 $thumb-border-width: 1px;
-$thumb-border-color: darken($cw-primary-color, 3);
+$thumb-border-color: darken($app-primary-color, 3);
 
 $track-width: auto;
 $track-height: 6px;
@@ -18,7 +16,7 @@ $track-shadow-size: 1px;
 $track-shadow-blur: 1px;
 $track-shadow-color: transparent;
 $track-border-width: 1px;
-$track-border-color: darken(#EEEEEE, 3);
+$track-border-color: darken($track-color, 3);
 
 $track-radius: 3px;
 $contrast: 0%;

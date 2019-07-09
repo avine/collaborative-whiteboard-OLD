@@ -1,0 +1,7 @@
+$cw-primary-color: $app-primary-color;
+$cw-border-color: $app-border-color;
+$cw-surface-color: $app-surface-color;
+$cw-text-color: $app-text-color;
+$cw-canvas-draw-bg-color: $app-canvas-draw-bg-color;
+
+@import "../projects/collaborative-whiteboard/src/lib/styles/cw.core.scss";

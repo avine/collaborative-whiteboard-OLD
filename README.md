@@ -9,7 +9,7 @@ Collaborative Whiteboard with Angular
 @import "~@angular/cdk/overlay-prebuilt.css";
 
 // Add CW styles
-@import "../projects/collaborative-whiteboard/src/lib/styles/cw.light.scss";
+@import "../projects/collaborative-whiteboard/src/lib/styles/cw.core.scss";
 ```
 
 ## Notes for deploying on Github pages
