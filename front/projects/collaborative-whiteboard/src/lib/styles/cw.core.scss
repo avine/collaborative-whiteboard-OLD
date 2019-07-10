@@ -138,7 +138,7 @@ cw-color-picker {
 .cw-tool-group__drag {
   cursor: pointer;
   user-select: none;
-  padding: $cw-spacing-sm;
+  padding: $cw-spacing-sm ($cw-spacing-sm * 1.5);
   color: $cw-text-color;
   opacity: $cw-opacity-low;
   transition: opacity $cw-anim-duration-slow ease;
@@ -151,7 +151,7 @@ cw-color-picker {
 .cw-tool-group__action {
   cursor: pointer;
   user-select: none;
-  padding: $cw-spacing-sm;
+  padding: $cw-spacing-sm ($cw-spacing-sm * 1.5);
   color: $cw-text-color;
   transition:
     background-color ease $cw-anim-duration-fast,

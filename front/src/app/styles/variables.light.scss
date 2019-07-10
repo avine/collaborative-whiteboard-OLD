@@ -22,4 +22,5 @@ $app-theme-light: (
   header-link-active-color: $app-primary-color,
 
   canvas-draw-bg-color: #FFFFFF,
+  canvas-cut-bg-color: rgba(darken(#FFFFFF, 3), 0.6)
 );
