@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { CollaborativeWhiteboardModule } from '@collaborative-whiteboard';
-
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,6 +30,7 @@ import { TextComponent } from './components/text/text.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    FontAwesomeModule,
     CollaborativeWhiteboardModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],

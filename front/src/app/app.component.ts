@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { faTint, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
 import { ThemeService } from './services/theme.service';
 
@@ -8,6 +9,10 @@ import { ThemeService } from './services/theme.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+  themeIcon = faTint;
+
+  userIcon = faUserCircle;
 
   constructor(public themeService: ThemeService) {}
 }
