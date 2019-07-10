@@ -10,9 +10,10 @@
   padding: 1rem;
 }
 
-.icon {
-  width: 1.75em;
-  margin-bottom: 0.5em;
+.logo {
+  display: block;
+  font-size: 1.75em;
+  padding-bottom: 2.5rem;
   opacity: 0.2;
 }
 
@@ -25,7 +26,6 @@
   display: block;
   margin-top: 4.5rem;
   color: inherit;
-
   svg {
     width: 1.5rem;
   }
