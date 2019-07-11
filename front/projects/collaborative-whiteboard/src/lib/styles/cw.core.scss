@@ -198,4 +198,7 @@ cw-whiteboard {
   position: absolute;
   top: 1rem;
   left: 1rem;
+  width: 0;
+  height: 0;
+  overflow: visible;
 }
