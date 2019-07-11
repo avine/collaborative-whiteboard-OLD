@@ -135,11 +135,22 @@ cw-color-picker {
   flex-direction: column;
 }
 
-.cw-tool-group__drag {
+.cw-tool-group__action {
   cursor: pointer;
   user-select: none;
-  padding: $cw-spacing-sm ($cw-spacing-sm * 1.5);
+  width: 2.5em;
+  height: 2.5em;
+  line-height: 2.5em;
   color: $cw-text-color;
+}
+
+.cw-tool-group__action:active,
+.cw-tool-group__action--active {
+  background-color: transparent !important;
+  color: $cw-primary-color !important;
+}
+
+.cw-tool-group__action--drag {
   opacity: $cw-opacity-low;
   transition: opacity $cw-anim-duration-slow ease;
   &:hover {
@@ -148,11 +159,7 @@ cw-color-picker {
   }
 }
 
-.cw-tool-group__action {
-  cursor: pointer;
-  user-select: none;
-  padding: $cw-spacing-sm ($cw-spacing-sm * 1.5);
-  color: $cw-text-color;
+.cw-tool-group__action--tool {
   transition:
     background-color ease $cw-anim-duration-fast,
     color ease $cw-anim-duration-fast;
@@ -161,12 +168,6 @@ cw-color-picker {
     background-color: rgba($cw-primary-color, 0.1);
     color: $cw-text-color;
   }
-}
-
-.cw-tool-group__action:active,
-.cw-tool-group__action--active {
-  background-color: transparent !important;
-  color: $cw-primary-color !important;
 }
 
 cw-whiteboard {
