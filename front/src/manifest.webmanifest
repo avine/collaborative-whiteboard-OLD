@@ -2,10 +2,10 @@
   "name": "Collaborative Whiteboard",
   "short_name": "CW",
   "theme_color": "#689F38",
-  "background_color": "#fafafa",
+  "background_color": "#F5F5F5",
   "display": "standalone",
-  "scope": "/",
-  "start_url": "/",
+  "scope": "/collaborative-whiteboard-2/",
+  "start_url": "/collaborative-whiteboard-2/",
   "icons": [
     {
       "src": "assets/icons/icon-72x72.png",
