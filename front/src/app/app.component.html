@@ -26,3 +26,11 @@
     <router-outlet></router-outlet>
   </div>
 </div>
+
+<div *ngIf="updatesType === 'available'" class="popup" (click)="closePopup()">
+  Application update available!
+</div>
+
+<div *ngIf="updatesType === 'activated'" class="popup" (click)="closePopup()">
+  Application update activated!
+</div>

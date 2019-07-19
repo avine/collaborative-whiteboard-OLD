@@ -72,6 +72,16 @@
   font-size: 0.825em;
 }
 
+.popup {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  box-shadow: 0 5px 5px 5px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  line-height: 1.5em;
+}
+
 @include ngThemes {
   .header {
     border-bottom: 1px solid map-get($app-theme, header-border-color);
@@ -93,5 +103,10 @@
   .menu-link--active {
     background-color: transparent !important;
     color: map-get($app-theme, header-link-active-color) !important;
+  }
+
+  .popup {
+    border-top: 1px solid map-get($app-theme, header-border-color);
+    background-color: map-get($app-theme, header-background-color);
   }
 }
