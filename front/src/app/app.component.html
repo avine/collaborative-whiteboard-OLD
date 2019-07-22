@@ -27,11 +27,11 @@
   </div>
 </div>
 
-<div *ngIf="popup === 'update'" class="popup popup--update">
-  <fa-icon [icon]="update"></fa-icon>
-  Application update available!
-  <a (click)="closePopup(true)">Reload now</a>
+<div *ngIf="popup === 'update'" class="popup">
+  <fa-icon [icon]="update"></fa-icon> &nbsp;
+  Application update available &nbsp;
+  <button type="button" class="app-button" (click)="closePopup(true)">Install and restart app</button> &nbsp;
   <a (click)="closePopup()">Postpone</a>
 </div>
 
-<div class="version">1.0.5</div>
+<div class="version">1.0.1</div>
