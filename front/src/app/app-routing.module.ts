@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { CanvasBasicComponent } from './components/canvas-basic/canvas-basic.component';
-import { CanvasMirrorComponent } from './components/canvas-mirror/canvas-mirror.component';
-import { DemoComponent } from './components/demo/demo.component';
-import { HomeComponent } from './components/home/home.component';
-import { TabsComponent } from './components/tabs/tabs.component';
-import { TextComponent } from './components/text/text.component';
-import { WhiteboardComponent } from './components/whiteboard/whiteboard.component';
+import { CanvasBasicComponent } from './pages/canvas-basic/canvas-basic.component';
+import { CanvasMirrorComponent } from './pages/canvas-mirror/canvas-mirror.component';
+import { DemoComponent } from './pages/demo/demo.component';
+import { HomeComponent } from './pages/home/home.component';
+import { TabsComponent } from './pages/tabs/tabs.component';
+import { TextComponent } from './pages/text/text.component';
+import { WhiteboardComponent } from './pages/whiteboard/whiteboard.component';
 
 const routes: Routes = [
   {
