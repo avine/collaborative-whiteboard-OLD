@@ -1,9 +1,10 @@
 import { Subscription } from 'rxjs';
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { faCheck, faDownload, faTint, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { faDownload, faTint, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
-import { ServiceWorkerService, ServiceWorkerUpdateType } from './services/service-worker.service';
+import { WINDOW } from './providers/window.provider';
+import { ServiceWorkerService } from './services/service-worker.service';
 import { ThemeService } from './services/theme.service';
 
 @Component({
@@ -15,31 +16,31 @@ export class AppComponent implements OnInit, OnDestroy {
 
   themeIcon = faTint;
   userIcon = faUserCircle;
-  popup = {
-    available: faDownload,
-    activated: faCheck
-  };
+  update = faDownload;
 
-  updatesType: ServiceWorkerUpdateType | '' = '';
+  popup: 'update' | '' = '';
 
   subscription: Subscription;
 
   constructor(
     public themeService: ThemeService,
-    private serviceWorkerService: ServiceWorkerService
+    private serviceWorkerService: ServiceWorkerService,
+    @Inject(WINDOW) private window: Window
   ) { }
 
   ngOnInit() {
-    this.subscription = this.serviceWorkerService.updatesType$.subscribe(
-      updatesType => this.updatesType = updatesType
-    );
+    this.subscription = this.serviceWorkerService.updatesAvailable$
+      .subscribe(() => this.popup = 'update');
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
-  closePopup() {
-    this.updatesType = '';
+  closePopup(reload: boolean) {
+    this.popup = '';
+    if (reload && this.window) {
+      this.window.location.reload();
+    }
   }
 }
