@@ -1,11 +1,10 @@
 import { Subscription } from 'rxjs';
 
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { faDownload, faTint, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { faDownload, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
 import { WINDOW } from './providers/window.provider';
 import { ServiceWorkerService } from './services/service-worker.service';
-import { ThemeService } from './services/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +13,6 @@ import { ThemeService } from './services/theme.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
-  themeIcon = faTint;
   userIcon = faUserCircle;
   update = faDownload;
 
@@ -23,7 +21,6 @@ export class AppComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   constructor(
-    public themeService: ThemeService,
     private serviceWorkerService: ServiceWorkerService,
     @Inject(WINDOW) private window: Window
   ) { }

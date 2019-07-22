@@ -1,26 +1,5 @@
 <div class="layout">
-  <div class="header">
-    <div class="logo" routerLink="/home">CW</div>
-
-    <div class="menu">
-      <a class="menu-link" routerLinkActive="menu-link--active" routerLink="/home">Home</a>
-      <a class="menu-link" routerLinkActive="menu-link--active" routerLink="/canvas-basic">Basic</a>
-      <a class="menu-link" routerLinkActive="menu-link--active" routerLink="/canvas-mirror">Mirror</a>
-      <a class="menu-link" routerLinkActive="menu-link--active" routerLink="/whiteboard">Whiteboard</a>
-    </div>
-
-    <div class="menu">
-      <a class="menu-link menu-link--capitalize" (click)="themeService.switchTheme()">
-        <fa-icon class="menu-link-icon" [icon]="themeIcon"></fa-icon>
-        <span class="menu-link-sm">{{ themeService.name }}</span>
-      </a>
-
-      <!--<a class="menu-link">
-        <fa-icon class="menu-link-icon" [icon]="userIcon" size="lg"></fa-icon>
-        <span class="menu-link-sm">Profile</span>
-      </a>-->
-    </div>
-  </div>
+  <app-header class="header"></app-header>
 
   <div class="main">
     <router-outlet></router-outlet>
