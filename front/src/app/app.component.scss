@@ -84,6 +84,18 @@
   text-align: center;
   line-height: 1.5em;
   cursor: pointer;
+
+  fa-icon {
+    margin-right: 0.25em;
+  }
+}
+
+.popup--available {
+  color: #03A9F4;
+}
+
+.popup--activated {
+  color: #4CAF50;
 }
 
 .version {

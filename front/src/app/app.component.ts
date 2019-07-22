@@ -1,7 +1,7 @@
 import { Subscription } from 'rxjs';
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { faTint, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faDownload, faTint, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
 import { ServiceWorkerService, ServiceWorkerUpdateType } from './services/service-worker.service';
 import { ThemeService } from './services/theme.service';
@@ -14,8 +14,11 @@ import { ThemeService } from './services/theme.service';
 export class AppComponent implements OnInit, OnDestroy {
 
   themeIcon = faTint;
-
   userIcon = faUserCircle;
+  popup = {
+    available: faDownload,
+    activated: faCheck
+  };
 
   updatesType: ServiceWorkerUpdateType | '' = '';
 

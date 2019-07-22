@@ -12,6 +12,10 @@ body {
   font-family: "Mali", cursive;
 }
 
+* {
+  outline: none;
+}
+
 a {
   &, &:visited {
     cursor: pointer;
