@@ -1,6 +1,6 @@
 import { createServer } from 'http';
 
-import * as SocketIo from 'socket.io';
+import SocketIo from 'socket.io';
 
 const server = createServer((req, res) => {
   res.end('Hello world!');
