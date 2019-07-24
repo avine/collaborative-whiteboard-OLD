@@ -1,11 +1,15 @@
 #!/bin/bash
 
-cd $( dirname "$BASH_SOURCE" )
+function log {
+  echo -e "\033[35m\n---> $1\n\033[0m"
+}
 
-echo -e "\n---> Init front\n"
+cd $( dirname "$BASH_SOURCE" ) 
 
-cd ./front && npm i; cd ..
+log "Init front"
 
-echo -e "\n---> Init back\n"
+npm --prefix ./front install
 
-cd ./back && npm i; cd ..
+log "Init back"
+
+npm --prefix ./back install

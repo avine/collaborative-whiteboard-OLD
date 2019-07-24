@@ -1,23 +1,27 @@
 #!/bin/bash
 
+function log {
+  echo -e "\033[35m\n---> $1\n\033[0m"
+}
+
 cd $( dirname "$BASH_SOURCE" )
 
 rm -rf ./output
 mkdir -p ./output/static
 
-echo -e "\n---> Build front"
+log "Build front"
 
 npm run --prefix ./front build
 mv ./front/dist/showcase/* ./output/static
 
-echo -e "\n---> Build back"
+log "Build back"
 
 npm run --prefix ./back build
 mv ./back/dist/* ./output
 
-echo -e "\n---> Install back dependencies"
+log "Install back dependencies"
 
 cp ./back/package.json ./output
 cd ./output && npm i --production; cd ..
 
-echo -e "\nBuild completes!\n"
+log "Build completes!"
