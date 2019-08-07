@@ -22,6 +22,6 @@ mv ./back/dist/* ./output
 log "Install back dependencies"
 
 cp ./back/package.json ./output
-npm --prefix ./output install --production
+npm --prefix ./output install --only=production
 
 log "Build completes!"
