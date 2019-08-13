@@ -1,4 +1,4 @@
-FROM node:10 AS build
+FROM node:10-alpine AS build
 
 WORKDIR /app
 COPY ./package*.json ./
@@ -15,5 +15,5 @@ WORKDIR /tmp
 COPY ./nginx.conf ./
 RUN cat nginx.conf > /etc/nginx/conf.d/default.conf
 
-WORKDIR /app
+WORKDIR /app/${baseHref}
 COPY --from=build /app/dist/showcase ./
