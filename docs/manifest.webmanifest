@@ -4,8 +4,8 @@
   "theme_color": "#689F38",
   "background_color": "#F5F5F5",
   "display": "standalone",
-  "scope": "/collaborative-whiteboard-2/",
-  "start_url": "/collaborative-whiteboard-2/",
+  "scope": "/collaborative-whiteboard/",
+  "start_url": "/collaborative-whiteboard/",
   "icons": [
     {
       "src": "assets/icons/icon-72x72.png",

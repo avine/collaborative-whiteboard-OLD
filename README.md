@@ -1,4 +1,4 @@
-# collaborative-whiteboard-2
+# collaborative-whiteboard
 
 Collaborative Whiteboard with Angular
 
@@ -14,6 +14,6 @@ Collaborative Whiteboard with Angular
 
 ## Notes for deploying on Github pages
 
-- Run `ng build --prod --base-href /collaborative-whiteboard-2/`
+- Run `ng build --prod --base-href /collaborative-whiteboard/`
 - Duplicate `index.html` for `404.html`.
 - Add `404.html` to `ngsw.json`.
