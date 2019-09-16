@@ -247,10 +247,17 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
       (e as TouchEvent).touches[0] :
       (e as MouseEvent);
     const { left: canvasX, top: canvasY } = this.canvasRef.nativeElement.getBoundingClientRect();
-    return [
+    return this.canvasPointAdjustment([
       eventX - canvasX,
       eventY - canvasY
-    ];
+    ]);
+  }
+
+  private canvasPointAdjustment(canvasPoint: CanvasPoint): CanvasPoint {
+    if (this.drawOptions.lineWidth % 2 === 1) {
+      return [canvasPoint[0] + 0.5, canvasPoint[1] + 0.5];
+    }
+    return canvasPoint;
   }
 
   drawStart(e: CanvasEvent) {
@@ -277,7 +284,7 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
   drawEnd(e: CanvasEvent) {
     this.touchEventHandler(e); // Do this on top (NOT in the "if" statement)
     if (this.lineSerieBuffer.length === 2) {
-      const data = this.lineSerieBuffer as CanvasPoint;
+      const data = this.canvasPointAdjustment(this.lineSerieBuffer as CanvasPoint);
       this.drawPoint(data);
       this.emit({ owner: null, type: 'point', options: this.drawOptions, data });
     } else if (this.lineSerieBuffer.length > 2) {
