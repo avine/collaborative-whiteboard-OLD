@@ -1,10 +1,8 @@
-import * as md5_ from 'md5';
+import md5 from 'md5';
 
 import {
     BroadcastDrawEvents, CanvasSize, CutRange, CutRangeArg, DrawClear, DrawEvent, DrawOptions
 } from './cw.model';
-
-const md5 = md5_;
 
 export const getDefaultColors = () => ([
   '#EF5350',

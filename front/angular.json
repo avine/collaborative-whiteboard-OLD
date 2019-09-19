@@ -79,21 +79,11 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-builders/jest:run",
           "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              "src/manifest.webmanifest"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
-            "scripts": []
+            "verbose": true,
+            "coverage": true,
+            "detectOpenHandles": true
           }
         },
         "lint": {
@@ -142,11 +132,11 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-builders/jest:run",
           "options": {
-            "main": "projects/collaborative-whiteboard/src/test.ts",
-            "tsConfig": "projects/collaborative-whiteboard/tsconfig.spec.json",
-            "karmaConfig": "projects/collaborative-whiteboard/karma.conf.js"
+            "verbose": true,
+            "coverage": true,
+            "detectOpenHandles": true
           }
         },
         "lint": {
@@ -261,20 +251,11 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-builders/jest:run",
           "options": {
-            "main": "projects/ant/src/test.ts",
-            "polyfills": "projects/ant/src/polyfills.ts",
-            "tsConfig": "projects/ant/tsconfig.spec.json",
-            "karmaConfig": "projects/ant/karma.conf.js",
-            "assets": [
-              "projects/ant/src/favicon.ico",
-              "projects/ant/src/assets"
-            ],
-            "styles": [
-              "projects/ant/src/styles.less"
-            ],
-            "scripts": []
+            "verbose": true,
+            "coverage": true,
+            "detectOpenHandles": true
           }
         },
         "lint": {

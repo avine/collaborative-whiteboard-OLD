@@ -1,4 +1,4 @@
-import * as io from 'socket.io-client';
+import { connect } from 'socket.io-client';
 
 import { Injectable } from '@angular/core';
 
@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class SocketService {
-  public socket = io(environment.socketIoUri);
+  public socket = connect(environment.socketIoUri);
 
   constructor() { }
 }
