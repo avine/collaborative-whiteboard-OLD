@@ -13,40 +13,40 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: '/home',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
   },
   {
     path: 'canvas-basic',
-    component: CanvasBasicComponent
+    component: CanvasBasicComponent,
   },
   {
     path: 'canvas-mirror',
-    component: CanvasMirrorComponent
+    component: CanvasMirrorComponent,
   },
   {
     path: 'whiteboard',
-    component: WhiteboardComponent
+    component: WhiteboardComponent,
   },
   {
     path: 'demo',
-    component: DemoComponent
+    component: DemoComponent,
   },
   {
     path: 'tabs',
-    component: TabsComponent
+    component: TabsComponent,
   },
   {
     path: 'text',
-    component: TextComponent
+    component: TextComponent,
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

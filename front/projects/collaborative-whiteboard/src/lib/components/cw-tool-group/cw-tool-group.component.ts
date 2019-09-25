@@ -5,8 +5,14 @@ import { CdkDrag } from '@angular/cdk/drag-drop';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import {
-    AfterViewInit, Component, ContentChildren, Input, OnDestroy, QueryList, ViewChild,
-    ViewContainerRef
+  AfterViewInit,
+  Component,
+  ContentChildren,
+  Input,
+  OnDestroy,
+  QueryList,
+  ViewChild,
+  ViewContainerRef,
 } from '@angular/core';
 
 import { CwToolContentComponent } from '../cw-tool-content/cw-tool-content.component';
@@ -15,7 +21,7 @@ import { CwToolComponent } from '../cw-tool/cw-tool.component';
 @Component({
   selector: 'cw-tool-group',
   templateUrl: './cw-tool-group.component.html',
-  styleUrls: ['./cw-tool-group.component.scss']
+  styleUrls: ['./cw-tool-group.component.scss'],
 })
 export class CwToolGroupComponent implements AfterViewInit, OnDestroy {
   @Input() layoutVertical = false;
@@ -24,7 +30,8 @@ export class CwToolGroupComponent implements AfterViewInit, OnDestroy {
 
   @ContentChildren(CwToolComponent) tools: QueryList<CwToolComponent>;
 
-  @ViewChild('portal', { static: false, read: ViewContainerRef }) portal: ViewContainerRef;
+  @ViewChild('portal', { static: false, read: ViewContainerRef })
+  portal: ViewContainerRef;
 
   private activeTools = new Map<CwToolComponent, OverlayRef>();
 
@@ -49,14 +56,18 @@ export class CwToolGroupComponent implements AfterViewInit, OnDestroy {
   private subscribeToActiveChange() {
     this.activeChangeSubscriptions = [];
     this.tools.forEach(tool => {
-      const subscription = tool.activeChange.subscribe(() => this.checkContent(tool));
+      const subscription = tool.activeChange.subscribe(() =>
+        this.checkContent(tool),
+      );
       this.activeChangeSubscriptions.push(subscription);
       this.checkContent(tool);
     });
   }
 
   private unsubscribeFromActiveChange() {
-    this.activeChangeSubscriptions.forEach(subscription => subscription.unsubscribe());
+    this.activeChangeSubscriptions.forEach(subscription =>
+      subscription.unsubscribe(),
+    );
   }
 
   private subscribeToToolsChange() {
@@ -91,12 +102,20 @@ export class CwToolGroupComponent implements AfterViewInit, OnDestroy {
   }
 
   private openContent(tool: CwToolComponent) {
-    const positionStrategy = this.overlay.position().global().centerHorizontally().centerVertically();
+    const positionStrategy = this.overlay
+      .position()
+      .global()
+      .centerHorizontally()
+      .centerVertically();
     const overlayRef = this.overlay.create({ positionStrategy });
-    const componentRef = overlayRef.attach(new ComponentPortal(CwToolContentComponent));
+    const componentRef = overlayRef.attach(
+      new ComponentPortal(CwToolContentComponent),
+    );
     componentRef.instance.title = tool.title;
     componentRef.instance.content = tool.content;
-    componentRef.instance.dispose.pipe(first()).subscribe(() => this.toggleActive(tool));
+    componentRef.instance.dispose
+      .pipe(first())
+      .subscribe(() => this.toggleActive(tool));
     this.activeTools.set(tool, overlayRef);
   }
 

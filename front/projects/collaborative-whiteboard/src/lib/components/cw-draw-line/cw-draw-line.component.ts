@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 
 import { DrawOptions } from '../../cw.model';
 import { getDefaultDrawOptions } from '../../cw.operator';
@@ -7,10 +13,9 @@ import { getDefaultDrawOptions } from '../../cw.operator';
   selector: 'cw-draw-line',
   templateUrl: './cw-draw-line.component.html',
   styleUrls: ['./cw-draw-line.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CwDrawLineComponent {
-
   @Input() lineWidthMax = 30;
 
   @Input() drawOptions = getDefaultDrawOptions();

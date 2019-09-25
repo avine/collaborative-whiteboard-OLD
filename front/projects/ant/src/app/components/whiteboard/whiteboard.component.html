@@ -2,9 +2,10 @@
   nz-input
   placeholder="Onwer"
   style="width:50px"
-  (input)="service.owner = $event.target.value">
+  (input)="service.owner = $event.target.value"
+/>
 
-<br><br>
+<br /><br />
 
 <div class="canvas-container">
   <cw-canvas
@@ -12,74 +13,117 @@
     class="canvas-draw"
     [showGuides]="!cutOpen"
     [broadcast]="service.broadcast$ | async"
-    (draw)="service.emit($event)">
-  </cw-canvas>
+    (draw)="service.emit($event)"
+  ></cw-canvas>
 
   <cw-canvas
     *ngIf="cutOpen"
     class="canvas-cut"
     [drawDisabled]="true"
-    [broadcast]="service.broadcastHistoryCut$ | async">
-  </cw-canvas>
+    [broadcast]="service.broadcastHistoryCut$ | async"
+  ></cw-canvas>
 </div>
 
-<br><br>
+<br /><br />
 
 <div nz-form [nzLayout]="'inline'">
   <nz-form-item>
     <nz-form-control>
-
       <nz-button-group>
-        <button nz-button nzType="default"
-          nzTitle="Stroke style" nzPlacement="top" nz-popover [nzContent]="strokeStyleTemplate">
+        <button
+          nz-button
+          nzType="default"
+          nzTitle="Stroke style"
+          nzPlacement="top"
+          nz-popover
+          [nzContent]="strokeStyleTemplate"
+        >
           <i nz-icon type="bg-colors"></i>
           <span
             class="stroke-style-info"
-            [style.background-color]="drawOptions.strokeStyle">
-          </span>
+            [style.background-color]="drawOptions.strokeStyle"
+          ></span>
         </button>
-        <button nz-button nzType="default"
-          nzTitle="Line width" nzPlacement="top" nz-popover [nzContent]="lineWidthTemplate">
+
+        <button
+          nz-button
+          nzType="default"
+          nzTitle="Line width"
+          nzPlacement="top"
+          nz-popover
+          [nzContent]="lineWidthTemplate"
+        >
           <i nz-icon type="edit"></i> {{ drawOptions.lineWidth }}px
         </button>
       </nz-button-group>
-
     </nz-form-control>
   </nz-form-item>
+
   <nz-form-item>
     <nz-form-control>
-
       <nz-button-group>
-        <button nz-button nzType="danger"
-          nzTitle="Cut tool" nzPlacement="bottom" nz-popover [nzContent]="cutTemplate" [(nzVisible)]="cutOpen">
+        <button
+          nz-button
+          nzType="danger"
+          nzTitle="Cut tool"
+          nzPlacement="bottom"
+          nz-popover
+          [nzContent]="cutTemplate"
+          [(nzVisible)]="cutOpen"
+        >
           <i nz-icon type="scissor"></i>
         </button>
-        <button nz-button nzType="danger" (click)="service.undo()"
-          nzTitle="Undo" nzPlacement="top" nz-tooltip>
+
+        <button
+          nz-button
+          nzType="danger"
+          (click)="service.undo()"
+          nzTitle="Undo"
+          nzPlacement="top"
+          nz-tooltip
+        >
           <i nz-icon type="undo"></i>
         </button>
-        <button nz-button nzType="danger" (click)="service.redo()"
-          nzTitle="Redo" nzPlacement="top" nz-tooltip>
+
+        <button
+          nz-button
+          nzType="danger"
+          (click)="service.redo()"
+          nzTitle="Redo"
+          nzPlacement="top"
+          nz-tooltip
+        >
           <i nz-icon type="redo"></i>
         </button>
-        <button nz-button nzType="danger" (click)="service.undoAll()"
-          nzTitle="Undo all" nzPlacement="top" nz-tooltip>
+
+        <button
+          nz-button
+          nzType="danger"
+          (click)="service.undoAll()"
+          nzTitle="Undo all"
+          nzPlacement="top"
+          nz-tooltip
+        >
           <i nz-icon type="delete"></i>
         </button>
       </nz-button-group>
-
     </nz-form-control>
   </nz-form-item>
+
   <nz-form-item>
     <nz-form-control>
-
       <nz-button-group>
-        <button nz-button nzType="default" (click)="service.redraw()"
-          nzTitle="Redraw" nzPlacement="top" nz-tooltip>
+        <button
+          nz-button
+          nzType="default"
+          (click)="service.redraw()"
+          nzTitle="Redraw"
+          nzPlacement="top"
+          nz-tooltip
+        >
           <i nz-icon type="history"></i>
         </button>
       </nz-button-group>
-
     </nz-form-control>
   </nz-form-item>
 </div>
@@ -88,15 +132,12 @@
   <color-circle
     [circleSize]="24"
     [color]="drawOptions.strokeStyle"
-    (onChangeComplete)="drawOptions.strokeStyle = $event.color.hex">
-  </color-circle>
+    (onChangeComplete)="drawOptions.strokeStyle = $event.color.hex"
+  ></color-circle>
 </ng-template>
 
 <ng-template #lineWidthTemplate>
-  <nz-slider
-    [nzMin]="1"
-    [nzMax]="20"
-    [(ngModel)]="drawOptions.lineWidth">
+  <nz-slider [nzMin]="1" [nzMax]="20" [(ngModel)]="drawOptions.lineWidth">
   </nz-slider>
 </ng-template>
 
@@ -107,9 +148,10 @@
         [nzMin]="0"
         [nzMax]="cutLastIndex"
         [(ngModel)]="cutIndex"
-        (ngModelChange)="updateCutIndex()">
-      </nz-slider>
+        (ngModelChange)="updateCutIndex()"
+      ></nz-slider>
     </div>
+
     <div nz-col>
       <button nz-button nzType="danger" (click)="cut()">Cut</button>
     </div>

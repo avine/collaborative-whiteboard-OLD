@@ -8,9 +8,8 @@ describe('CanvasMirrorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CanvasMirrorComponent ]
-    })
-    .compileComponents();
+      declarations: [CanvasMirrorComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

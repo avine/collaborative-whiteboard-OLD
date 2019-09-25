@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 
 import { getDefaultColors } from '../../cw.operator';
 
@@ -6,10 +12,9 @@ import { getDefaultColors } from '../../cw.operator';
   selector: 'cw-color-picker',
   templateUrl: './cw-color-picker.component.html',
   styleUrls: ['./cw-color-picker.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CwColorPickerComponent {
-
   @Input() colors = getDefaultColors();
 
   @Input() color: string;

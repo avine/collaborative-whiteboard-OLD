@@ -8,9 +8,8 @@ describe('CwIconComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CwIconComponent ]
-    })
-    .compileComponents();
+      declarations: [CwIconComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

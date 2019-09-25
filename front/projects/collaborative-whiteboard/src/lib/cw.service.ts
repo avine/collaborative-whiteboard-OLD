@@ -4,15 +4,22 @@ import { first, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 import {
-    BroadcastDrawEvents, CutRange, CutRangeArg, DrawEvent, DrawTransport, Owner
+  BroadcastDrawEvents,
+  CutRange,
+  CutRangeArg,
+  DrawEvent,
+  DrawTransport,
+  Owner,
 } from './cw.model';
 import {
-    broadcastDrawEventsMapper, getClearEvent, getHash, normalizeCutRange
+  broadcastDrawEventsMapper,
+  getClearEvent,
+  getHash,
+  normalizeCutRange,
 } from './cw.operator';
 
 @Injectable()
 export class CwService {
-
   private historyMap = new Map<string, DrawEvent>();
 
   private historyRedo: DrawEvent[][] = [];
@@ -33,17 +40,24 @@ export class CwService {
 
   history$ = this.history$$.asObservable();
 
-  historyCut$ = this.history$$.pipe(map(history => this.getOwnerDrawEvents(history)));
+  historyCut$ = this.history$$.pipe(
+    map(history => this.getOwnerDrawEvents(history)),
+  );
 
-  historyCutLength$ = this.historyCut$.pipe(map(historyCut => historyCut.length));
+  historyCutLength$ = this.historyCut$.pipe(
+    map(historyCut => historyCut.length),
+  );
 
   cutRange$ = this.cutRange$$.asObservable();
 
-  broadcastHistoryCut$ = combineLatest([this.historyCut$, this.cutRange$$]).pipe(
+  broadcastHistoryCut$ = combineLatest([
+    this.historyCut$,
+    this.cutRange$$,
+  ]).pipe(
     map(([historyCut, [from, to]]) => {
       const slice = [getClearEvent(), ...historyCut.slice(from, to + 1)];
       return broadcastDrawEventsMapper(slice);
-    })
+    }),
   );
 
   broadcast$ = this.broadcast$$.asObservable();
@@ -52,7 +66,7 @@ export class CwService {
 
   owner: Owner;
 
-  constructor() { }
+  constructor() {}
 
   private pushHistory(event: DrawEvent) {
     event.options = { ...event.options }; // Make this immutable!
@@ -144,7 +158,9 @@ export class CwService {
       if (ownerEvents.length) {
         this.pushHistoryRedo(ownerEvents);
       }
-      this.broadcast$$.next(broadcastDrawEventsMapper([getClearEvent(), ...this.history]));
+      this.broadcast$$.next(
+        broadcastDrawEventsMapper([getClearEvent(), ...this.history]),
+      );
       this.emitHistory();
     }
   }
@@ -157,7 +173,9 @@ export class CwService {
   // Note that since the whiteboard is collaborative, the clear event should NOT
   // be broadcast through the network, otherwise all users' events will be deleted.
   private normalizeEvents(events: DrawEvent[]) {
-    return events.map(event => event.type === 'clear' ? getClearEvent() : event);
+    return events.map(event =>
+      event.type === 'clear' ? getClearEvent() : event,
+    );
   }
 
   broadcast(transport: DrawTransport) {
@@ -186,7 +204,9 @@ export class CwService {
     const event = this.popHistory();
     if (event) {
       this.pushHistoryRedo([event]);
-      this.broadcast$$.next(broadcastDrawEventsMapper([getClearEvent(), ...this.history]));
+      this.broadcast$$.next(
+        broadcastDrawEventsMapper([getClearEvent(), ...this.history]),
+      );
       this.emit$$.next({ action: 'remove', events: [event] });
       this.emitHistory();
     }
@@ -206,7 +226,9 @@ export class CwService {
     const removed = events.filter(event => this.pullHistory(event));
     if (removed.length) {
       this.pushHistoryRedo(removed);
-      this.broadcast$$.next(broadcastDrawEventsMapper([getClearEvent(), ...this.history]));
+      this.broadcast$$.next(
+        broadcastDrawEventsMapper([getClearEvent(), ...this.history]),
+      );
       this.emit$$.next({ action: 'remove', events: removed });
       this.emitHistory();
     }
@@ -217,7 +239,9 @@ export class CwService {
    */
   cutByRange(data: CutRangeArg) {
     const [from, to] = normalizeCutRange(data);
-    this.historyCut$.pipe(first()).subscribe(historyCut => this.cut(historyCut.slice(from, to + 1)));
+    this.historyCut$
+      .pipe(first())
+      .subscribe(historyCut => this.cut(historyCut.slice(from, to + 1)));
   }
 
   undoAll() {

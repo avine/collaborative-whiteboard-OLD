@@ -1,7 +1,11 @@
 import { Subscription } from 'rxjs';
 
 import {
-    ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
 } from '@angular/core';
 
 import { CutRange } from '../../cw.model';
@@ -11,10 +15,9 @@ import { CwService } from '../../cw.service';
   selector: 'cw-cut',
   templateUrl: './cw-cut.component.html',
   styleUrls: ['./cw-cut.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CwCutComponent implements OnInit, OnDestroy {
-
   cutLastIndex = 0;
 
   cutIndex = 0;
@@ -31,8 +34,8 @@ export class CwCutComponent implements OnInit, OnDestroy {
 
   constructor(
     private service: CwService,
-    private changeDetectorRef: ChangeDetectorRef
-  ) { }
+    private changeDetectorRef: ChangeDetectorRef,
+  ) {}
 
   ngOnInit() {
     this.updateCutRange();
@@ -45,8 +48,8 @@ export class CwCutComponent implements OnInit, OnDestroy {
 
   private subscribeToCutLength() {
     this.subscription = this.service.historyCutLength$.subscribe(cutLength => {
-      this.cutLastIndex =  Math.max(0, cutLength - 1);
-      this.cutMaxSpread =  Math.max(1, cutLength);
+      this.cutLastIndex = Math.max(0, cutLength - 1);
+      this.cutMaxSpread = Math.max(1, cutLength);
 
       this.cutIndex = Math.min(this.cutIndex, this.cutLastIndex);
       this.cutSpread = Math.min(this.cutSpread, this.cutMaxSpread);

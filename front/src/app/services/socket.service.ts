@@ -5,10 +5,10 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SocketService {
   public socket = connect(environment.socketIoUri);
 
-  constructor() { }
+  constructor() {}
 }

@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
 
-  socketIoUri: 'http://localhost:3000'
+  socketIoUri: 'http://localhost:3000',
 };
 
 /*

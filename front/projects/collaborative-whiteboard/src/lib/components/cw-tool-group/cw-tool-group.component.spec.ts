@@ -8,9 +8,8 @@ describe('CwToolGroupComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CwToolGroupComponent ]
-    })
-    .compileComponents();
+      declarations: [CwToolGroupComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

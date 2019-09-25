@@ -17,10 +17,7 @@ import { WhiteboardComponent } from './components/whiteboard/whiteboard.componen
 registerLocaleData(en);
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    WhiteboardComponent
-  ],
+  declarations: [AppComponent, WhiteboardComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -29,11 +26,9 @@ registerLocaleData(en);
     AppRoutingModule,
     NgZorroAntdModule,
     ColorCircleModule,
-    CollaborativeWhiteboardModule
+    CollaborativeWhiteboardModule,
   ],
-  providers: [
-    { provide: NZ_I18N, useValue: en_US }
-  ],
-  bootstrap: [AppComponent]
+  providers: [{ provide: NZ_I18N, useValue: en_US }],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

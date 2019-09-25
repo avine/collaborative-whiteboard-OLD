@@ -1,9 +1,10 @@
-<canvas #canvas
+<canvas
+  #canvas
   class="cw-canvas"
   [class.cw-canvas--guides]="showGuides"
   (touchstart)="drawStart($event)"
   (touchend)="drawEnd($event)"
   (mousedown)="drawStart($event)"
   (mouseup)="drawEnd($event)"
-  (mouseleave)="drawEnd($event)">
-</canvas>
+  (mouseleave)="drawEnd($event)"
+></canvas>

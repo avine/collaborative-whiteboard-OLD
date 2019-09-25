@@ -8,9 +8,8 @@ describe('WhiteboardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WhiteboardComponent ]
-    })
-    .compileComponents();
+      declarations: [WhiteboardComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

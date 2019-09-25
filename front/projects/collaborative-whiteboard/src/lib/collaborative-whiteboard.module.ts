@@ -24,25 +24,19 @@ const features = [
   CwToolContentComponent,
   CwToolGroupComponent,
   CwToolComponent,
-  CwWhiteboardComponent
+  CwWhiteboardComponent,
 ];
 
 @NgModule({
-  declarations: [
-    features,
-  ],
+  declarations: [features],
   imports: [
     CommonModule,
     FormsModule,
     DragDropModule,
     OverlayModule,
-    PortalModule
+    PortalModule,
   ],
-  exports: [
-    features
-  ],
-  entryComponents: [
-    CwToolContentComponent
-  ]
+  exports: [features],
+  entryComponents: [CwToolContentComponent],
 })
-export class CollaborativeWhiteboardModule { }
+export class CollaborativeWhiteboardModule {}

@@ -7,9 +7,11 @@
 </div>
 
 <div *ngIf="popup === 'update'" class="popup">
-  <fa-icon [icon]="update"></fa-icon> &nbsp;
-  Application update available &nbsp;
-  <button type="button" class="app-button" (click)="closePopup(true)">Install and restart app</button> &nbsp;
+  <fa-icon [icon]="update"></fa-icon> &nbsp; Application update available &nbsp;
+  <button type="button" class="app-button" (click)="closePopup(true)">
+    Install and restart app
+  </button>
+  &nbsp;
   <a (click)="closePopup()">Postpone</a>
 </div>
 

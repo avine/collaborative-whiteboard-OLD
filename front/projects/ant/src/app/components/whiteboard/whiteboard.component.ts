@@ -3,14 +3,18 @@ import { SocketService } from 'src/app/services/socket.service';
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
-    CwService, DrawEvent, DrawOptions, DrawTransport, getDefaultDrawOptions
+  CwService,
+  DrawEvent,
+  DrawOptions,
+  DrawTransport,
+  getDefaultDrawOptions,
 } from '@collaborative-whiteboard';
 
 @Component({
   selector: 'app-whiteboard',
   templateUrl: './whiteboard.component.html',
   styleUrls: ['./whiteboard.component.less'],
-  providers: [CwService]
+  providers: [CwService],
 })
 export class WhiteboardComponent implements OnInit, OnDestroy {
   drawOptions: DrawOptions = getDefaultDrawOptions();
@@ -27,13 +31,16 @@ export class WhiteboardComponent implements OnInit, OnDestroy {
 
   constructor(
     private socketService: SocketService,
-    public service: CwService
-  ) { }
+    public service: CwService,
+  ) {}
 
   ngOnInit() {
-    this.socketService.socket.on('broadcastDrawTransport', (transport: DrawTransport) => {
-      this.service.broadcast(transport);
-    });
+    this.socketService.socket.on(
+      'broadcastDrawTransport',
+      (transport: DrawTransport) => {
+        this.service.broadcast(transport);
+      },
+    );
 
     this.subscriptions.push(
       this.service.historyCut$.subscribe(historyCut => {
@@ -48,7 +55,7 @@ export class WhiteboardComponent implements OnInit, OnDestroy {
 
       this.service.emit$.subscribe((transport: DrawTransport) => {
         this.socketService.socket.emit('drawTransport', transport);
-      })
+      }),
     );
   }
 

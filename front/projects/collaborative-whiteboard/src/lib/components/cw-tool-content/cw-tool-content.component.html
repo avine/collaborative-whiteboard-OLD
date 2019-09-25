@@ -2,12 +2,10 @@
   class="cw-tool-content"
   cdkDrag
   cdkDragRootElement=".cdk-overlay-pane"
-  cdkDragBoundary="body">
+  cdkDragBoundary="body"
+>
   <div class="cw-tool-content__header">
-    <cw-icon
-      icon="drag"
-      class="cw-tool-content__action"
-      cdkDragHandle>
+    <cw-icon icon="drag" class="cw-tool-content__action" cdkDragHandle>
     </cw-icon>
 
     <span class="cw-tool-content__title">{{ title }}</span>
@@ -15,8 +13,8 @@
     <cw-icon
       icon="dispose"
       class="cw-tool-content__action"
-      (click)="dispose.emit()">
-    </cw-icon>
+      (click)="dispose.emit()"
+    ></cw-icon>
   </div>
 
   <div class="cw-tool-content__content">

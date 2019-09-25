@@ -6,15 +6,12 @@ import { faTint } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-
   themeIcon = faTint;
 
-  constructor(public themeService: ThemeService) { }
+  constructor(public themeService: ThemeService) {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

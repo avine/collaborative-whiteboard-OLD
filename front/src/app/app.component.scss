@@ -1,11 +1,11 @@
-@import "./styles/mixins.scss";
+@import './styles/mixins.scss';
 
 .layout {
   z-index: 1;
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: 2.5rem 1fr;
-  grid-template-areas: "header" "main";
+  grid-template-areas: 'header' 'main';
   height: 100%;
   text-align: center;
 }

@@ -8,9 +8,8 @@ describe('CwCanvasComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CwCanvasComponent ]
-    })
-    .compileComponents();
+      declarations: [CwCanvasComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

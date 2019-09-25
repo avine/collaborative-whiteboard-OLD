@@ -8,9 +8,8 @@ describe('CwDrawLineComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CwDrawLineComponent ]
-    })
-    .compileComponents();
+      declarations: [CwDrawLineComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

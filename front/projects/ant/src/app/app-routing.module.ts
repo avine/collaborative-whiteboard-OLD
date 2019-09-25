@@ -7,16 +7,16 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    component: WhiteboardComponent
+    component: WhiteboardComponent,
   },
   {
     path: '**',
-    component: WhiteboardComponent
-  }
+    component: WhiteboardComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

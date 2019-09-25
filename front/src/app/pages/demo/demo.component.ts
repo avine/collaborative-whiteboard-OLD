@@ -3,19 +3,22 @@ import { SocketService } from 'src/app/services/socket.service';
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
-    CwService, DrawEvent, DrawOptions, DrawTransport
+  CwService,
+  DrawEvent,
+  DrawOptions,
+  DrawTransport,
 } from '@collaborative-whiteboard';
 
 @Component({
   selector: 'app-demo',
   templateUrl: './demo.component.html',
   styleUrls: ['./demo.component.scss'],
-  providers: [CwService]
+  providers: [CwService],
 })
 export class DemoComponent implements OnInit, OnDestroy {
   drawOptions: DrawOptions = {
     strokeStyle: 'grey',
-    lineWidth: 6
+    lineWidth: 6,
   };
 
   historyCut: DrawEvent[];
@@ -30,13 +33,16 @@ export class DemoComponent implements OnInit, OnDestroy {
 
   constructor(
     private socketService: SocketService,
-    public service: CwService
-  ) { }
+    public service: CwService,
+  ) {}
 
   ngOnInit() {
-    this.socketService.socket.on('broadcastDrawTransport', (transport: DrawTransport) => {
-      this.service.broadcast(transport);
-    });
+    this.socketService.socket.on(
+      'broadcastDrawTransport',
+      (transport: DrawTransport) => {
+        this.service.broadcast(transport);
+      },
+    );
 
     this.subscriptions.push(
       this.service.historyCut$.subscribe(historyCut => {
@@ -51,7 +57,7 @@ export class DemoComponent implements OnInit, OnDestroy {
 
       this.service.emit$.subscribe((transport: DrawTransport) => {
         this.socketService.socket.emit('drawTransport', transport);
-      })
+      }),
     );
   }
 

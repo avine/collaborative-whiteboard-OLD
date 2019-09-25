@@ -1,5 +1,5 @@
-@import "./variables.light.scss";
-@import "./variables.dark.scss";
+@import './variables.light.scss';
+@import './variables.dark.scss';
 
 // Usage
 // -----
@@ -23,8 +23,12 @@
 }
 
 @mixin themes() {
-  @include theme(light) { @content; }
-  @include theme(dark) { @content; }
+  @include theme(light) {
+    @content;
+  }
+  @include theme(dark) {
+    @content;
+  }
 }
 
 @mixin ngTheme($name: light) {
@@ -42,6 +46,10 @@
 }
 
 @mixin ngThemes() {
-  @include ngTheme(light) { @content; }
-  @include ngTheme(dark) { @content; }
+  @include ngTheme(light) {
+    @content;
+  }
+  @include ngTheme(dark) {
+    @content;
+  }
 }

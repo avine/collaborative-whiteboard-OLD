@@ -1,16 +1,22 @@
 import {
-    ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges,
-    TemplateRef, ViewChild
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+  TemplateRef,
+  ViewChild,
 } from '@angular/core';
 
 @Component({
   selector: 'cw-tool',
   templateUrl: './cw-tool.component.html',
   styleUrls: ['./cw-tool.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CwToolComponent implements OnChanges {
-
   @Input() title: string;
 
   @Input() content: TemplateRef<any>;

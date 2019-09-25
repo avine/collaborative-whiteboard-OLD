@@ -1,4 +1,4 @@
-@import "./cw.variables.scss";
+@import './cw.variables.scss';
 
 .cw-canvas {
   display: block;
@@ -8,8 +8,11 @@
 .cw-canvas--guides {
   background-size: $cw-canvas-guides-distance $cw-canvas-guides-distance;
   background-position: -1px 0px;
-  background-image:
-    linear-gradient(0deg, $cw-canvas-guides-color 0, transparent 1px),
+  background-image: linear-gradient(
+      0deg,
+      $cw-canvas-guides-color 0,
+      transparent 1px
+    ),
     linear-gradient(90deg, $cw-canvas-guides-color 0, transparent 1px);
 }
 
@@ -30,7 +33,7 @@ cw-color-picker {
 }
 
 .cw-color-picker--selected:after {
-  content: "";
+  content: '';
   position: absolute;
   left: ($cw-color-picker-width - $cw-color-picker-width-active) / 2;
   top: ($cw-color-picker-width - $cw-color-picker-width-active) / 2;
@@ -65,7 +68,7 @@ cw-color-picker {
 
 .cw-cut__button {
   outline: none;
-  padding: 0.35rem 0.70rem;
+  padding: 0.35rem 0.7rem;
   border-radius: $cw-border-radius;
   border: none;
   background-color: $cw-primary-color;
@@ -114,7 +117,9 @@ cw-color-picker {
   padding: 0 $cw-spacing-md;
   transition: opacity $cw-anim-duration-slow ease;
   opacity: $cw-opacity-low;
-  &:hover { opacity: 1; }
+  &:hover {
+    opacity: 1;
+  }
 }
 
 .cw-tool-content__content {
@@ -160,8 +165,7 @@ cw-color-picker {
 }
 
 .cw-tool-group__action--tool {
-  transition:
-    background-color ease $cw-anim-duration-fast,
+  transition: background-color ease $cw-anim-duration-fast,
     color ease $cw-anim-duration-fast;
 
   &:hover {

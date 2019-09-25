@@ -1,14 +1,32 @@
 import {
-    AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter,
-    Input, NgZone, OnChanges, Output, SimpleChanges, ViewChild
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  NgZone,
+  OnChanges,
+  Output,
+  SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 
 import {
-    BroadcastDrawEvents, CanvasLine, CanvasLineSerie, CanvasPoint, CanvasSize, DrawEvent,
-    DrawOptions
+  BroadcastDrawEvents,
+  CanvasLine,
+  CanvasLineSerie,
+  CanvasPoint,
+  CanvasSize,
+  DrawEvent,
+  DrawOptions,
 } from '../../cw.model';
 import {
-    getClearEvent, getDefaultCanvasSize, getDefaultDrawOptions, keepDrawEventsAfterClearEvent
+  getClearEvent,
+  getDefaultCanvasSize,
+  getDefaultDrawOptions,
+  keepDrawEventsAfterClearEvent,
 } from '../../cw.operator';
 
 type CanvasEvent = MouseEvent | TouchEvent;
@@ -17,10 +35,9 @@ type CanvasEvent = MouseEvent | TouchEvent;
   selector: 'cw-canvas',
   templateUrl: './cw-canvas.component.html',
   styleUrls: ['./cw-canvas.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CwCanvasComponent implements AfterViewInit, OnChanges {
-
   @Input() canvasSize = getDefaultCanvasSize();
 
   @Output() canvasSizeChange = new EventEmitter<CanvasSize>();
@@ -35,7 +52,9 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
 
   @Output() draw = new EventEmitter<DrawEvent>();
 
-  @ViewChild('canvas', { static: false }) canvasRef: ElementRef<HTMLCanvasElement>;
+  @ViewChild('canvas', { static: false }) canvasRef: ElementRef<
+    HTMLCanvasElement
+  >;
 
   private context: CanvasRenderingContext2D;
 
@@ -45,7 +64,10 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
 
   private lineSerieBuffer: number[] = [];
 
-  constructor(private ngZone: NgZone, private changeDetectorRef: ChangeDetectorRef) {}
+  constructor(
+    private ngZone: NgZone,
+    private changeDetectorRef: ChangeDetectorRef,
+  ) {}
 
   ngAfterViewInit() {
     this.initMousemoveListener();
@@ -65,8 +87,14 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
   private initMousemoveListener() {
     // Prevent unnecessary changes detection
     this.ngZone.runOutsideAngular(() => {
-      this.canvasRef.nativeElement.addEventListener('touchmove', this.drawMove.bind(this));
-      this.canvasRef.nativeElement.addEventListener('mousemove', this.drawMove.bind(this));
+      this.canvasRef.nativeElement.addEventListener(
+        'touchmove',
+        this.drawMove.bind(this),
+      );
+      this.canvasRef.nativeElement.addEventListener(
+        'mousemove',
+        this.drawMove.bind(this),
+      );
     });
   }
 
@@ -196,7 +224,10 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
     this.applyDrawOptions();
   }
 
-  private drawLine([fromX, fromY, toX, toY]: CanvasLine, options?: DrawOptions) {
+  private drawLine(
+    [fromX, fromY, toX, toY]: CanvasLine,
+    options?: DrawOptions,
+  ) {
     this.applyDrawOptions(options);
     this.context.beginPath();
     this.context.moveTo(fromX, fromY);
@@ -217,7 +248,12 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
     this.applyDrawOptions();
   }
 
-  private drawClear([fromX = 0, fromY = 0, toX = this.canvasSize.width, toY = this.canvasSize.height]: CanvasLine) {
+  private drawClear([
+    fromX = 0,
+    fromY = 0,
+    toX = this.canvasSize.width,
+    toY = this.canvasSize.height,
+  ]: CanvasLine) {
     this.context.clearRect(fromX, fromY, toX, toY);
   }
 
@@ -229,7 +265,10 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
    * @returns The number of touches for touch event or 0 for mouse event
    */
   private touchEventHandler(e: CanvasEvent): number {
-    const isTouchEvent = e.type === 'touchstart' || e.type === 'touchmove' || e.type === 'touchend';
+    const isTouchEvent =
+      e.type === 'touchstart' ||
+      e.type === 'touchmove' ||
+      e.type === 'touchend';
     if (isTouchEvent) {
       const touchesLength = (e as TouchEvent).touches.length;
       if (touchesLength === 1) {
@@ -243,14 +282,13 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
   }
 
   private getCanvasPoint(e: CanvasEvent, touchesLength: number): CanvasPoint {
-    const { clientX: eventX, clientY: eventY } = touchesLength === 1 ?
-      (e as TouchEvent).touches[0] :
-      (e as MouseEvent);
-    const { left: canvasX, top: canvasY } = this.canvasRef.nativeElement.getBoundingClientRect();
-    return this.canvasPointAdjustment([
-      eventX - canvasX,
-      eventY - canvasY
-    ]);
+    const { clientX: eventX, clientY: eventY } =
+      touchesLength === 1 ? (e as TouchEvent).touches[0] : (e as MouseEvent);
+    const {
+      left: canvasX,
+      top: canvasY,
+    } = this.canvasRef.nativeElement.getBoundingClientRect();
+    return this.canvasPointAdjustment([eventX - canvasX, eventY - canvasY]);
   }
 
   private canvasPointAdjustment(canvasPoint: CanvasPoint): CanvasPoint {
@@ -284,12 +322,23 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
   drawEnd(e: CanvasEvent) {
     this.touchEventHandler(e); // Do this on top (NOT in the "if" statement)
     if (this.lineSerieBuffer.length === 2) {
-      const data = this.canvasPointAdjustment(this.lineSerieBuffer as CanvasPoint);
+      const data = this.canvasPointAdjustment(this
+        .lineSerieBuffer as CanvasPoint);
       this.drawPoint(data);
-      this.emit({ owner: null, type: 'point', options: this.drawOptions, data });
+      this.emit({
+        owner: null,
+        type: 'point',
+        options: this.drawOptions,
+        data,
+      });
     } else if (this.lineSerieBuffer.length > 2) {
       const data = this.lineSerieBuffer as CanvasLineSerie;
-      this.emit({ owner: null, type: 'lineSerie', options: this.drawOptions, data });
+      this.emit({
+        owner: null,
+        type: 'lineSerie',
+        options: this.drawOptions,
+        data,
+      });
     }
     this.lineSerieBuffer = [];
   }

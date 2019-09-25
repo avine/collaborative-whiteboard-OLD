@@ -4,7 +4,7 @@ import { Inject, Injectable, RendererFactory2 } from '@angular/core';
 type ThemeName = 'light' | 'dark';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ThemeService {
   private renderer = this.rendererFactory.createRenderer(null, null);
@@ -17,14 +17,17 @@ export class ThemeService {
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
-    private rendererFactory: RendererFactory2
+    private rendererFactory: RendererFactory2,
   ) {
     this.setTheme();
   }
 
   setTheme(name: ThemeName = 'light') {
     const oldName: ThemeName = name === 'light' ? 'dark' : 'light';
-    this.renderer.removeClass(this.document.documentElement, `theme--${oldName}`);
+    this.renderer.removeClass(
+      this.document.documentElement,
+      `theme--${oldName}`,
+    );
     this.renderer.addClass(this.document.documentElement, `theme--${name}`);
     this.themeName = name;
   }

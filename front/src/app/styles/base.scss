@@ -1,6 +1,6 @@
-@import "./mixins.scss";
+@import './mixins.scss';
 
-@import url("~typeface-mali/index.css");
+@import url('~typeface-mali/index.css');
 
 html,
 body {
@@ -10,7 +10,7 @@ body {
 
 body {
   margin: 0;
-  font-family: "Mali", cursive;
+  font-family: 'Mali', cursive;
 }
 
 * {
@@ -18,18 +18,22 @@ body {
 }
 
 a {
-  &, &:visited {
+  &,
+  &:visited {
     cursor: pointer;
     text-decoration: none;
     transition: color 150ms ease;
   }
 
-  &:hover, &:active, &:focus {
+  &:hover,
+  &:active,
+  &:focus {
     text-decoration: underline;
   }
 }
 
-input, option {
+input,
+option {
   font-family: inherit;
 }
 
@@ -40,11 +44,14 @@ input, option {
   }
 
   a {
-    &, &:visited {
+    &,
+    &:visited {
       color: map-get($app-theme, link-color);
     }
 
-    &:hover, &:active, &:focus {
+    &:hover,
+    &:active,
+    &:focus {
       color: map-get($app-theme, link-active-color);
     }
   }

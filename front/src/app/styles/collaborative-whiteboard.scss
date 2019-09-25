@@ -1,4 +1,4 @@
-@import "./mixins.scss";
+@import './mixins.scss';
 
 @include themes {
   $cw-primary-color: map-get($app-theme, primary-color);
@@ -8,5 +8,5 @@
   $cw-canvas-draw-bg-color: map-get($app-theme, canvas-draw-bg-color);
   $cw-canvas-cut-bg-color: map-get($app-theme, canvas-cut-bg-color);
 
-  @import "../projects/collaborative-whiteboard/src/lib/styles/cw.core.scss";
+  @import '../projects/collaborative-whiteboard/src/lib/styles/cw.core.scss';
 }

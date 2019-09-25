@@ -8,9 +8,8 @@ describe('CwColorPickerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CwColorPickerComponent ]
-    })
-    .compileComponents();
+      declarations: [CwColorPickerComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

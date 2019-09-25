@@ -5,11 +5,10 @@ import { Injectable } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ServiceWorkerService {
-
   updatesAvailable$ = this.updates.available;
 
-  constructor(private updates: SwUpdate) { }
+  constructor(private updates: SwUpdate) {}
 }

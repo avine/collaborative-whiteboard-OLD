@@ -11,11 +11,7 @@ export type CanvasLine = [number, number, number, number];
 
 export type CanvasLineSerie = number[];
 
-export type DrawType =
-  | 'point'
-  | 'line'
-  | 'lineSerie'
-  | 'clear';
+export type DrawType = 'point' | 'line' | 'lineSerie' | 'clear';
 
 export interface DrawOptions {
   lineWidth: number;
@@ -48,20 +44,14 @@ export interface DrawClear extends DrawBase {
   data: CanvasLine;
 }
 
-export type DrawEvent =
-  | DrawPoint
-  | DrawLine
-  | DrawLineSerie
-  | DrawClear;
+export type DrawEvent = DrawPoint | DrawLine | DrawLineSerie | DrawClear;
 
 export interface BroadcastDrawEvents {
   animate: boolean;
   events: DrawEvent[];
 }
 
-export type DrawAction =
-  | 'add'
-  | 'remove';
+export type DrawAction = 'add' | 'remove';
 
 export interface DrawTransport {
   action: DrawAction;

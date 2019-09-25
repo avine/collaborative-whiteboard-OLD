@@ -1,7 +1,14 @@
 import { Subscription } from 'rxjs';
 
 import {
-    Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
 } from '@angular/core';
 
 import { DrawTransport, Owner } from '../../cw.model';
@@ -12,10 +19,9 @@ import { CwService } from '../../cw.service';
   selector: 'cw-whiteboard',
   templateUrl: './cw-whiteboard.component.html',
   styleUrls: ['./cw-whiteboard.component.scss'],
-  providers: [CwService]
+  providers: [CwService],
 })
 export class CwWhiteboardComponent implements OnInit, OnDestroy {
-
   @Input() fitParentElement = true;
 
   @Input() dragBoundarySelector: string;
@@ -30,7 +36,8 @@ export class CwWhiteboardComponent implements OnInit, OnDestroy {
 
   @Output() emit = new EventEmitter<DrawTransport>();
 
-  @ViewChild('canvasContainer', { static: true, read: ElementRef }) canvasContainer: ElementRef;
+  @ViewChild('canvasContainer', { static: true, read: ElementRef })
+  canvasContainer: ElementRef;
 
   canvasSize = getDefaultCanvasSize();
 
@@ -44,12 +51,14 @@ export class CwWhiteboardComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
 
-  constructor(public service: CwService) { }
+  constructor(public service: CwService) {}
 
   ngOnInit() {
-    this.subscription = this.service.emit$.subscribe((transport: DrawTransport) => {
-      this.emit.emit(transport);
-    });
+    this.subscription = this.service.emit$.subscribe(
+      (transport: DrawTransport) => {
+        this.emit.emit(transport);
+      },
+    );
 
     if (this.fitParentElement) {
       this.fitCanvasSizeToParentElement();

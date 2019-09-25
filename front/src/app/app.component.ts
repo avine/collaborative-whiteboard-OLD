@@ -9,10 +9,9 @@ import { ServiceWorkerService } from './services/service-worker.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
-
   userIcon = faUserCircle;
   update = faDownload;
 
@@ -22,12 +21,13 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     private serviceWorkerService: ServiceWorkerService,
-    @Inject(WINDOW) private window: Window
-  ) { }
+    @Inject(WINDOW) private window: Window,
+  ) {}
 
   ngOnInit() {
-    this.subscription = this.serviceWorkerService.updatesAvailable$
-      .subscribe(() => this.popup = 'update');
+    this.subscription = this.serviceWorkerService.updatesAvailable$.subscribe(
+      () => (this.popup = 'update'),
+    );
   }
 
   ngOnDestroy() {

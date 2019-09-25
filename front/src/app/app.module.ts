@@ -27,7 +27,7 @@ import { WhiteboardComponent } from './pages/whiteboard/whiteboard.component';
     HomeComponent,
     TabsComponent,
     TextComponent,
-    WhiteboardComponent
+    WhiteboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,9 +35,11 @@ import { WhiteboardComponent } from './pages/whiteboard/whiteboard.component';
     FormsModule,
     FontAwesomeModule,
     CollaborativeWhiteboardModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+    }),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

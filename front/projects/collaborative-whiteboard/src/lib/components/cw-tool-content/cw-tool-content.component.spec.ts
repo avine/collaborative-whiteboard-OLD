@@ -8,9 +8,8 @@ describe('CwToolContentComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CwToolContentComponent ]
-    })
-    .compileComponents();
+      declarations: [CwToolContentComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

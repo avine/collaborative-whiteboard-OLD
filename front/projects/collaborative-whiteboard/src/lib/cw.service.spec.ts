@@ -4,16 +4,18 @@ import { CwService } from './cw.service';
 import { DrawEvent } from './cw.model';
 
 describe('CwService', () => {
-  beforeEach(() => TestBed.configureTestingModule({
-    providers: [CwService]
-  }));
+  beforeEach(() =>
+    TestBed.configureTestingModule({
+      providers: [CwService],
+    }),
+  );
 
   it('should be created', () => {
     const service: CwService = TestBed.get(CwService);
     expect(service).toBeTruthy();
   });
 
-  it('should broadcast', (done) => {
+  it('should broadcast', done => {
     const service: CwService = TestBed.get(CwService);
 
     // Given
@@ -27,7 +29,7 @@ describe('CwService', () => {
     // When
     service.broadcast({
       action: 'add',
-      events: [{ type: 'point', data: [0, 0] } as DrawEvent] },
-    );
+      events: [{ type: 'point', data: [0, 0] } as DrawEvent],
+    });
   });
 });
