@@ -10,6 +10,8 @@
     "e2e": "ng e2e",
     "lib:watch": "ng build --project collaborative-whiteboard --watch",
     "lib:build": "ng build --project collaborative-whiteboard",
+    "prettier:check": "prettier --check \"**\"",
+    "prettier": "prettier --write \"**\"",
     "jest-module-name-mapper": "node -e \"console.log(require('jest-module-name-mapper')())\""
   },
   "private": true,
@@ -51,16 +53,25 @@
     "@types/node": "~8.9.4",
     "@types/socket.io-client": "^1.4.32",
     "codelyzer": "^5.0.0",
+    "husky": "^3.0.5",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "jest": "^24.9.0",
     "jest-module-name-mapper": "^0.1.2",
     "ng-packagr": "^5.3.0",
+    "prettier": "^1.18.2",
+    "pretty-quick": "^1.11.1",
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tsickle": "^0.35.0",
     "tslint": "~5.15.0",
+    "tslint-config-prettier": "^1.18.0",
     "typeface-mali": "0.0.63",
     "typescript": "~3.4.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   }
 }
