@@ -1,8 +1,9 @@
 import {
+  BroadcastDrawEvents,
   DrawAction,
   DrawEvent,
   DrawTransport,
-  BroadcastDrawEvents,
+  Owner,
 } from './cw.model';
 
 const getNumber = (max = 1000) => Math.round(Math.random() * max);
@@ -10,23 +11,25 @@ const getNumber = (max = 1000) => Math.round(Math.random() * max);
 const getColor = () =>
   ['#000', '#333', '#666', '#999', '#ccc', '#fff'][getNumber(5)];
 
-export const getDrawEvent = (): DrawEvent => ({
+export const getDrawEvent = (owner: Owner = null): DrawEvent => ({
   type: 'point',
   data: [getNumber(), getNumber()],
   options: { lineWidth: getNumber(20), strokeStyle: getColor() },
-  owner: null,
+  owner,
 });
 
 export const getDrawEventsWithMapping = ({
   eventsNumber = 2,
+  owner = null,
   action = 'add',
   animate = true,
 }: {
   eventsNumber?: number;
+  owner?: Owner;
   action?: DrawAction;
   animate?: boolean;
 } = {}) => {
-  const events = Array.from(Array(eventsNumber)).map(() => getDrawEvent());
+  const events = Array.from(Array(eventsNumber)).map(() => getDrawEvent(owner));
   const transport: DrawTransport = { action, events };
   const broadcast: BroadcastDrawEvents = { animate, events };
   return { events, transport, broadcast };

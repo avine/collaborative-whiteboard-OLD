@@ -2,8 +2,9 @@ import { first, take } from 'rxjs/operators';
 
 import { TestBed } from '@angular/core/testing';
 
-import { DrawEvent, DrawTransport } from './cw.model';
+import { BroadcastDrawEvents, DrawEvent, DrawTransport } from './cw.model';
 import { getDrawEvent, getDrawEventsWithMapping } from './cw.model.mock';
+import { getClearEvent } from './cw.operator';
 import { CwService } from './cw.service';
 
 describe('CwService', () => {
@@ -77,30 +78,91 @@ describe('CwService', () => {
   });
 
   describe('broadcast()', () => {
-    it('should cause broadcast$ to emit when "add" event occurs', () => {
-      const service: CwService = TestBed.get(CwService);
-      const broadcastHandler = jest.fn();
-      const { transport, broadcast: expected } = getDrawEventsWithMapping({ action: 'add' });
+    describe('broadcastAdd()', () => {
+      it('should cause broadcast$ to emit', () => {
+        const service: CwService = TestBed.get(CwService);
+        const broadcastHandler = jest.fn();
+        const { transport, broadcast: expected } = getDrawEventsWithMapping({
+          action: 'add',
+        });
 
-      // Given
-      service.broadcast$.pipe(first()).subscribe(broadcastHandler);
-      // When
-      service.broadcast(transport);
-      // Then
-      expect(broadcastHandler).toHaveBeenCalledWith(expected);
+        // Given
+        service.broadcast$.pipe(first()).subscribe(broadcastHandler);
+        // When
+        service.broadcast(transport);
+        // Then
+        expect(broadcastHandler).toHaveBeenCalledWith(expected);
+      });
+
+      it('should cause history$ to emit', () => {
+        const service: CwService = TestBed.get(CwService);
+        const historyHandler = jest.fn();
+        const { events: expected, transport } = getDrawEventsWithMapping({
+          action: 'add',
+        });
+
+        // Given
+        service.history$.pipe(take(2)).subscribe(historyHandler);
+        // When
+        service.broadcast(transport);
+        // Then
+        expect(historyHandler).toHaveBeenNthCalledWith(2, expected);
+      });
     });
 
-    it('should NOT cause broadcast$ to emit when "remove" event occurs', () => {
-      const service: CwService = TestBed.get(CwService);
-      const broadcastHandler = jest.fn();
-      const { transport } = getDrawEventsWithMapping({ action: 'remove' });
+    describe('broadcastRemove()', () => {
+      it('should cause broadcast$ to emit', () => {
+        const service: CwService = TestBed.get(CwService);
+        const broadcastHandler = jest.fn();
+        const {
+          events: [event1, event2, event3],
+          transport: transportAdd,
+        } = getDrawEventsWithMapping({
+          eventsNumber: 3,
+          action: 'add',
+        });
+        const transportRemove: DrawTransport = {
+          action: 'remove',
+          events: [event2],
+        };
+        const expected: BroadcastDrawEvents = {
+          animate: false,
+          events: [getClearEvent(), event1, event3],
+        };
 
-      // Given
-      service.broadcast$.pipe(first()).subscribe(broadcastHandler);
-      // When
-      service.broadcast(transport);
-      // Then
-      expect(broadcastHandler).not.toHaveBeenCalled();
+        // Given
+        service.broadcast(transportAdd);
+        service.broadcast$.pipe(first()).subscribe(broadcastHandler);
+        // When
+        service.broadcast(transportRemove);
+        // Then
+        expect(broadcastHandler).toHaveBeenCalledWith(expected);
+      });
+
+      it('should cause history$ to emit', () => {
+        const service: CwService = TestBed.get(CwService);
+        const historyHandler = jest.fn();
+        const {
+          events: [event1, event2, event3],
+          transport: transportAdd,
+        } = getDrawEventsWithMapping({
+          eventsNumber: 3,
+          action: 'add',
+        });
+        const transportRemove: DrawTransport = {
+          action: 'remove',
+          events: [event2],
+        };
+        const expected: DrawEvent[] = [event1, event3];
+
+        // Given
+        service.broadcast(transportAdd);
+        service.history$.pipe(take(2)).subscribe(historyHandler);
+        // When
+        service.broadcast(transportRemove);
+        // Then
+        expect(historyHandler).toHaveBeenCalledWith(expected);
+      });
     });
   });
 });
