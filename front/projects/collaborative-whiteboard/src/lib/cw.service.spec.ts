@@ -1,7 +1,9 @@
-import { elementAt, first, take } from 'rxjs/operators';
+import { first, take } from 'rxjs/operators';
 
 import { TestBed } from '@angular/core/testing';
 
+import { DrawEvent, DrawTransport } from './cw.model';
+import { getDrawEvent, getDrawEventsWithMapping } from './cw.model.mock';
 import { CwService } from './cw.service';
 
 describe('CwService', () => {
@@ -21,6 +23,7 @@ describe('CwService', () => {
       const service: CwService = TestBed.get(CwService);
       const historyHandler = jest.fn();
       const expected = [];
+
       // Given
       service.history$.pipe(take(1)).subscribe(historyHandler);
       // When
@@ -30,15 +33,19 @@ describe('CwService', () => {
   });
 
   describe('emit()', () => {
-    it('should cause emit$ to emit', () => {
+    it('should cause emit$ to emit consolidated event', () => {
       const service: CwService = TestBed.get(CwService);
       const emitHandler = jest.fn();
-      const event: any = { type: 'point', data: [0, 0] };
-      const expected = {
+      const event = getDrawEvent();
+      const owner = 1;
+      const eventWithOwner: DrawEvent = { ...event, owner };
+      const expected: DrawTransport = {
         action: 'add',
-        events: [expect.objectContaining(event)],
+        events: [eventWithOwner],
       };
+
       // Given
+      service.owner = owner;
       service.emit$.pipe(first()).subscribe(emitHandler);
       // When
       service.emit(event);
@@ -46,41 +53,26 @@ describe('CwService', () => {
       expect(emitHandler).toHaveBeenCalledWith(expected);
     });
 
-    /*it('should emit history$', () => {
+    it('should cause history$ to emit consolidated event', () => {
       const service: CwService = TestBed.get(CwService);
       const historyHandler = jest.fn();
-      const event: any = { type: 'point', data: [0, 0] };
-      const expected = [expect.objectContaining(event)];
-      // Given
-      service.history$.pipe(elementAt(1)).subscribe(historyHandler);
-      // When
-      service.emit(event);
-      // Then
-      expect(historyHandler).toHaveBeenCalledWith(expected);
-    });*/
+      const event1 = getDrawEvent();
+      const event2 = getDrawEvent();
+      const owner = 'me';
+      const historyEvent1: DrawEvent = { ...event1, owner };
+      const historyEvent2: DrawEvent = { ...event2, owner };
+      const expected1 = [historyEvent1];
+      const expected2 = [historyEvent1, historyEvent2];
 
-    it('should cause history$ to emit', () => {
-      const service: CwService = TestBed.get(CwService);
-      const historyHandler = jest.fn();
-      const events: any = [
-        { type: 'point', data: [0, 0] },
-        { type: 'point', data: [1, 1] },
-      ];
-      const expected = [
-        [expect.objectContaining(events[0])],
-        [
-          expect.objectContaining(events[0]),
-          expect.objectContaining(events[1]),
-        ],
-      ];
       // Given
+      service.owner = owner;
       service.history$.pipe(take(3)).subscribe(historyHandler);
       // When
-      service.emit(events[0]);
-      service.emit(events[1]);
+      service.emit(event1);
+      service.emit(event2);
       // Then
-      expect(historyHandler).toHaveBeenNthCalledWith(2, expected[0]);
-      expect(historyHandler).toHaveBeenNthCalledWith(3, expected[1]);
+      expect(historyHandler).toHaveBeenNthCalledWith(2, expected1);
+      expect(historyHandler).toHaveBeenNthCalledWith(3, expected2);
     });
   });
 
@@ -88,11 +80,8 @@ describe('CwService', () => {
     it('should cause broadcast$ to emit when "add" event occurs', () => {
       const service: CwService = TestBed.get(CwService);
       const broadcastHandler = jest.fn();
-      const event: any = { type: 'point', data: [0, 0] };
-      const transport: any = { action: 'add', events: [event] };
-      const expected = expect.objectContaining({
-        events: [expect.objectContaining(event)],
-      });
+      const { transport, broadcast: expected } = getDrawEventsWithMapping({ action: 'add' });
+
       // Given
       service.broadcast$.pipe(first()).subscribe(broadcastHandler);
       // When
@@ -104,8 +93,8 @@ describe('CwService', () => {
     it('should NOT cause broadcast$ to emit when "remove" event occurs', () => {
       const service: CwService = TestBed.get(CwService);
       const broadcastHandler = jest.fn();
-      const event: any = { type: 'point', data: [0, 0], options: {} };
-      const transport: any = { action: 'remove', events: [event] };
+      const { transport } = getDrawEventsWithMapping({ action: 'remove' });
+
       // Given
       service.broadcast$.pipe(first()).subscribe(broadcastHandler);
       // When
