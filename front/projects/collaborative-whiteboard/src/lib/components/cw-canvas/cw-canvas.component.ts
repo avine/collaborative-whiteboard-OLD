@@ -314,6 +314,9 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
       const fromX = this.lineSerieBuffer[this.lineSerieBuffer.length - 2];
       const fromY = this.lineSerieBuffer[this.lineSerieBuffer.length - 1];
       const [toX, toY] = this.getCanvasPoint(e, touchesLength);
+      if (toX === fromX && toY === fromY) {
+        return;
+      }
       this.drawLine([fromX, fromY, toX, toY]);
       this.lineSerieBuffer.push(toX, toY);
     }

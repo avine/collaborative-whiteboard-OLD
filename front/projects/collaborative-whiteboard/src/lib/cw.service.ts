@@ -101,11 +101,17 @@ export class CwService {
       const hash = getHash(event);
       while (redos.length || this.historyRedo.length) {
         if (!redos.length) {
-          redos = this.historyRedo.shift();
+          redos = this.historyRedo.shift(); // redos = this.popHistoryRedo(); // FIXME...
         }
         while (redos.length) {
           const redo = redos.shift();
           if (getHash(redo) === hash) {
+            // FIXME: Is there a bug ?
+            // At this point we should do something like this, no?
+            // But is this case really exists ?
+            /*if (redos.length) {
+              this.historyRedo.unshift(redos); // this.pushHistoryRedo(redos);
+            }*/
             return;
           }
         }
@@ -178,6 +184,9 @@ export class CwService {
     );
   }
 
+  /**
+   * Dispatch draw events from the server to the client
+   */
   broadcast(transport: DrawTransport) {
     switch (transport.action) {
       case 'add':
@@ -192,6 +201,9 @@ export class CwService {
     }
   }
 
+  /**
+   * Dispatch draw events from the client to the server
+   */
   emit(event: DrawEvent) {
     event = this.setDrawEventOwner(event);
     this.pushHistory(event);

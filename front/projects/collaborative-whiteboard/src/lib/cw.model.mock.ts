@@ -8,8 +8,9 @@ import {
 
 const getNumber = (max = 1000) => Math.round(Math.random() * max);
 
-const getColor = () =>
-  ['#000', '#333', '#666', '#999', '#ccc', '#fff'][getNumber(5)];
+const colors = ['#000', '#333', '#666', '#999', '#ccc', '#fff'];
+
+const getColor = () => colors[getNumber(colors.length - 1)];
 
 export const getDrawEvent = (owner: Owner = null): DrawEvent => ({
   type: 'point',
