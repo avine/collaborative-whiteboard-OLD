@@ -1,4 +1,4 @@
-import md5 from 'md5';
+import { MD5 } from 'object-hash';
 
 import {
   BroadcastDrawEvents,
@@ -103,14 +103,4 @@ export const keepDrawEventsAfterClearEvent = (
   return events;
 };
 
-// Note: Don't forget to update the `hash` builder each time the `DrawEvent` interface is modified.
-export const getHash = (event: DrawEvent) => {
-  // Warning: we assumes that `options.toString()` works.
-  // It means that all properties (like `event.options.strokeStyle`) are primitive values...
-  const options = Object.keys(event.options)
-    .sort()
-    .map(key => event.options[key]);
-  return md5(
-    event.owner + event.type + options.toString() + event.data.toString(),
-  );
-};
+export const getHash = (event: DrawEvent) => MD5(event);
