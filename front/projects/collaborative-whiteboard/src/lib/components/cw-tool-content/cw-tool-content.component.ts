@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'cw-cw-tool-content',
+  selector: 'cw-tool-content',
   templateUrl: './cw-tool-content.component.html',
   styleUrls: ['./cw-tool-content.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

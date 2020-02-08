@@ -18,7 +18,7 @@ import {
 export class DemoComponent implements OnInit, OnDestroy {
   drawOptions: DrawOptions = {
     strokeStyle: 'grey',
-    lineWidth: 6,
+    lineWidth: 4,
   };
 
   historyCut: DrawEvent[];

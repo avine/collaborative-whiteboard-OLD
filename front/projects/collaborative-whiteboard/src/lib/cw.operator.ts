@@ -39,7 +39,7 @@ export const getDefaultCanvasSize = (): CanvasSize => ({
 });
 
 export const getDefaultDrawOptions = (): DrawOptions => ({
-  lineWidth: 6,
+  lineWidth: 4,
   strokeStyle: defaultColor,
 });
 
@@ -86,9 +86,7 @@ export const broadcastDrawEventsMapper = (
 });
 
 export const normalizeCutRange = (data: CutRangeArg): CutRange => {
-  const [from, to] = Array.isArray(data)
-    ? [...data].sort((a, b) => (a > b ? 1 : a < b ? -1 : 0))
-    : [data, data];
+  const [from, to] = Array.isArray(data) ? [...data].sort() : [data, data];
   return [Math.max(0, from), Math.max(0, to)];
 };
 

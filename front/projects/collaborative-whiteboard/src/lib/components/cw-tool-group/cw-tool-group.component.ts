@@ -72,7 +72,7 @@ export class CwToolGroupComponent implements AfterViewInit, OnDestroy {
 
   private subscribeToToolsChange() {
     this.toolsChangeSubscription = this.tools.changes.subscribe(() => {
-      this.checkactiveTools();
+      this.checkActiveTools();
       this.unsubscribeFromActiveChange();
       this.subscribeToActiveChange();
     });
@@ -92,7 +92,7 @@ export class CwToolGroupComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  private checkactiveTools() {
+  private checkActiveTools() {
     const tools = this.tools.toArray();
     for (const tool of this.activeTools.keys()) {
       if (tools.indexOf(tool) === -1) {
