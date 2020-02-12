@@ -1,0 +1,18 @@
+<div class="cw-draw-line__controller">
+  <input
+    class="cw-draw-line__field"
+    type="range"
+    min="1"
+    [max]="lineWidthMax"
+    [(ngModel)]="drawOptions.lineWidth"
+    (ngModelChange)="emit()"
+  />
+
+  <span class="cw-draw-line__number">{{ drawOptions.lineWidth }}</span>
+</div>
+
+<cw-color-picker
+  class="cw-draw-line__controller"
+  [(color)]="drawOptions.strokeStyle"
+  (colorChange)="emit()"
+></cw-color-picker>
