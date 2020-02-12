@@ -18,16 +18,16 @@ import { CwService } from '../../cw.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CwCutComponent implements OnInit, OnDestroy {
-  cutLastIndex = 0;
+  cutLastPosition = 1;
 
-  cutIndex = 0;
-
-  cutMaxSpread = 1;
+  cutPosition = 1;
 
   cutSpread = 1;
 
   get cutRange(): CutRange {
-    return [this.cutIndex, this.cutIndex + this.cutSpread - 1];
+    const from = this.cutPosition - 1;
+    const to = from + this.cutSpread - 1;
+    return [from, to];
   }
 
   private subscription: Subscription;
@@ -48,11 +48,10 @@ export class CwCutComponent implements OnInit, OnDestroy {
 
   private subscribeToCutLength() {
     this.subscription = this.service.historyCutLength$.subscribe(cutLength => {
-      this.cutLastIndex = Math.max(0, cutLength - 1);
-      this.cutMaxSpread = Math.max(1, cutLength);
+      this.cutLastPosition = Math.max(1, cutLength);
 
-      this.cutIndex = Math.min(this.cutIndex, this.cutLastIndex);
-      this.cutSpread = Math.min(this.cutSpread, this.cutMaxSpread);
+      this.cutPosition = Math.min(this.cutPosition, this.cutLastPosition);
+      this.cutSpread = Math.min(this.cutSpread, this.cutLastPosition);
 
       this.changeDetectorRef.detectChanges();
     });

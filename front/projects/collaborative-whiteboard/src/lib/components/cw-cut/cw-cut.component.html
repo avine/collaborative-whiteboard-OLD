@@ -2,13 +2,13 @@
   <input
     class="cw-cut__field"
     type="range"
-    min="0"
-    [max]="cutLastIndex"
-    [(ngModel)]="cutIndex"
+    min="1"
+    [max]="cutLastPosition"
+    [(ngModel)]="cutPosition"
     (ngModelChange)="updateCutRange()"
   />
 
-  <span class="cw-cut__number">{{ cutIndex }}</span>
+  <span class="cw-cut__number">{{ cutPosition }}</span>
 
   <br />
 
@@ -16,7 +16,7 @@
     class="cw-cut__field"
     type="range"
     min="1"
-    [max]="cutMaxSpread"
+    [max]="cutLastPosition"
     [(ngModel)]="cutSpread"
     (ngModelChange)="updateCutRange()"
   />
