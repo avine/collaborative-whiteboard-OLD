@@ -38,7 +38,7 @@ export class CwCutComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.updateCutRange();
+    this.updateCutRange(); // FIXME: have to be removed otherwise "ExpressionChangedAfterItHasBeenCheckedError"
     this.subscribeToCutLength();
   }
 

@@ -146,6 +146,7 @@ cw-color-picker {
   width: 2.5em;
   height: 2.5em;
   line-height: 2.5em;
+  text-align: center;
   color: $cw-text-color;
 }
 
@@ -175,6 +176,7 @@ cw-color-picker {
 }
 
 cw-whiteboard {
+  height: 100%;
   display: flex;
   overflow: auto;
 }

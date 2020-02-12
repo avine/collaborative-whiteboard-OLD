@@ -1,0 +1,18 @@
+$app-primary-color: #7cb342;
+
+$app-theme-dark: (
+  primary-color: $app-primary-color,
+  link-color: #aed581,
+  link-active-color: $app-primary-color,
+  background-color: #424242,
+  text-color: #e0e0e0,
+  pale-color: rgba(160, 160, 160, 0.25),
+  border-color: #757575,
+  surface-color: #616161,
+  header-border-color: #101010,
+  header-background-color: #212121,
+  header-link-color: #616161,
+  header-link-active-color: $app-primary-color,
+  canvas-draw-bg-color: #313131,
+  canvas-cut-bg-color: rgba(lighten(#313131, 3), 0.6),
+);
