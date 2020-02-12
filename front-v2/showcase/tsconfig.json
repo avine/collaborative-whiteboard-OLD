@@ -17,7 +17,13 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "collaborative-whiteboard": [
+        "dist/collaborative-whiteboard/collaborative-whiteboard",
+        "dist/collaborative-whiteboard"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
