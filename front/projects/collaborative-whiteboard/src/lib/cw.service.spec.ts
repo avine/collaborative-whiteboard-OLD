@@ -2,7 +2,7 @@ import { first, take } from 'rxjs/operators';
 
 import { TestBed } from '@angular/core/testing';
 
-import { BroadcastDrawEvents, DrawEvent, DrawTransport } from './cw.model';
+import { DrawEvent, DrawEventsBroadcast, DrawTransport } from './cw.model';
 import { getDrawEvent, getDrawEventsWithMapping } from './cw.model.mock';
 import { getClearEvent } from './cw.operator';
 import { CwService } from './cw.service';
@@ -125,7 +125,7 @@ describe('CwService', () => {
           action: 'remove',
           events: [event2],
         };
-        const expected: BroadcastDrawEvents = {
+        const expected: DrawEventsBroadcast = {
           animate: false,
           events: [getClearEvent(), event1, event3],
         };

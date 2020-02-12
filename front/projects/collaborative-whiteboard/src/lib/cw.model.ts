@@ -46,7 +46,7 @@ export interface DrawClear extends DrawBase {
 
 export type DrawEvent = DrawPoint | DrawLine | DrawLineSerie | DrawClear;
 
-export interface BroadcastDrawEvents {
+export interface DrawEventsBroadcast {
   animate: boolean;
   events: DrawEvent[];
 }

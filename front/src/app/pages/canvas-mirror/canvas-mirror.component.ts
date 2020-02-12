@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  BroadcastDrawEvents,
-  broadcastDrawEventsMapper,
   DrawEvent,
+  DrawEventsBroadcast,
+  drawEventsBroadcastMapper,
 } from '@collaborative-whiteboard';
 
 @Component({
@@ -11,7 +11,7 @@ import {
   styleUrls: ['./canvas-mirror.component.scss'],
 })
 export class CanvasMirrorComponent implements OnInit {
-  broadcastDrawEvents: BroadcastDrawEvents;
+  drawEventsBroadcast: DrawEventsBroadcast;
 
   animate = true;
 
@@ -20,7 +20,7 @@ export class CanvasMirrorComponent implements OnInit {
   ngOnInit() {}
 
   broadcast(drawEvent: DrawEvent) {
-    this.broadcastDrawEvents = broadcastDrawEventsMapper(
+    this.drawEventsBroadcast = drawEventsBroadcastMapper(
       [drawEvent],
       this.animate,
     );

@@ -14,12 +14,12 @@ import {
 } from '@angular/core';
 
 import {
-  BroadcastDrawEvents,
   CanvasLine,
   CanvasLineSerie,
   CanvasPoint,
   CanvasSize,
   DrawEvent,
+  DrawEventsBroadcast,
   DrawOptions,
 } from '../../cw.model';
 import {
@@ -44,7 +44,7 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
 
   @Input() showGuides = true;
 
-  @Input() broadcast: BroadcastDrawEvents;
+  @Input() broadcast: DrawEventsBroadcast;
 
   @Input() drawOptions = getDefaultDrawOptions();
 

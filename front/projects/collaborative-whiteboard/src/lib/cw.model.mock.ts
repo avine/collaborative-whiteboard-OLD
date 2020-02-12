@@ -1,7 +1,7 @@
 import {
-  BroadcastDrawEvents,
   DrawAction,
   DrawEvent,
+  DrawEventsBroadcast,
   DrawTransport,
   Owner,
 } from './cw.model';
@@ -32,6 +32,6 @@ export const getDrawEventsWithMapping = ({
 } = {}) => {
   const events = Array.from(Array(eventsNumber)).map(() => getDrawEvent(owner));
   const transport: DrawTransport = { action, events };
-  const broadcast: BroadcastDrawEvents = { animate, events };
+  const broadcast: DrawEventsBroadcast = { animate, events };
   return { events, transport, broadcast };
 };
