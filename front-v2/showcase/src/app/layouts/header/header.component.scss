@@ -1,0 +1,65 @@
+@import '../../styles/mixins.scss';
+
+:host {
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  line-height: 2.5rem;
+}
+
+.logo {
+  padding: 0 0.5rem;
+  font-size: 1.5rem;
+  box-shadow: 0 1px 0 darken(#558b2f, 5);
+  background-color: #558b2f;
+  text-shadow: -1px -1px 0 #33691e;
+  color: #aed581;
+  cursor: pointer;
+  outline: none;
+}
+
+.menu {
+  // As flex item
+  flex-shrink: 1;
+  overflow: hidden;
+
+  // As flex container
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.menu-link {
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 0.75rem;
+  text-decoration: none;
+  transition: background-color ease 150ms, color ease 150ms;
+}
+
+.menu-link--capitalize {
+  text-transform: capitalize;
+}
+
+.menu-link-icon {
+  margin-right: 0.33em;
+}
+
+.menu-link-sm {
+  font-size: 0.825em;
+}
+
+@include ngThemes {
+  .menu-link {
+    color: map-get($app-theme, header-link-color);
+    &:hover {
+      background-color: rgba(160, 160, 160, 0.1);
+      color: map-get($app-theme, text-color);
+    }
+  }
+
+  .menu-link--active {
+    background-color: transparent !important;
+    color: map-get($app-theme, header-link-active-color) !important;
+  }
+}

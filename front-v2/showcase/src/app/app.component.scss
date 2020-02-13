@@ -1,4 +1,65 @@
-:host {
-  display: block;
+@import './styles/mixins.scss';
+
+.layout {
+  z-index: 1;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 2.5rem 1fr;
+  grid-template-areas: 'header' 'main';
   height: 100%;
+  text-align: center;
+}
+
+.header {
+  grid-area: header;
+  z-index: 2;
+  position: relative;
+  box-shadow: 0 -5px 5px 5px rgba(0, 0, 0, 0.15);
+}
+
+.main {
+  grid-area: main;
+  z-index: 1;
+  position: relative;
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+.popup {
+  z-index: 2;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 0.5rem;
+  box-shadow: 0 5px 5px 5px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  line-height: 1.5em;
+  cursor: pointer;
+}
+
+.version {
+  z-index: 3;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  padding: 0.25rem;
+  font-size: 0.85rem;
+  color: rgba(120, 120, 120, 0.3);
+}
+
+@include ngThemes {
+  .header {
+    border-bottom: 1px solid map-get($app-theme, header-border-color);
+    background-color: map-get($app-theme, header-background-color);
+  }
+
+  .main {
+    background-color: map-get($app-theme, background-color);
+  }
+
+  .popup {
+    border-top: 1px solid map-get($app-theme, header-border-color);
+    background-color: map-get($app-theme, header-background-color);
+  }
 }

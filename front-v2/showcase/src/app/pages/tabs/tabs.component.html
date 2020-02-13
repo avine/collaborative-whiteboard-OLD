@@ -1,0 +1,25 @@
+<cw-tool-group>
+  <cw-tool [content]="content1" (activeChange)="alert(1, $event)"
+    >Header 1</cw-tool
+  >
+  <cw-tool
+    *ngIf="active2"
+    [active]="active2"
+    (activeChange)="alert(2, $event)"
+    [content]="content2"
+    >Header 2</cw-tool
+  >
+  <cw-tool (activeChange)="alert(3, $event)">Header 3</cw-tool>
+</cw-tool-group>
+
+<ng-template #content1>
+  <p>Content 1</p>
+</ng-template>
+
+<ng-template #content2>
+  <p>Content 2</p>
+</ng-template>
+
+<button type="button" (click)="active2 = !active2">Active 2</button>
+
+{{ active2 }}
