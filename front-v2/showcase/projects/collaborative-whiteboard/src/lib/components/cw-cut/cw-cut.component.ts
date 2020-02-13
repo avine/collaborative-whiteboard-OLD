@@ -1,4 +1,4 @@
-import { Subscription } from 'rxjs';
+import { combineLatest, Subscription } from 'rxjs';
 
 import {
   ChangeDetectionStrategy,
@@ -38,7 +38,6 @@ export class CwCutComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.updateCutRange(); // FIXME: have to be removed otherwise "ExpressionChangedAfterItHasBeenCheckedError"
     this.subscribeToCutLength();
   }
 
@@ -47,11 +46,13 @@ export class CwCutComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToCutLength() {
-    this.subscription = this.service.historyCutLength$.subscribe(cutLength => {
+    this.subscription = combineLatest([
+      this.service.historyCutLength$,
+      this.service.cutRange$,
+    ]).subscribe(([cutLength, [from, to]]) => {
       this.cutLastPosition = Math.max(1, cutLength);
-
-      this.cutPosition = Math.min(this.cutPosition, this.cutLastPosition);
-      this.cutSpread = Math.min(this.cutSpread, this.cutLastPosition);
+      this.cutPosition = from + 1;
+      this.cutSpread = to - from + 1;
 
       this.changeDetectorRef.detectChanges();
     });

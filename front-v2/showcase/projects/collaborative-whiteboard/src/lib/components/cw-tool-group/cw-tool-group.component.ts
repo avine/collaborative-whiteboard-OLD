@@ -30,7 +30,7 @@ export class CwToolGroupComponent implements AfterViewInit, OnDestroy {
 
   @ContentChildren(CwToolComponent) tools: QueryList<CwToolComponent>;
 
-  @ViewChild('portal', { static: false, read: ViewContainerRef })
+  @ViewChild('portal', { read: ViewContainerRef })
   portal: ViewContainerRef;
 
   private activeTools = new Map<CwToolComponent, OverlayRef>();

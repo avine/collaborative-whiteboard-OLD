@@ -11,7 +11,7 @@ import {
   ViewChild,
 } from '@angular/core';
 
-import { DrawTransport, Owner } from '../../cw.model';
+import { DrawEventsBroadcast, DrawTransport, Owner } from '../../cw.model';
 import { getDefaultCanvasSize, getDefaultDrawOptions } from '../../cw.operator';
 import { CwService } from '../../cw.service';
 
@@ -49,15 +49,32 @@ export class CwWhiteboardComponent implements OnInit, OnDestroy {
 
   hideGuides = false;
 
-  subscription: Subscription;
+  broadcastHistoryCut: DrawEventsBroadcast;
+
+  subscriptions: Subscription[] = [];
 
   constructor(public service: CwService) {}
 
   ngOnInit() {
-    this.subscription = this.service.emit$.subscribe(
-      (transport: DrawTransport) => {
+    this.subscriptions.push(
+      this.service.emit$.subscribe((transport: DrawTransport) => {
         this.emit.emit(transport);
-      },
+      }),
+      // This is tricky!
+      // We can't subscribe to `broadcastHistoryCut$` in the template like this:
+      //
+      //  <cw-canvas
+      //    *ngIf="showCutTool"
+      //    [broadcast]="broadcastHistoryCut$ | async"
+      //  ></cw-canvas>
+      //
+      // Because this canvas is rendered conditionally, the following error was thrown:
+      // "ExpressionChangedAfterItHasBeenCheckedError"
+      //
+      // In other words, we need the data emitted by `broadcastHistoryCut$`to be ready eagerly.
+      this.service.broadcastHistoryCut$.subscribe(broadcastHistoryCut => {
+        this.broadcastHistoryCut = broadcastHistoryCut;
+      }),
     );
 
     if (this.fitParentElement) {
@@ -66,7 +83,7 @@ export class CwWhiteboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   private fitCanvasSizeToParentElement() {

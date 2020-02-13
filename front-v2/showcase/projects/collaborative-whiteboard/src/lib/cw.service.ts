@@ -26,7 +26,9 @@ export class CwService {
 
   private history$$ = new BehaviorSubject<DrawEvent[]>([]);
 
-  private cutRange$$ = new BehaviorSubject<CutRange>([0, 0]);
+  private cutRange: CutRange = [0, 0];
+
+  private cutRange$$ = new BehaviorSubject<CutRange>(this.cutRange);
 
   /**
    * Dispatch draw events from the server to the client
@@ -125,6 +127,15 @@ export class CwService {
 
   private emitHistory() {
     this.history$$.next(this.history);
+    this.checkCutRange();
+  }
+
+  private checkCutRange() {
+    const [from, to] = this.cutRange;
+    if (to >= this.history.length) {
+      const lastIndex = this.history.length - 1;
+      this.setCutRange([Math.min(from, lastIndex), lastIndex]);
+    }
   }
 
   private setDrawEventOwner(event: DrawEvent): DrawEvent {
@@ -267,8 +278,11 @@ export class CwService {
   }
 
   setCutRange(data: CutRangeArg) {
-    const range = normalizeCutRange(data);
-    this.cutRange$$.next(range);
-    return range;
+    const cutRange = normalizeCutRange(data);
+    if (cutRange[0] !== this.cutRange[0] || cutRange[1] !== this.cutRange[1]) {
+      this.cutRange = cutRange;
+      this.cutRange$$.next(cutRange);
+    }
+    return cutRange;
   }
 }

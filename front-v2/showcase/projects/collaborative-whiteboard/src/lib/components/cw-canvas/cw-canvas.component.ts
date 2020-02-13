@@ -52,9 +52,7 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
 
   @Output() draw = new EventEmitter<DrawEvent>();
 
-  @ViewChild('canvas', { static: false }) canvasRef: ElementRef<
-    HTMLCanvasElement
-  >;
+  @ViewChild('canvas') canvasRef: ElementRef<HTMLCanvasElement>;
 
   private context: CanvasRenderingContext2D;
 
@@ -70,21 +68,25 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
   ) {}
 
   ngAfterViewInit() {
-    this.initMousemoveListener();
+    this.initMouseMoveListener();
     this.applyCanvasSize();
     this.initContext();
+
+    if (this.broadcast) {
+      this.broadcastHandler();
+    }
   }
 
   ngOnChanges({ canvasSize, broadcast }: SimpleChanges) {
     if (canvasSize && canvasSize.currentValue && !canvasSize.firstChange) {
       this.applyCanvasSize();
     }
-    if (broadcast && broadcast.currentValue) {
+    if (broadcast && broadcast.currentValue && !broadcast.firstChange) {
       this.broadcastHandler();
     }
   }
 
-  private initMousemoveListener() {
+  private initMouseMoveListener() {
     // Prevent unnecessary changes detection
     this.ngZone.runOutsideAngular(() => {
       this.canvasRef.nativeElement.addEventListener(
@@ -115,15 +117,6 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
     if (this.canvasRef.nativeElement.getContext) {
       this.context = this.canvasRef.nativeElement.getContext('2d');
       this.setDefaultContext();
-
-      // This is tricky!
-      // In the method `broadcastHandler` we need to call `flushBroadcastBuffer`.
-      // But the method `flushBroadcastBuffer` requires the `context` to be defined.
-      // This will not necessarily be the case!
-      // For this reason, we check again here, at the time the `context` is well defined.
-      if (this.broadcastBuffer.length) {
-        this.flushBroadcastBuffer();
-      }
     } else {
       console.error('Canvas NOT supported!');
     }
@@ -131,12 +124,7 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
 
   private broadcastHandler() {
     this.updateBroadcastBuffer();
-    if (this.context) {
-      // Note: the following method might be NOT called (if the `context` is not yet defined).
-      // And this will occurs if there's a `broadcast` @Input at the time `ngOnInit` is fired.
-      // For this reason, we flush the buffer again in the method `initContext`.
-      this.flushBroadcastBuffer();
-    }
+    this.flushBroadcastBuffer();
   }
 
   private updateBroadcastBuffer() {
@@ -325,8 +313,9 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
   drawEnd(e: CanvasEvent) {
     this.touchEventHandler(e); // Do this on top (NOT in the "if" statement)
     if (this.lineSerieBuffer.length === 2) {
-      const data = this.canvasPointAdjustment(this
-        .lineSerieBuffer as CanvasPoint);
+      const data = this.canvasPointAdjustment(
+        this.lineSerieBuffer as CanvasPoint,
+      );
       this.drawPoint(data);
       this.emit({
         owner: null,
