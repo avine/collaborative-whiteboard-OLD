@@ -1,0 +1,25 @@
+@import './variables.light.scss';
+@import './variables.dark.scss';
+
+@mixin theme($name: light) {
+  @if $name == light {
+    $app-theme: $app-theme-light !global;
+  } @else {
+    $app-theme: $app-theme-dark !global;
+  }
+
+  .theme--#{$name} {
+    @content;
+  }
+
+  $app-theme: ();
+}
+
+@mixin themes() {
+  @include theme(light) {
+    @content;
+  }
+  @include theme(dark) {
+    @content;
+  }
+}

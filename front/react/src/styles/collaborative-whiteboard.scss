@@ -1,0 +1,12 @@
+@import './mixins.scss';
+
+@include themes {
+  $cw-primary-color: map-get($app-theme, primary-color);
+  $cw-border-color: map-get($app-theme, border-color);
+  $cw-surface-color: map-get($app-theme, surface-color);
+  $cw-text-color: map-get($app-theme, text-color);
+  $cw-canvas-draw-bg-color: map-get($app-theme, canvas-draw-bg-color);
+  $cw-canvas-cut-bg-color: map-get($app-theme, canvas-cut-bg-color);
+
+  @import '../collaborative-whiteboard/styles/cw.core.scss';
+}

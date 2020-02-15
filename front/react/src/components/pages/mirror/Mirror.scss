@@ -1,0 +1,18 @@
+.mirror__container {
+  display: flex;
+  height: 100%;
+}
+
+.mirror__container-inner {
+  margin: auto;
+}
+
+.mirror__canvas-source {
+  display: inline-block;
+  background-color: #fff;
+}
+
+.mirror__canvas-target {
+  display: inline-block;
+  background-color: #f5f5f5;
+}

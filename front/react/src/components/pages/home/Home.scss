@@ -1,0 +1,39 @@
+@import '../../../styles/mixins.scss';
+
+.home__container {
+  display: flex;
+  height: 100%;
+}
+
+.home__container-inner {
+  margin: auto;
+  padding: 1rem;
+}
+
+.home__logo {
+  display: block;
+  margin: 0 auto;
+  padding-bottom: 2.5rem;
+  font-size: 1.75em;
+  opacity: 0.2;
+}
+
+.home__title {
+  line-height: 1em;
+  font-size: 4rem;
+}
+
+.home__github {
+  display: block;
+  margin-top: 4.5rem;
+  color: inherit;
+  svg {
+    width: 1.5rem;
+  }
+}
+
+@include themes {
+  .home__highlight {
+    color: map-get($app-theme, primary-color);
+  }
+}

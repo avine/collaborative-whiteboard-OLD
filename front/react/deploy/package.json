@@ -1,0 +1,11 @@
+{
+  "name": "react-dojo-deploy",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "serve": "^11.3.0"
+  }
+}
