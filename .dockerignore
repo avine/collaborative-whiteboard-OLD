@@ -1,7 +1,0 @@
-*
-
-!front
-front/node_modules
-
-!back
-back/node_modules
