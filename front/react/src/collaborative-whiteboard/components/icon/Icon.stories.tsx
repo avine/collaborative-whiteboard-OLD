@@ -19,7 +19,7 @@ export const Default = () => {
       &nbsp;
       <Icon icon="undoAll" />
       &nbsp;
-      <Icon icon="noGuides" />
+      <Icon icon="guides" />
       &nbsp;
       <Icon icon="redraw" />
       &nbsp;

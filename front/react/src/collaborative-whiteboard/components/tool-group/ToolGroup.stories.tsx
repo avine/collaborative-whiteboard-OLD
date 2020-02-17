@@ -50,7 +50,7 @@ export const Default = () => {
           active={showGuides}
           clickHandler={() => setShowGuides(!showGuides)}
         >
-          <Icon icon="noGuides" />
+          <Icon icon="guides" />
         </Tool>
       </ToolGroup>
       {showDrawLine ? drawLine : null}

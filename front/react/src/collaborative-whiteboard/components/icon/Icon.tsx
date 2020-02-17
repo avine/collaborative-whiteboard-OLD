@@ -8,7 +8,7 @@ export type IconType =
   | 'redo'
   | 'cut'
   | 'undoAll'
-  | 'noGuides'
+  | 'guides'
   | 'redraw'
   | 'expand'
   | 'collapse'
@@ -86,7 +86,7 @@ export const iconMap: Record<IconType, JSX.Element> = {
     </svg>
   ),
   // border-none
-  noGuides: (
+  guides: (
     <svg
       className="cw-icon__inner"
       xmlns="http://www.w3.org/2000/svg"

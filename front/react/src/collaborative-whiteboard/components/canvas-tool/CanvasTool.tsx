@@ -106,7 +106,7 @@ const CanvasTool: React.FC<CanvasToolProps> = ({
           active={showGuides}
           clickHandler={() => showGuidesHandler(!showGuides)}
         >
-          <Icon icon="noGuides" />
+          <Icon icon="guides" />
         </Tool>
 
         <Tool title="Redraw" clickHandler={() => service.redraw()}>

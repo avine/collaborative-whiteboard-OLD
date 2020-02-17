@@ -12,7 +12,7 @@ export class CwIconComponent {
     | 'redo'
     | 'cut'
     | 'undoAll'
-    | 'noGuides'
+    | 'guides'
     | 'redraw'
     | 'expand'
     | 'collapse'

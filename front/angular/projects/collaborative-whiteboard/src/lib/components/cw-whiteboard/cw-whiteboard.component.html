@@ -3,7 +3,7 @@
     [canvasSize]="canvasSize"
     [drawOptions]="drawOptions"
     class="cw-whiteboard__canvas-draw"
-    [showGuides]="!hideGuides && !showCutTool"
+    [showGuides]="showGuides && !showCutTool"
     [broadcast]="service.broadcast$ | async"
     (draw)="service.emit($event)"
   ></cw-canvas>
@@ -12,7 +12,7 @@
     *ngIf="showCutTool"
     class="cw-whiteboard__canvas-cut"
     [canvasSize]="canvasSize"
-    [showGuides]="!hideGuides"
+    [showGuides]="showGuides"
     [drawDisabled]="true"
     [broadcast]="broadcastHistoryCut"
   ></cw-canvas>
@@ -47,12 +47,8 @@
     <cw-icon icon="undoAll"></cw-icon>
   </cw-tool>
 
-  <cw-tool
-    title="Hide guides"
-    [noContentSwitchMode]="true"
-    [(active)]="hideGuides"
-  >
-    <cw-icon icon="noGuides"></cw-icon>
+  <cw-tool title="Guides" [noContentSwitchMode]="true" [(active)]="showGuides">
+    <cw-icon icon="guides"></cw-icon>
   </cw-tool>
 
   <cw-tool title="Redraw" (activeChange)="service.redraw()">

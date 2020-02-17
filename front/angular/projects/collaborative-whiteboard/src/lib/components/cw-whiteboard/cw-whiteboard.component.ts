@@ -47,7 +47,7 @@ export class CwWhiteboardComponent implements OnInit, OnDestroy {
 
   showCutTool = false;
 
-  hideGuides = false;
+  showGuides = true;
 
   broadcastHistoryCut: DrawEventsBroadcast;
 

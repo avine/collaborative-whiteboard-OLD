@@ -120,7 +120,7 @@ const Whiteboard: React.FC<WhiteboardProps> = ({ fitParentElement }) => {
           active={showGuides}
           clickHandler={() => setShowGuides(!showGuides)}
         >
-          <Icon icon="noGuides" />
+          <Icon icon="guides" />
         </Tool>
 
         <Tool title="Redraw" clickHandler={() => service.redraw()}>
