@@ -2,7 +2,7 @@
   display: inline-block;
   width: 1rem;
   height: 1rem;
-  // text-align: center; // FIXME: FOR REACT (because it's useless - the parent should have this rule...)
+  text-align: center;
 }
 
 .cw-icon__inner {

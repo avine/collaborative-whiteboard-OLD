@@ -107,6 +107,8 @@ export class CwCanvasComponent implements AfterViewInit, OnChanges {
       // Changing the canvas size will reset its context...
       this.setDefaultContext();
     }
+    // FIXME: is this really necessary ?
+    // ---------------------------------
     // Actually, the only way to change the value of `canvasSize` is when its @Input() changes.
     // And emitting the value we just received seems to be useless!
     // But we still need to do this, so that the wrapping component can react to this change asynchronously.

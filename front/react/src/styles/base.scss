@@ -3,7 +3,8 @@
 @import url('~typeface-mali/index.css');
 
 html,
-body {
+body,
+#root {
   height: 100%;
   -webkit-tap-highlight-color: transparent;
 }

@@ -53,7 +53,7 @@ const Whiteboard: React.FC<WhiteboardProps> = ({
   const drawHandler = (event: DrawEvent) => service.emit(event);
 
   return (
-    <>
+    <div className="cw-whiteboard">
       <div className="cw-whiteboard__canvas" ref={canvasContainer}>
         <Canvas
           className="cw-whiteboard__canvas-draw"
@@ -83,7 +83,7 @@ const Whiteboard: React.FC<WhiteboardProps> = ({
         showCutHandler={setShowCut}
         dragBounds={dragBounds}
       />
-    </>
+    </div>
   );
 };
 

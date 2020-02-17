@@ -20,7 +20,8 @@
   display: flex;
   flex-wrap: nowrap;
 
-  .header__menu-link { // FIXME: FOR REACT (add weight to this selector using nesting)
+  // Nested selector required to increase the selector weight
+  .header__menu-link {
     flex-shrink: 1;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -43,7 +44,8 @@
 }
 
 @include themes {
-  .header__menu { // FIXME: FOR REACT
+  // Nested selector required to increase the selector weight
+  .header__menu {
     .header__menu-link {
       color: map-get($app-theme, header-link-color);
       &:hover {

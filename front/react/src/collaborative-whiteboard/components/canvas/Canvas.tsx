@@ -107,6 +107,8 @@ class Canvas extends React.Component<CanvasProps> {
       // Changing the canvas size will reset its context...
       this.setDefaultCanvasCtx();
     }
+    // FIXME: is this really necessary ?
+    // ---------------------------------
     // Actually, the only way to change the value of `canvasSize` is when its @Input() changes.
     // And emitting the value we just received seems to be useless!
     // But we still need to do this, so that the wrapping component can react to this change asynchronously.
@@ -154,12 +156,6 @@ class Canvas extends React.Component<CanvasProps> {
               this.drawHandler(this.broadcastBuffer.shift());
             }
             window.requestAnimationFrame(step);
-          } else {
-            // Because we are using `ChangeDetectionStrategy.OnPush`, the end of the
-            // animation (which occurs asynchronously) is NOT detected by Angular.
-            // For this reason, we have to detect this change manually.
-            /* this.changeDetectorRef.detectChanges(); */
-            // FIXME...
           }
         }
       };

@@ -70,7 +70,7 @@ const Whiteboard: React.FC<WhiteboardProps> = ({ fitParentElement }) => {
   );
 
   return (
-    <>
+    <div className="cw-whiteboard">
       <div className="cw-whiteboard__canvas" ref={canvasContainer}>
         <Canvas
           className="cw-whiteboard__canvas-draw"
@@ -129,7 +129,7 @@ const Whiteboard: React.FC<WhiteboardProps> = ({ fitParentElement }) => {
       </ToolGroup>
       {showDrawLine ? drawLine : null}
       {showCut ? cut : null}
-    </>
+    </div>
   );
 };
 

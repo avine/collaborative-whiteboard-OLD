@@ -23,12 +23,6 @@
     linear-gradient(90deg, $cw-canvas-guides-color 0, transparent 1px);
 }
 
-/*
-cw-color-picker { // FIXME: FOR REACT (useless)
-  display: block;
-}
-*/
-
 .cw-color-picker {
   position: relative;
   display: inline-block;
@@ -102,11 +96,12 @@ cw-color-picker { // FIXME: FOR REACT (useless)
 }
 
 .cw-tool-content {
-  // position: relative;
-  z-index: 2; // FIXME: FOR REACT
-  position: absolute; // FIXME: FOR REACT
-  left: 0; // FIXME: FOR REACT
-  top: 0; // FIXME: FOR REACT
+  // Use absolute position (unlike the Angular version)
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+
   border-radius: $cw-border-radius;
   box-shadow: $cw-box-shadow;
   border: 1px solid $cw-border-color;
@@ -142,10 +137,12 @@ cw-color-picker { // FIXME: FOR REACT (useless)
 }
 
 .cw-tool-group {
-  z-index: 2; // FIXME: FOR REACT
-  position: absolute; // FIXME: FOR REACT
-  left: 0; // FIXME: FOR REACT
-  top: 0; // FIXME: FOR REACT
+  // Use absolute position (unlike the Angular version)
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+
   display: inline-flex;
   box-shadow: $cw-box-shadow;
   border-radius: $cw-border-radius;
@@ -163,7 +160,7 @@ cw-color-picker { // FIXME: FOR REACT (useless)
   width: 2.5em;
   height: 2.5em;
   line-height: 2.5em;
-  text-align: center; // FIXME: FOR REACT
+  text-align: center;
   color: $cw-text-color;
 }
 
@@ -192,12 +189,11 @@ cw-color-picker { // FIXME: FOR REACT (useless)
   }
 }
 
-/*
-cw-whiteboard { // FIXME: FOR REACT (useless)
+.cw-whiteboard {
+  height: 100%;
   display: flex;
   overflow: auto;
 }
-*/
 
 .cw-whiteboard__canvas {
   flex-grow: 0;
