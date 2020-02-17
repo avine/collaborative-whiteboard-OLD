@@ -29,13 +29,13 @@ const ToolContent: React.FC<ToolContentProps> = ({
     >
       <div className="cw-tool-content">
         <div className="cw-tool-content__header">
-          <div className="cw-tool-content__action cw-tool-content__action--drag">
+          <button className="cw-button--less cw-tool-content__action cw-tool-content__action--drag">
             <Icon icon="drag" />
-          </div>
+          </button>
           <span className="cw-tool-content__title">{title}</span>
           <button
             type="button"
-            className="cw-buttonless cw-tool-content__action"
+            className="cw-button--less cw-tool-content__action"
             onClick={dispose}
           >
             <Icon icon="dispose" />

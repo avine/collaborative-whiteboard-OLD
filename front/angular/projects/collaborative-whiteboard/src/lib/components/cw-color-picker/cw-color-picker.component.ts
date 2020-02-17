@@ -27,4 +27,8 @@ export class CwColorPickerComponent {
     this.color = color;
     this.colorChange.emit(color);
   }
+
+  trackByColor(index: number, color: string) {
+    return color;
+  }
 }

@@ -18,7 +18,7 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
   const breakIndex = Math.round(colors.length / 3);
 
   const className = (clr: string) =>
-    classNames('cw-buttonless', 'cw-color-picker', {
+    classNames('cw-button--less', 'cw-color-picker', {
       'cw-color-picker--selected': clr === color
     });
 

@@ -5,16 +5,18 @@
   cdkDragBoundary="body"
 >
   <div class="cw-tool-content__header">
-    <cw-icon icon="drag" class="cw-tool-content__action" cdkDragHandle>
-    </cw-icon>
+    <button class="cw-tool-content__action cw-button--less" cdkDragHandle>
+      <cw-icon icon="drag"></cw-icon>
+    </button>
 
     <span class="cw-tool-content__title">{{ title }}</span>
 
-    <cw-icon
-      icon="dispose"
-      class="cw-tool-content__action"
+    <button
+      class="cw-tool-content__action cw-button--less"
       (click)="dispose.emit()"
-    ></cw-icon>
+    >
+      <cw-icon icon="dispose"></cw-icon>
+    </button>
   </div>
 
   <div class="cw-tool-content__content">

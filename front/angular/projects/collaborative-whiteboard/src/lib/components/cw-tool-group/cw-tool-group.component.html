@@ -5,34 +5,34 @@
   [class.cw-tool-group--vertical]="layoutVertical"
   (cdkDragEnded)="cleanCachedDimensions($event)"
 >
-  <a
-    class="cw-tool-group__action cw-tool-group__action--drag"
+  <button
+    class="cw-tool-group__action cw-tool-group__action--drag cw-button--less"
     title="Drag / Change direction"
     (dblclick)="layoutVertical = !layoutVertical"
   >
     <cw-icon icon="drag" cdkDragHandle></cw-icon>
-  </a>
+  </button>
 
   <ng-container *ngIf="!collapse">
-    <a
+    <button
       *ngFor="let tool of tools"
-      class="cw-tool-group__action cw-tool-group__action--tool"
+      class="cw-tool-group__action cw-tool-group__action--tool cw-button--less"
       [class.cw-tool-group__action--active]="tool.active"
       [title]="tool.title"
       (click)="toggleActive(tool)"
     >
       <ng-container *ngTemplateOutlet="tool.label"></ng-container>
-    </a>
+    </button>
   </ng-container>
 
-  <a
-    class="cw-tool-group__action cw-tool-group__action--tool"
+  <button
+    class="cw-tool-group__action cw-tool-group__action--tool cw-button--less"
     [class.cw-tool-group__action--active]="collapse"
     [title]="collapse ? 'Expand' : 'Collapse'"
     (click)="collapse = !collapse"
   >
     <cw-icon [icon]="collapse ? 'expand' : 'collapse'"></cw-icon>
-  </a>
+  </button>
 </div>
 
 <ng-container #portal></ng-container>

@@ -19,7 +19,7 @@ const Tool: React.FC<ToolProps> = ({
   children
 }) => {
   const className = classNames(
-    'cw-buttonless',
+    'cw-button--less',
     'cw-tool-group__action',
     classNameModifier,
     {

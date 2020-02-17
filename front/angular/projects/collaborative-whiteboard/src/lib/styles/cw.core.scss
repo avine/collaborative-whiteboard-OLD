@@ -1,5 +1,12 @@
 @import './cw.variables.scss';
 
+.cw-button--less {
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+}
+
 .cw-canvas {
   display: block;
   background: inherit;

@@ -1,10 +1,10 @@
-<ng-container *ngFor="let clr of colors; index as i">
+<ng-container *ngFor="let clr of colors; index as i; trackBy: trackByColor">
   <br *ngIf="i && i % breakIndex === 0" />
 
-  <span
+  <button
     [style.backgroundColor]="clr"
-    class="cw-color-picker"
+    class="cw-color-picker cw-button--less"
     [class.cw-color-picker--selected]="clr === color"
     (click)="updateColor(clr)"
-  ></span>
+  ></button>
 </ng-container>
