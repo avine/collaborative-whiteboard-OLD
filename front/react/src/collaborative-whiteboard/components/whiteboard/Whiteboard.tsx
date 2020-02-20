@@ -1,5 +1,11 @@
 /* eslint-disable react/prop-types */
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, {
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState
+} from 'react';
 import { DrawEvent, DrawEventsBroadcast } from '../../models';
 import { getDefaultCanvasSize, getDefaultDrawOptions } from '../../operators';
 import CwServiceContext from '../../serviceContext';
@@ -7,6 +13,8 @@ import Canvas from '../canvas/Canvas';
 import Cut from '../cut/Cut';
 import DrawLine from '../draw-line/DrawLine';
 import Icon from '../icon/Icon';
+import { DragPosition } from '../models';
+import { fitParentDomElement, getDefaultDragPosition } from '../operators';
 import ToolContent from '../tool-content/ToolContent';
 import Tool from '../tool-group/Tool';
 import ToolGroup from '../tool-group/ToolGroup';
@@ -23,20 +31,11 @@ const Whiteboard: React.FC<WhiteboardProps> = ({ fitParentElement }) => {
   const [canvasSize, setCanvasSize] = useState(getDefaultCanvasSize());
   const canvasContainer = useRef<HTMLDivElement>();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (fitParentElement) {
-      const element = canvasContainer.current;
-      // Fit the container
-      element.style.width = '100%';
-      element.style.height = '100%';
-      // Freeze both container and canvas sizes
-      const { width, height } = element.getBoundingClientRect();
-      element.style.width = `${width}px`;
-      element.style.height = `${height}px`;
-      setCanvasSize({ width, height });
+      setCanvasSize(fitParentDomElement(canvasContainer.current));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [fitParentElement]);
 
   useEffect(() => {
     const subscription = service.broadcastHistoryCut$.subscribe(setHistoryCut);
@@ -53,6 +52,10 @@ const Whiteboard: React.FC<WhiteboardProps> = ({ fitParentElement }) => {
   service.broadcast$.subscribe(_broadcast => setBroadcast(_broadcast));
 
   const drawHandler = (event: DrawEvent) => service.emit(event);
+
+  const [groupPosition, setGroupPosition] = useState<DragPosition>(
+    getDefaultDragPosition()
+  );
 
   const drawLine = (
     <ToolContent
@@ -91,7 +94,10 @@ const Whiteboard: React.FC<WhiteboardProps> = ({ fitParentElement }) => {
           />
         )}
       </div>
-      <ToolGroup>
+      <ToolGroup
+        dragPosition={groupPosition}
+        dragPositionHandler={setGroupPosition}
+      >
         <Tool
           title="Draw line"
           clickHandler={() => setShowDrawLine(!showDrawLine)}

@@ -33,8 +33,7 @@ const Whiteboard: React.FC<WhiteboardProps> = ({
     if (fitParentElement) {
       setCanvasSize(fitParentDomElement(canvasContainer.current));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [fitParentElement]);
 
   useEffect(() => {
     const subscription = service.broadcastHistoryCut$.subscribe(setHistoryCut);

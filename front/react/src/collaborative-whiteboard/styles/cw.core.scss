@@ -108,6 +108,10 @@
   background-color: $cw-surface-color;
 }
 
+.cw-tool-content--on-top {
+  z-index: 3;
+}
+
 .cw-tool-content__header {
   display: flex;
   align-items: center;
@@ -141,7 +145,7 @@
   position: absolute;
   left: 0;
   top: 0;
-  z-index: 2;
+  z-index: 4;
 
   display: inline-flex;
   box-shadow: $cw-box-shadow;

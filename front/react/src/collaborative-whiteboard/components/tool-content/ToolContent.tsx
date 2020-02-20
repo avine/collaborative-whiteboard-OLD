@@ -1,6 +1,14 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import classNames from 'classnames';
+import React, {
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState
+} from 'react';
 import { createPortal } from 'react-dom';
 import Draggable from 'react-draggable';
+import DraggableOnTopContext, { getNewId } from '../draggableOnTopContext';
 import Icon from '../icon/Icon';
 import { DragPosition } from '../models';
 import { centerDomElement } from '../operators';
@@ -22,7 +30,29 @@ const ToolContent: React.FC<ToolContentProps> = ({
   children
 }) => {
   const ref = useRef<HTMLDivElement>();
-  useLayoutEffect(() => centerDomElement(ref.current));
+  useLayoutEffect(() => centerDomElement(ref.current), []);
+
+  const draggableOnTopContext = useContext(DraggableOnTopContext);
+
+  const [id, setId] = useState<number>();
+  useEffect(() => {
+    const newId = getNewId();
+    setId(newId);
+    draggableOnTopContext.setId(newId);
+  }, [draggableOnTopContext]);
+
+  const [className, setClassName] = useState('cw-tool-content');
+
+  useEffect(() => {
+    const subscription = draggableOnTopContext.id$.subscribe(_id => {
+      setClassName(
+        classNames('cw-tool-content', { 'cw-tool-content--on-top': id === _id })
+      );
+    });
+    return () => subscription.unsubscribe();
+  }, [draggableOnTopContext, id]);
+
+  const displayOnTop = () => draggableOnTopContext.setId(id);
 
   return createPortal(
     <Draggable
@@ -31,7 +61,12 @@ const ToolContent: React.FC<ToolContentProps> = ({
       position={dragPosition}
       onStop={(e, { x, y }) => dragPositionHandler({ x, y })}
     >
-      <div className="cw-tool-content" ref={ref}>
+      <div
+        ref={ref}
+        className={className}
+        onMouseEnter={displayOnTop}
+        onClick={displayOnTop}
+      >
         <div className="cw-tool-content__header">
           <button className="cw-button--less cw-tool-content__action cw-tool-content__action--drag">
             <Icon icon="drag" />
