@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import Draggable from 'react-draggable';
 import Icon from '../icon/Icon';
 import { DragPosition } from '../models';
+import { centerDomElement } from '../operators';
 
 export interface ToolContentProps {
   title: string;
@@ -20,6 +21,9 @@ const ToolContent: React.FC<ToolContentProps> = ({
   dragPositionHandler,
   children
 }) => {
+  const ref = useRef<HTMLDivElement>();
+  useLayoutEffect(() => centerDomElement(ref.current));
+
   return createPortal(
     <Draggable
       handle=".cw-tool-content__action--drag"
@@ -27,7 +31,7 @@ const ToolContent: React.FC<ToolContentProps> = ({
       position={dragPosition}
       onStop={(e, { x, y }) => dragPositionHandler({ x, y })}
     >
-      <div className="cw-tool-content">
+      <div className="cw-tool-content" ref={ref}>
         <div className="cw-tool-content__header">
           <button className="cw-button--less cw-tool-content__action cw-tool-content__action--drag">
             <Icon icon="drag" />

@@ -97,9 +97,10 @@
 
 .cw-tool-content {
   // Use absolute position (unlike the Angular version)
-  position: absolute;
+  // FIXME: now we are using `centerDomElement`. So, do we remove the following...?
+  /*position: absolute;
   left: 0;
-  top: 0;
+  top: 0;*/
   z-index: 2;
 
   border-radius: $cw-border-radius;

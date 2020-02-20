@@ -37,12 +37,8 @@ const CanvasTool: React.FC<CanvasToolProps> = ({
   const [groupPosition, setGroupPosition] = useState<DragPosition>(
     getDefaultDragPosition()
   );
-  const [drawLinePosition, setDrawLinePosition] = useState<DragPosition>(
-    getDefaultDragPosition()
-  );
-  const [cutPosition, setCutPosition] = useState<DragPosition>(
-    getDefaultDragPosition()
-  );
+  const [drawLinePosition, setDrawLinePosition] = useState<DragPosition>();
+  const [cutPosition, setCutPosition] = useState<DragPosition>();
 
   const drawLine = (
     <ToolContent

@@ -1,10 +1,17 @@
 /* eslint-disable react/prop-types */
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, {
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState
+} from 'react';
 import { DrawEvent, DrawEventsBroadcast } from '../../models';
 import { getDefaultCanvasSize, getDefaultDrawOptions } from '../../operators';
 import CwServiceContext from '../../serviceContext';
 import CanvasTool from '../canvas-tool/CanvasTool';
 import Canvas from '../canvas/Canvas';
+import { fitParentDomElement } from '../operators';
 
 export interface WhiteboardProps {
   fitParentElement?: boolean;
@@ -22,17 +29,9 @@ const Whiteboard: React.FC<WhiteboardProps> = ({
   const [canvasSize, setCanvasSize] = useState(getDefaultCanvasSize());
   const canvasContainer = useRef<HTMLDivElement>();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (fitParentElement) {
-      const element = canvasContainer.current;
-      // Fit the container
-      element.style.width = '100%';
-      element.style.height = '100%';
-      // Freeze both container and canvas sizes
-      const { width, height } = element.getBoundingClientRect();
-      element.style.width = `${width}px`;
-      element.style.height = `${height}px`;
-      setCanvasSize({ width, height });
+      setCanvasSize(fitParentDomElement(canvasContainer.current));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
