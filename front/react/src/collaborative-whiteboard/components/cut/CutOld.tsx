@@ -50,29 +50,40 @@ const Cut: React.FC<CutProps> = () => {
 
   return (
     <>
-      <div className="cw-cut__controller">
+      <div className="cw-control">
+        <label className="cw-control__label">
+          <span className="cw-control__label-inner">Position</span>
+        </label>
         <input
-          className="cw-cut__field"
+          className="cw-control__field"
           type="range"
           min="1"
           max={lastPosition}
           value={position}
           onChange={positionHandler}
         />
-        <span className="cw-cut__number">{position}</span>
-        <br />
+        <span className="cw-control__number">{position}</span>
+      </div>
+      <div className="cw-control">
+        <label className="cw-control__label">
+          <span className="cw-control__label-inner">Spread</span>
+        </label>
         <input
-          className="cw-cut__field"
+          className="cw-control__field"
           type="range"
           min="1"
           max={lastPosition}
           value={spread}
           onChange={spreadHandler}
         />
-        <span className="cw-cut__number">{spread}</span>
+        <span className="cw-control__number">{spread}</span>
       </div>
-      <div className="cw-cut__controller">
-        <button type="button" className="cw-cut__button" onClick={cutHandler}>
+      <div className="cw-control">
+        <button
+          type="button"
+          className="cw-control__button"
+          onClick={cutHandler}
+        >
           Cut
         </button>
       </div>

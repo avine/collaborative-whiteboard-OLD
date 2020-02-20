@@ -24,18 +24,24 @@ const DrawLine: React.FC<DrawLineProps> = ({
 
   return (
     <>
-      <div className="cw-draw-line__controller">
+      <div className="cw-control">
+        <label className="cw-control__label">
+          <span className="cw-control__label-inner">Size</span>
+        </label>
         <input
-          className="cw-draw-line__field"
+          className="cw-control__field"
           type="range"
           min="1"
           max={lineWidthMax}
           value={drawOptions.lineWidth}
           onChange={lineWidthHandler}
         />
-        <span className="cw-draw-line__number">{drawOptions.lineWidth}</span>
+        <span className="cw-control__number">{drawOptions.lineWidth}</span>
       </div>
-      <div className="cw-draw-line__controller">
+      <div className="cw-control">
+        <label className="cw-control__label">
+          <span className="cw-control__label-inner">Color</span>
+        </label>
         <ColorPicker
           color={drawOptions.strokeStyle}
           colorHandler={colorHandler}

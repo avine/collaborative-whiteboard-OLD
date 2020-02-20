@@ -7,6 +7,56 @@
   font: inherit;
 }
 
+.cw-control + .cw-control {
+  margin-top: 1.5rem;
+}
+
+.cw-control__label {
+  display: block;
+  position: relative;
+  margin-bottom: 0.5em;
+  text-align: center;
+  font-size: 0.85em;
+
+  &::before {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: 0;
+    border-top: 1px solid $cw-border-color;
+    content: '';
+  }
+}
+
+.cw-control__label-inner {
+  display: inline-block;
+  padding: 0 0.75em;
+  background-color: $cw-surface-color;
+  position: relative;
+}
+
+.cw-control__field {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.cw-control__number {
+  display: inline-block;
+  min-width: 1.5rem;
+  margin-left: 0.5rem;
+  text-align: right;
+}
+
+.cw-control__button {
+  outline: none;
+  padding: 0.35rem 0.7rem;
+  border-radius: $cw-border-radius;
+  border: none;
+  background-color: $cw-primary-color;
+  color: white;
+  font: inherit;
+}
+
 .cw-canvas {
   display: block;
   background: inherit;
@@ -53,48 +103,6 @@
 //  to { transform: scale(1); }
 //}
 
-.cw-cut__controller + .cw-cut__controller {
-  margin-top: 1.5rem;
-}
-
-.cw-cut__field {
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.cw-cut__number {
-  display: inline-block;
-  min-width: 1.5rem;
-  margin-left: 0.5rem;
-  text-align: right;
-}
-
-.cw-cut__button {
-  outline: none;
-  padding: 0.35rem 0.7rem;
-  border-radius: $cw-border-radius;
-  border: none;
-  background-color: $cw-primary-color;
-  color: white;
-  font: inherit;
-}
-
-.cw-draw-line__controller + .cw-draw-line__controller {
-  margin-top: 1.5rem;
-}
-
-.cw-draw-line__field {
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.cw-draw-line__number {
-  display: inline-block;
-  min-width: 1.5rem;
-  margin-left: 0.5rem;
-  text-align: right;
-}
-
 .cw-tool-content {
   // Use absolute position (unlike the Angular version)
   position: absolute;
@@ -106,6 +114,11 @@
   box-shadow: $cw-box-shadow;
   border: 1px solid $cw-border-color;
   background-color: $cw-surface-color;
+  transition: box-shadow ease $cw-anim-duration-slow 80ms;
+
+  &:hover {
+    box-shadow: $cw-box-shadow-hover;
+  }
 }
 
 .cw-tool-content--on-top {
@@ -152,6 +165,11 @@
   border-radius: $cw-border-radius;
   border: 1px solid $cw-border-color;
   background-color: $cw-surface-color;
+  transition: box-shadow ease $cw-anim-duration-slow 80ms;
+
+  &:hover {
+    box-shadow: $cw-box-shadow-hover;
+  }
 }
 
 .cw-tool-group--vertical {
