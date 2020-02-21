@@ -7,8 +7,12 @@
   font: inherit;
 }
 
-.cw-control + .cw-control {
-  margin-top: 1.5rem;
+.cw-control {
+  text-align: center;
+
+  & + & {
+    margin-top: 1.5rem;
+  }
 }
 
 .cw-control__label {
@@ -150,7 +154,6 @@
 .cw-tool-content__content {
   padding: $cw-spacing-md;
   padding-top: $cw-spacing-lg;
-  text-align: center;
 }
 
 .cw-tool-group {

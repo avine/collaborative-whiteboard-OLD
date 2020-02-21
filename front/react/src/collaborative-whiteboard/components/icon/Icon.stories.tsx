@@ -1,35 +1,35 @@
 import React from 'react';
-import Icon from './Icon';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import centered from '@storybook/addon-centered/react';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { select, withKnobs } from '@storybook/addon-knobs';
+
+import Icon, { IconType } from './Icon';
 
 export default {
   title: 'Icon',
-  component: Icon
+  component: Icon,
+  decorators: [centered, withKnobs]
 };
 
 export const Default = () => {
-  return (
-    <>
-      <Icon icon="drawLine" />
-      &nbsp;
-      <Icon icon="undo" />
-      &nbsp;
-      <Icon icon="redo" />
-      &nbsp;
-      <Icon icon="cut" />
-      &nbsp;
-      <Icon icon="undoAll" />
-      &nbsp;
-      <Icon icon="guides" />
-      &nbsp;
-      <Icon icon="redraw" />
-      &nbsp;
-      <Icon icon="expand" />
-      &nbsp;
-      <Icon icon="collapse" />
-      &nbsp;
-      <Icon icon="drag" />
-      &nbsp;
-      <Icon icon="dispose" />
-    </>
+  const iconType = select<IconType>(
+    'iconType',
+    [
+      'drawLine',
+      'undo',
+      'redo',
+      'cut',
+      'undoAll',
+      'guides',
+      'redraw',
+      'expand',
+      'collapse',
+      'drag',
+      'dispose'
+    ],
+    'drawLine'
   );
+
+  return <Icon icon={iconType} />;
 };

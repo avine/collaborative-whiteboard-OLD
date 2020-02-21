@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { action } from '@storybook/addon-actions';
 import { getDefaultDrawOptions } from '../../operators';
 import CanvasTool from './CanvasTool';
 
@@ -15,7 +17,10 @@ export const Default = () => {
   return (
     <CanvasTool
       drawOptions={drawOptions}
-      drawOptionsHandler={setDrawOptions}
+      drawOptionsHandler={_drawOptions => {
+        setDrawOptions(_drawOptions);
+        action('drawOptionsHandler')(_drawOptions);
+      }}
       showCut={showCut}
       showCutHandler={setShowCut}
       showGuides={showGuides}

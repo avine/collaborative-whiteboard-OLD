@@ -73,7 +73,7 @@ const ToolContent: React.FC<ToolContentProps> = ({
           <button
             type="button"
             className="cw-button--less cw-tool-content__action"
-            onClick={dispose}
+            onClick={() => dispose()}
           >
             <Icon icon="dispose" />
           </button>
