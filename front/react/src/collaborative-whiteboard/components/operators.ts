@@ -1,4 +1,4 @@
-// eslint-disable-next-line import/prefer-default-export
+/* eslint-disable no-param-reassign */
 export const getDefaultDragPosition = () => ({ x: 16, y: 56 });
 
 export const centerDomElement = (element: HTMLElement) => {

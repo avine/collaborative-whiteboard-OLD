@@ -34,7 +34,8 @@
     "eject": "react-scripts eject",
     "prettier:check": "prettier --check \"src/**\"",
     "prettier": "prettier --write \"src/**\"",
-    "storybook": "start-storybook -p 9009 -s public",
+    "eslint": "eslint \"./src/**/*.{ts,tsx}\"",
+    "storybook": "start-storybook -p 9009 -s public --ci",
     "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
