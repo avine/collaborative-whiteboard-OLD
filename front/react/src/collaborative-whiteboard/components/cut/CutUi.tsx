@@ -40,9 +40,9 @@ const CutUi: React.FC<CutUiProps> = ({
   return (
     <>
       <div className="cw-control">
-        <label className="cw-control__label">
+        <div className="cw-control__label">
           <span className="cw-control__label-inner">Position</span>
-        </label>
+        </div>
         <input
           className="cw-control__field"
           type="range"
@@ -54,9 +54,9 @@ const CutUi: React.FC<CutUiProps> = ({
         <span className="cw-control__number">{position}</span>
       </div>
       <div className="cw-control">
-        <label className="cw-control__label">
+        <div className="cw-control__label">
           <span className="cw-control__label-inner">Spread</span>
-        </label>
+        </div>
         <input
           className="cw-control__field"
           type="range"

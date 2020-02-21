@@ -25,9 +25,9 @@ const DrawLine: React.FC<DrawLineProps> = ({
   return (
     <>
       <div className="cw-control">
-        <label className="cw-control__label">
-          <span className="cw-control__label-inner">Size</span>
-        </label>
+        <div className="cw-control__label">
+          <span className="cw-control__label-inner">Thickness</span>
+        </div>
         <input
           className="cw-control__field"
           type="range"
@@ -39,9 +39,9 @@ const DrawLine: React.FC<DrawLineProps> = ({
         <span className="cw-control__number">{drawOptions.lineWidth}</span>
       </div>
       <div className="cw-control">
-        <label className="cw-control__label">
+        <div className="cw-control__label">
           <span className="cw-control__label-inner">Color</span>
-        </label>
+        </div>
         <ColorPicker
           color={drawOptions.strokeStyle}
           colorHandler={colorHandler}

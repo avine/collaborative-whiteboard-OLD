@@ -1,5 +1,4 @@
 import './App.scss';
-import './collaborative-whiteboard/styles/cw.core.scss'; // FIXME: should be removed (but it breaks the UI...)
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import DraggableOnTopContext, {

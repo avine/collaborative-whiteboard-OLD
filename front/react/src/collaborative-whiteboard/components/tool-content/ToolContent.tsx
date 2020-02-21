@@ -61,14 +61,12 @@ const ToolContent: React.FC<ToolContentProps> = ({
       position={dragPosition}
       onStop={(e, { x, y }) => dragPositionHandler({ x, y })}
     >
-      <div
-        ref={ref}
-        className={className}
-        onMouseEnter={displayOnTop}
-        onClick={displayOnTop}
-      >
+      <div ref={ref} className={className} onMouseEnter={displayOnTop}>
         <div className="cw-tool-content__header">
-          <button className="cw-button--less cw-tool-content__action cw-tool-content__action--drag">
+          <button
+            type="button"
+            className="cw-button--less cw-tool-content__action cw-tool-content__action--drag"
+          >
             <Icon icon="drag" />
           </button>
           <span className="cw-tool-content__title">{title}</span>
