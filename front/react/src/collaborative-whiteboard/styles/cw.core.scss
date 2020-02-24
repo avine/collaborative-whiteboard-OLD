@@ -9,17 +9,18 @@
 
 .cw-control {
   text-align: center;
+}
 
-  & + & {
-    margin-top: 1.5rem;
-  }
+.cw-control + .cw-control {
+  margin-top: 1.5rem;
 }
 
 .cw-control__label {
   display: block;
   position: relative;
   margin-bottom: 0.5em;
-  text-align: center;
+  padding-left: 0.75em;
+  text-align: left;
   font-size: 0.85em;
 
   &::before {
@@ -34,7 +35,7 @@
 
 .cw-control__label-inner {
   display: inline-block;
-  padding: 0 0.75em;
+  padding: 0 0.75em 0 0.5em;
   background-color: $cw-surface-color;
   position: relative;
 }
