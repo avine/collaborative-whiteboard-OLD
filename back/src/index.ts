@@ -1,16 +1,11 @@
-import express from 'express';
-import { readFileSync } from 'fs';
-import { resolve, join } from 'path';
+import { createServer } from 'http';
 
-const app = express();
+import app from './app';
+import { getAllConfig, getConfig } from './config';
 
-const port = 3000;
-const basePath = resolve(__dirname, './static');
-const indexPath = join(basePath, 'index.html');
-const indexContent = readFileSync(indexPath, { encoding: 'utf8' });
+console.log('AppConfig', JSON.stringify(getAllConfig(), undefined, 2));
 
-app.use(express.static(basePath));
+const server = createServer(app);
 
-app.use(async (req, res, next) => res.send(indexContent));
-
-app.listen(port, () => console.log(`App listening on port ${port}!`));
+const port = getConfig('serverPort');
+server.listen(port, () => console.log(`App listening on port ${port}.`));
