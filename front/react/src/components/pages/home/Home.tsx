@@ -15,7 +15,7 @@ const Home: React.FC = () => {
         </div>
         <a
           className="home__github"
-          href="https://github.com/avine/collaborative-whiteboard-react"
+          href="https://github.com/avine/collaborative-whiteboard"
         >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512">
             <path
