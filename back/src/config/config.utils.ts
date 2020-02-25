@@ -12,14 +12,14 @@ export const getConfigSchema = (): JSON => {
 };
 
 export const getValidatedConfig = (schema: JSON, config: ConfigEnv): Config => {
-  const _config = { ...config } as any;
+  const configCopy = { ...config } as any;
   const validate = new Ajv({ coerceTypes: true }).compile(schema);
-  const valid = validate(_config);
+  const valid = validate(configCopy);
   if (!valid) {
-    console.error(validate.errors);
+    // console.error(validate.errors);
     throw new Error('Unable to get validated app config');
   }
-  return _config as Config;
+  return configCopy as Config;
 };
 
 export const getConfigFactory = (config: Config) => <T = any>(

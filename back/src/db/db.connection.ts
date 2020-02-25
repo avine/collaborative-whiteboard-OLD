@@ -7,10 +7,10 @@ export const getCachedClient = (uid: string) => {
   if (dbClientCache[uid]) {
     if (dbClientCache[uid].isConnected()) {
       return dbClientCache[uid];
-    } else {
-      delete dbClientCache[uid];
     }
+    delete dbClientCache[uid];
   }
+  return undefined;
 };
 
 export const getDbClient: GetDbClient = async ({ uid, uri, options }) => {

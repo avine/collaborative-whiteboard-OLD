@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { createServer } from 'http';
 
 import SocketIo from 'socket.io';
@@ -9,7 +10,6 @@ const server = createServer((req, res) => {
 const io = SocketIo(server);
 
 io.on('connection', socket => {
-
   console.log('Connection\n');
 
   socket.on('drawTransport', drawTransport => {
@@ -22,4 +22,7 @@ io.on('connection', socket => {
   });
 });
 
-server.listen(3000, 'localhost', undefined, () => console.log('Server is running on port: 3000\n'));
+// eslint-disable-next-line prettier/prettier
+server.listen(3000, 'localhost', undefined, () =>
+  console.log('Server is running on port: 3000\n')
+);

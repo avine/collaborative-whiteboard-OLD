@@ -20,11 +20,12 @@ app.use(staticRoutes);
 app.use(dbRoutes);
 
 app.use((err: any, req: any, res: any, next: any) => {
+  // eslint-disable-next-line no-console
   console.error(err.stack);
   next(err);
 });
 
-app.use((err: any, req: any, res: any, next: any) => {
+app.use((err: any, req: any, res: any) => {
   res.status(500);
   if (req.xhr) {
     res.send({ error: err.message });
@@ -33,8 +34,8 @@ app.use((err: any, req: any, res: any, next: any) => {
   }
 });
 
-// const indexPath = resolve(ROOT_PATH, 'static', 'index.html');
-// const indexContent = readFileSync(indexPath, { encoding: 'utf8' });
-// app.use((req, res, next) => res.send(indexContent));
+const indexPath = resolve(ROOT_PATH, 'static', 'index.html');
+const indexContent = readFileSync(indexPath, { encoding: 'utf8' });
+app.use((req, res) => res.send(indexContent));
 
 export default app;

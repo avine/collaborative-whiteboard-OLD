@@ -13,7 +13,7 @@ router.get('/db/ping', async (req, res, next) => {
   }
 });
 
-router.use('/db/users', async (req, res, next) => {
+router.use('/db/users', async (req, res) => {
   const db = await getDefaultDb();
   db.collection('users')
     .find({})
@@ -22,14 +22,13 @@ router.use('/db/users', async (req, res, next) => {
         res.send(error);
       }
       res.send(result);
-      close();
     });
 });
 
 const getUserName = () =>
   ['Stéphane', 'Jean-Noel', 'Eric'][Math.round(Math.random() * 2)];
 
-router.use('/db/user/add', async (req, res, next) => {
+router.use('/db/user/add', async (req, res) => {
   const db = await getDefaultDb();
   db.collection('users').insertOne({ name: getUserName() }, (error, result) => {
     if (error) {
