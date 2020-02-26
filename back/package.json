@@ -31,6 +31,7 @@
     "@types/node": "^13.7.1",
     "@types/socket.io": "^2.1.4",
     "@typescript-eslint/eslint-plugin": "^2.21.0",
+    "@typescript-eslint/parser": "^2.21.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-typescript": "^7.0.0",
     "eslint-config-prettier": "^6.10.0",
@@ -42,13 +43,17 @@
     "typescript": "^3.7.5"
   },
   "eslintConfig": {
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    },
     "extends": [
       "airbnb-typescript/base",
       "plugin:prettier/recommended"
-    ],
-    "parserOptions": {
-      "project": "./tsconfig.json"
-    }
+    ]
+  },
+  "prettier": {
+    "singleQuote": true
   },
   "nodemonConfig": {
     "watch": [
