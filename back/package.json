@@ -1,8 +1,7 @@
 {
-  "name": "back",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "@collaborative-whiteboard/express",
+  "version": "0.0.1",
+  "description": "Collaborative whiteboard Express backend",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prettier:check": "prettier --check \"src/**\"",
@@ -12,6 +11,34 @@
     "serve": "ts-node src/index.ts",
     "nodemon": "nodemon",
     "start": "node index"
+  },
+  "eslintConfig": {
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    },
+    "extends": [
+      "airbnb-typescript/base",
+      "plugin:prettier/recommended"
+    ]
+  },
+  "prettier": {
+    "singleQuote": true
+  },
+  "nodemonConfig": {
+    "watch": [
+      "src"
+    ],
+    "ext": "ts",
+    "ignore": [
+      "src/**/*.spec.ts"
+    ],
+    "exec": "ts-node -r dotenv/config ./src/index.ts"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   },
   "dependencies": {
     "ajv": "^6.12.0",
@@ -37,32 +64,11 @@
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^4.2.3",
     "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
+    "pretty-quick": "^2.0.1",
     "ts-node": "^8.6.2",
     "typescript": "^3.7.5"
-  },
-  "eslintConfig": {
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-      "project": "./tsconfig.json"
-    },
-    "extends": [
-      "airbnb-typescript/base",
-      "plugin:prettier/recommended"
-    ]
-  },
-  "prettier": {
-    "singleQuote": true
-  },
-  "nodemonConfig": {
-    "watch": [
-      "src"
-    ],
-    "ext": "ts",
-    "ignore": [
-      "src/**/*.spec.ts"
-    ],
-    "exec": "ts-node -r dotenv/config ./src/index.ts"
   }
 }

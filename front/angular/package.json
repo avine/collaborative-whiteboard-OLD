@@ -1,6 +1,7 @@
 {
-  "name": "angular",
-  "version": "0.0.0",
+  "name": "@collaborative-whiteboard/angular",
+  "version": "0.0.1",
+  "description": "Collaborative whiteboard Angular frontend",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -9,7 +10,6 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "~9.0.0",
     "@angular/cdk": "^9.0.0",
