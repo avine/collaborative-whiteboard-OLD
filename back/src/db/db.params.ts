@@ -9,5 +9,8 @@ export const dbParams: DbClientParams = {
   options: getDefaultOptions()
 };
 
-export const getDefaultDb = async () =>
-  (await getDbClient(dbParams)).db(getConfig<string>('dbName'));
+export const getDefaultDb = async () => {
+  const client = await getDbClient(dbParams);
+  const dbName = getConfig<string>('dbName');
+  return client.db(dbName);
+};
