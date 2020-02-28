@@ -31,3 +31,6 @@ export const closeDbClient = async (uid: string) => {
   }
   return undefined;
 };
+
+export const closeAllDbClients = () =>
+  Promise.all(Object.keys(dbClientCache).map(closeDbClient)).then(() => {});
