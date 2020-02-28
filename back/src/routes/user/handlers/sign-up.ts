@@ -2,6 +2,7 @@ import { RequestHandler } from 'express';
 import HttpStatus from 'http-status-codes';
 
 import { hashPassword } from '../../../common/hash-password';
+import { signData } from '../../../common/jwt';
 import { validateSchema } from '../../../common/validate-schema';
 import { getDefaultDb } from '../../../db/db.params';
 import { userLoginSchema } from '../user.schemas';
@@ -30,9 +31,8 @@ const signUpHandler: RequestHandler = async (req, res) => {
   if (insert.insertedCount) {
     res.status(HttpStatus.CREATED);
 
-    // TODO...
-    const jwt = insert.insertedId;
-    res.send(jwt);
+    const token = await signData({ userId: insert.insertedId }, 1000);
+    res.send(token);
     return;
   }
 

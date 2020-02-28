@@ -4,7 +4,8 @@
   "properties": {
     "serverPort": { "type": "integer" },
     "dbUri": { "type": "string" },
-    "dbName": { "type": "string" }
+    "dbName": { "type": "string" },
+    "jwtSecret": { "type": "string" }
   },
-  "required": ["serverPort", "dbUri", "dbName"]
+  "required": ["serverPort", "dbUri", "dbName", "jwtSecret"]
 }

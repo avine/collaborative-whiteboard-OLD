@@ -2,6 +2,7 @@ import { RequestHandler } from 'express';
 import HttpStatus from 'http-status-codes';
 
 import { comparePassword } from '../../../common/hash-password';
+import { signData } from '../../../common/jwt';
 import { validateSchema } from '../../../common/validate-schema';
 import { getDefaultDb } from '../../../db/db.params';
 import { userLoginSchema } from '../user.schemas';
@@ -24,10 +25,9 @@ const signInHandler: RequestHandler = async (req, res) => {
     return;
   }
 
-  // TODO...
   // eslint-disable-next-line no-underscore-dangle
-  const jwt = user._id;
-  res.send(jwt);
+  const token = await signData({ userId: user._id }, 1000);
+  res.send(token);
 };
 
 export default signInHandler;
