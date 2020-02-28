@@ -26,7 +26,7 @@ const signInHandler: RequestHandler = async (req, res) => {
   }
 
   // eslint-disable-next-line no-underscore-dangle
-  const token = await signData({ userId: user._id }, 1000);
+  const token = await signData({ userId: user._id });
   res.send(token);
 };
 

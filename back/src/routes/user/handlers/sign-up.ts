@@ -31,7 +31,7 @@ const signUpHandler: RequestHandler = async (req, res) => {
   if (insert.insertedCount) {
     res.status(HttpStatus.CREATED);
 
-    const token = await signData({ userId: insert.insertedId }, 1000);
+    const token = await signData({ userId: insert.insertedId });
     res.send(token);
     return;
   }
