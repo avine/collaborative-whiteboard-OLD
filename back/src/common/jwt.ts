@@ -1,16 +1,16 @@
 import { decode, sign, verify } from 'jsonwebtoken';
 
 import { getConfig } from '../config';
-import { JWT_EXPIRES_IN } from '../config/config.static';
 
-const secret = getConfig('jwtSecret');
+const jwtSecret = getConfig('jwtSecret');
+const jwtExpiresIn = getConfig('jwtExpiresIn');
 
 export const signData = (
   data: string | object,
-  expiresIn: string | number = JWT_EXPIRES_IN
+  expiresIn: string | number = jwtExpiresIn
 ) =>
   new Promise<string>((resolve, reject) => {
-    sign(data, secret, { expiresIn }, (err, token) => {
+    sign(data, jwtSecret, { expiresIn }, (err, token) => {
       if (err) {
         reject(err);
       } else {
@@ -21,7 +21,7 @@ export const signData = (
 
 export const verifyToken = (token: string) =>
   new Promise<string | object>((resolve, reject) => {
-    verify(token, secret, {}, (err, data) => {
+    verify(token, jwtSecret, {}, (err, data) => {
       if (err) {
         reject(err);
       } else {
