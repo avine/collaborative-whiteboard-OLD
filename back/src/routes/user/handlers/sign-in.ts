@@ -9,9 +9,8 @@ import { userLoginSchema } from '../user.schemas';
 import { User, UserLogin } from '../user.types';
 
 const signInHandler: RequestHandler = async (req, res) => {
-  const { email, password }: UserLogin = req.body;
-
-  const errors = validateSchema(userLoginSchema, { email, password });
+  const userLogin: UserLogin = req.body;
+  const errors = validateSchema(userLoginSchema, userLogin);
   if (errors) {
     res.sendStatus(HttpStatus.BAD_REQUEST);
     return;
@@ -19,8 +18,8 @@ const signInHandler: RequestHandler = async (req, res) => {
 
   const db = await getDefaultDb();
   const users = db.collection<User>('users');
-  const user = await users.findOne({ email });
-  if (!user || !(await comparePassword(password, user.password))) {
+  const user = await users.findOne({ email: userLogin.email });
+  if (!user || !(await comparePassword(userLogin.password, user.password))) {
     res.sendStatus(HttpStatus.UNAUTHORIZED);
     return;
   }

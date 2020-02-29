@@ -9,9 +9,8 @@ import { userLoginSchema } from '../user.schemas';
 import { User, UserLogin } from '../user.types';
 
 const signUpHandler: RequestHandler = async (req, res) => {
-  const { email, password }: UserLogin = req.body;
-
-  const errors = validateSchema(userLoginSchema, { email, password });
+  const userLogin: UserLogin = req.body;
+  const errors = validateSchema(userLoginSchema, userLogin);
   if (errors) {
     res.sendStatus(HttpStatus.BAD_REQUEST);
     return;
@@ -20,14 +19,17 @@ const signUpHandler: RequestHandler = async (req, res) => {
   const db = await getDefaultDb();
   const users = db.collection<User>('users');
 
-  const exists = await users.findOne({ email });
+  const exists = await users.findOne({ email: userLogin.email });
   if (exists) {
     res.sendStatus(HttpStatus.FORBIDDEN);
     return;
   }
 
-  const hash = await hashPassword(password);
-  const insert = await users.insertOne({ email, password: hash });
+  const hash = await hashPassword(userLogin.password);
+  const insert = await users.insertOne({
+    email: userLogin.email,
+    password: hash
+  });
   if (insert.insertedCount) {
     res.status(HttpStatus.CREATED);
 
