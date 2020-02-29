@@ -1,12 +1,8 @@
 import configEnv from './config.env';
+import configSchema from './config.schema';
 import { Config } from './config.types';
-import {
-  getConfigFactory,
-  getConfigSchema,
-  getValidatedConfig
-} from './config.utils';
+import { getConfigFactory, getValidatedConfig } from './config.utils';
 
-const configSchema = getConfigSchema();
 const config = getValidatedConfig(configSchema, configEnv);
 
 export const getAllConfig = (): Config => ({ ...config });

@@ -1,15 +1,6 @@
 import Ajv from 'ajv';
-import { readFileSync } from 'fs';
-import { join } from 'path';
 
 import { Config, ConfigEnv } from './config.types';
-
-export const getConfigSchema = (): Object => {
-  const content = readFileSync(join(__dirname, './config.schema.json'), {
-    encoding: 'utf8'
-  });
-  return JSON.parse(content);
-};
 
 export const getValidatedConfig = (
   schema: Object,
