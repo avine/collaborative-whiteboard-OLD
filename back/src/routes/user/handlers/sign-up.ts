@@ -26,14 +26,17 @@ const signUpHandler: RequestHandler = async (req, res) => {
   }
 
   const hash = await hashPassword(userLogin.password);
+  const now = Date.now();
   const insert = await users.insertOne({
     email: userLogin.email,
-    password: hash
+    password: hash,
+    signUpDate: now,
+    signInDate: now
   });
   if (insert.insertedCount) {
     res.status(HttpStatus.CREATED);
 
-    const token = await signData({ userId: insert.insertedId });
+    const token = await signData({ sub: insert.insertedId });
     res.send(token);
     return;
   }

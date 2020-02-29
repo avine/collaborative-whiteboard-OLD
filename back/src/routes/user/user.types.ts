@@ -6,6 +6,8 @@ export interface UserLogin {
 }
 
 export interface UserDetails {
+  signUpDate: number;
+  signInDate: number;
   firstName?: string;
   lastName?: string;
 }

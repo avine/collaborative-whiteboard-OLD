@@ -18,14 +18,15 @@ const signInHandler: RequestHandler = async (req, res) => {
 
   const db = await getDefaultDb();
   const users = db.collection<User>('users');
-  const user = await users.findOne({ email: userLogin.email });
+  const user = await users.findOne({ email: userLogin.email }); // TODO: Add index on the `email` field
   if (!user || !(await comparePassword(userLogin.password, user.password))) {
     res.sendStatus(HttpStatus.UNAUTHORIZED);
     return;
   }
 
-  // eslint-disable-next-line no-underscore-dangle
-  const token = await signData({ userId: user._id });
+  users.updateOne({ _id: user._id }, { $set: { signInDate: Date.now() } });
+
+  const token = await signData({ sub: user._id });
   res.send(token);
 };
 

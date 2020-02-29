@@ -21,7 +21,10 @@
     "extends": [
       "airbnb-typescript/base",
       "plugin:prettier/recommended"
-    ]
+    ],
+    "rules": {
+      "no-underscore-dangle": ["error", { "allow": ["_id"] }]
+    }
   },
   "prettier": {
     "singleQuote": true
