@@ -23,7 +23,14 @@
       "plugin:prettier/recommended"
     ],
     "rules": {
-      "no-underscore-dangle": ["error", { "allow": ["_id"] }]
+      "no-underscore-dangle": [
+        "error",
+        {
+          "allow": [
+            "_id"
+          ]
+        }
+      ]
     }
   },
   "prettier": {
@@ -51,6 +58,7 @@
     "connect-timeout": "^1.9.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-bearer-token": "^2.4.0",
     "http-status-codes": "^1.4.0",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.5.3",
