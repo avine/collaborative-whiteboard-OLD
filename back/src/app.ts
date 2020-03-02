@@ -8,6 +8,7 @@ import dbRoutes from './routes/db.routes';
 import { errorHandler, errorLogger } from './routes/error.routes';
 import staticRoutes from './routes/static.routes';
 import userRoutes from './routes/user/user.routes';
+import whiteboardRoutes from './routes/whiteboard/whiteboard.routes';
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use(timeout('5s'));
 app.use(staticRoutes);
 app.use(userRoutes);
 app.use(dbRoutes);
+app.use(whiteboardRoutes);
 
 app.use(errorLogger);
 app.use(errorHandler);

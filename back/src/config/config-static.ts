@@ -1,7 +1,7 @@
 import { ConfigStatic } from './config.types';
 
 const configStatic: ConfigStatic = {
-  jwtExpiresIn: 30
+  jwtExpiresIn: 60 * 15 // 15mn
 };
 
 export default configStatic;

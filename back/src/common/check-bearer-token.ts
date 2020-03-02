@@ -3,13 +3,21 @@ import HttpStatus from 'http-status-codes';
 
 import { verifyToken } from './jwt';
 
+declare global {
+  namespace Express {
+    interface Request {
+      tokenData?: any;
+    }
+  }
+}
+
 const checkBearerToken: RequestHandler = async (req, res, next) => {
   if (!req.token) {
     res.sendStatus(HttpStatus.UNAUTHORIZED);
     return;
   }
   try {
-    await verifyToken(req.token);
+    req.tokenData = await verifyToken(req.token);
     next();
   } catch (err) {
     next(err);

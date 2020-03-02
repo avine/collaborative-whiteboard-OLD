@@ -1,14 +1,14 @@
 import { RequestHandler } from 'express';
 
-import { signData, verifyToken } from '../../../common/jwt';
+import { signData } from '../../../common/jwt';
 
 const tokenHandler: RequestHandler = async (req, res) => {
-  const data: any = await verifyToken(req.token as string);
+  const { tokenData } = req;
 
-  delete data.iat;
-  delete data.exp;
+  delete tokenData.iat;
+  delete tokenData.exp;
 
-  res.send(await signData(data));
+  res.send(await signData(tokenData));
 };
 
 export default tokenHandler;
