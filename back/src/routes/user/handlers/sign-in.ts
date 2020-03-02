@@ -4,7 +4,7 @@ import HttpStatus from 'http-status-codes';
 import { comparePassword } from '../../../common/hash-password';
 import { signData } from '../../../common/jwt';
 import validateSchema from '../../../common/validate-schema';
-import { getDefaultDb } from '../../../db/db.params';
+import { getDefaultDb } from '../../../db/db-params';
 import { userLoginSchema } from '../user.schemas';
 import { User, UserLogin } from '../user.types';
 
@@ -18,7 +18,7 @@ const signInHandler: RequestHandler = async (req, res) => {
 
   const db = await getDefaultDb();
   const users = db.collection<User>('users');
-  const user = await users.findOne({ email: userLogin.email }); // TODO: Add index on the `email` field
+  const user = await users.findOne({ email: userLogin.email });
   if (!user || !(await comparePassword(userLogin.password, user.password))) {
     res.sendStatus(HttpStatus.UNAUTHORIZED);
     return;

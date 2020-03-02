@@ -4,7 +4,7 @@ import HttpStatus from 'http-status-codes';
 import { hashPassword } from '../../../common/hash-password';
 import { signData } from '../../../common/jwt';
 import validateSchema from '../../../common/validate-schema';
-import { getDefaultDb } from '../../../db/db.params';
+import { getDefaultDb } from '../../../db/db-params';
 import { userLoginSchema } from '../user.schemas';
 import { User, UserLogin } from '../user.types';
 

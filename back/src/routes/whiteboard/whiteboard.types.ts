@@ -8,6 +8,6 @@ export interface WhiteboardUser {
 export interface Whiteboard {
   _id: ObjectID;
   title: string;
-  users: WhiteboardUser[]; // TODO: add index on `users.id` field
+  users: WhiteboardUser[];
   data: any[];
 }

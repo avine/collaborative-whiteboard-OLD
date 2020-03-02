@@ -1,5 +1,5 @@
 import { getConfig } from '../config';
-import { getDbClient } from './db.connection';
+import { getDbClient } from './db-connection';
 import { DbClientParams } from './db.types';
 import { getDefaultOptions } from './db.utils';
 
