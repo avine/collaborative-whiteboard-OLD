@@ -17,7 +17,7 @@ const addWhiteboardHandler: RequestHandler = async (req, res) => {
   const whiteboards = db.collection<Whiteboard>('whiteboards');
   const insert = await whiteboards.insertOne({
     title: req.body.title,
-    users: [{ id: req.tokenData.sub, admin: true }],
+    users: [{ id: req.userId as string, admin: true }],
     data: []
   });
 

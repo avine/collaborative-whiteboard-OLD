@@ -1,14 +1,16 @@
 import { RequestHandler } from 'express';
 
-import { signData } from '../../../common/jwt';
+import { signToken } from '../../../common/jwt';
+import { getConfig } from '../../../config';
 
 const tokenHandler: RequestHandler = async (req, res) => {
-  const { tokenData } = req;
+  const { tokenDecoded } = req;
 
-  delete tokenData.iat;
-  delete tokenData.exp;
+  tokenDecoded.exp += getConfig('jwtExpiresIn');
 
-  res.send(await signData(tokenData));
+  const token = await signToken(tokenDecoded);
+  const expiresIn = getConfig('jwtExpiresIn');
+  res.send({ token, expiresIn });
 };
 
 export default tokenHandler;

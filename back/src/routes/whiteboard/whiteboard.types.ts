@@ -8,6 +8,8 @@ export interface WhiteboardUser {
 export interface Whiteboard {
   _id: ObjectID;
   title: string;
+  // createdAt: string; // TODO
+  // lastModifiedAt: string; // TODO
   users: WhiteboardUser[];
   data: any[];
 }

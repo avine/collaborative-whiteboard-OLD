@@ -2,8 +2,9 @@ import { RequestHandler } from 'express';
 import HttpStatus from 'http-status-codes';
 
 import { comparePassword } from '../../../common/hash-password';
-import { signData } from '../../../common/jwt';
+import { signUserToken } from '../../../common/jwt';
 import validateSchema from '../../../common/validate-schema';
+import { getConfig } from '../../../config';
 import { getDefaultDb } from '../../../db/db-params';
 import { userLoginSchema } from '../user.schemas';
 import { User, UserLogin } from '../user.types';
@@ -26,8 +27,9 @@ const signInHandler: RequestHandler = async (req, res) => {
 
   users.updateOne({ _id: user._id }, { $set: { signInDate: Date.now() } });
 
-  const token = await signData({ sub: user._id });
-  res.send(token);
+  const token = await signUserToken(user._id.toHexString());
+  const expiresIn = getConfig('jwtExpiresIn');
+  res.send({ token, expiresIn });
 };
 
 export default signInHandler;

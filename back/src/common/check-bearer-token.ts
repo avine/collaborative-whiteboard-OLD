@@ -6,7 +6,8 @@ import { verifyToken } from './jwt';
 declare global {
   namespace Express {
     interface Request {
-      tokenData?: any;
+      tokenDecoded?: any;
+      userId?: string;
     }
   }
 }
@@ -17,7 +18,8 @@ const checkBearerToken: RequestHandler = async (req, res, next) => {
     return;
   }
   try {
-    req.tokenData = await verifyToken(req.token);
+    req.tokenDecoded = await verifyToken(req.token);
+    req.userId = req.tokenDecoded.sub; // userId is the token's subject alias
     next();
   } catch (err) {
     next(err);

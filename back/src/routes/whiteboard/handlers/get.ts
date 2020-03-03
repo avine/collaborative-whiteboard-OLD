@@ -18,7 +18,7 @@ const getWhiteboardHandler: RequestHandler = async (req, res) => {
     res.sendStatus(HttpStatus.NOT_FOUND);
     return;
   }
-  if (!whiteboard.users.find(user => user.id === req.tokenData.sub)) {
+  if (!whiteboard.users.find(user => user.id === req.userId)) {
     res.sendStatus(HttpStatus.FORBIDDEN);
     return;
   }

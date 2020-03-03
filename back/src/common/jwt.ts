@@ -1,16 +1,13 @@
-import { decode, sign, verify } from 'jsonwebtoken';
+import { decode, sign, SignOptions, verify } from 'jsonwebtoken';
 
 import { getConfig } from '../config';
 
 const jwtSecret = getConfig('jwtSecret');
 const jwtExpiresIn = getConfig('jwtExpiresIn');
 
-export const signData = (
-  data: string | object,
-  expiresIn: string | number = jwtExpiresIn
-) =>
+export const signToken = (payload: object, options: SignOptions = {}) =>
   new Promise<string>((resolve, reject) => {
-    sign(data, jwtSecret, { expiresIn }, (err, token) => {
+    sign(payload, jwtSecret, options, (err, token) => {
       if (err) {
         reject(err);
       } else {
@@ -21,13 +18,16 @@ export const signData = (
 
 export const verifyToken = (token: string) =>
   new Promise<string | object>((resolve, reject) => {
-    verify(token, jwtSecret, {}, (err, data) => {
+    verify(token, jwtSecret, {}, (err, decoded) => {
       if (err) {
         reject(err);
       } else {
-        resolve(data);
+        resolve(decoded);
       }
     });
   });
+
+export const signUserToken = (userId: string) =>
+  signToken({}, { subject: userId, expiresIn: jwtExpiresIn });
 
 export const decodeToken = (token: string) => decode(token, { complete: true });

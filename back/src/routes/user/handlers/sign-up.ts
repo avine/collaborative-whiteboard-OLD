@@ -2,11 +2,12 @@ import { RequestHandler } from 'express';
 import HttpStatus from 'http-status-codes';
 
 import { hashPassword } from '../../../common/hash-password';
-import { signData } from '../../../common/jwt';
+import { signUserToken } from '../../../common/jwt';
 import validateSchema from '../../../common/validate-schema';
 import { getDefaultDb } from '../../../db/db-params';
 import { userLoginSchema } from '../user.schemas';
 import { User, UserLogin } from '../user.types';
+import { getConfig } from '../../../config';
 
 const signUpHandler: RequestHandler = async (req, res) => {
   const userLogin: UserLogin = req.body;
@@ -36,8 +37,9 @@ const signUpHandler: RequestHandler = async (req, res) => {
   if (insert.insertedCount) {
     res.status(HttpStatus.CREATED);
 
-    const token = await signData({ sub: insert.insertedId });
-    res.send(token);
+    const token = await signUserToken(insert.insertedId.toHexString());
+    const expiresIn = getConfig('jwtExpiresIn');
+    res.send({ token, expiresIn });
     return;
   }
 
