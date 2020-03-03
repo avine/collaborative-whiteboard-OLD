@@ -1,13 +1,13 @@
 import { RequestHandler } from 'express';
 import HttpStatus from 'http-status-codes';
 
-import { hashPassword } from '../../../common/hash-password';
-import { signUserToken } from '../../../common/jwt';
-import validateSchema from '../../../common/validate-schema';
-import { getDefaultDb } from '../../../db/db-params';
+import { hashPassword } from '../../../core/common/hash-password';
+import { signUserToken } from '../../../core/common/jwt';
+import validateSchema from '../../../core/common/validate-schema';
+import { getDefaultDb } from '../../../core/db/db-params';
 import { userLoginSchema } from '../user.schemas';
 import { User, UserLogin } from '../user.types';
-import { getConfig } from '../../../config';
+import { getConfig } from '../../../core/config';
 
 const signUpHandler: RequestHandler = async (req, res) => {
   const userLogin: UserLogin = req.body;

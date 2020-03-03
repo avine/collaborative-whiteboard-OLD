@@ -1,8 +1,8 @@
 import { createServer } from 'http';
 
 import app from './app';
-import { getAllConfig, getConfig } from './config';
-import createDbIndexes from './db/db-index';
+import { getAllConfig, getConfig } from './core/config';
+import createDbIndexes from './core/db/db-index';
 
 // eslint-disable-next-line no-console
 console.log('AppConfig', JSON.stringify(getAllConfig(), undefined, 2));

@@ -1,8 +1,8 @@
 import { RequestHandler } from 'express';
 import HttpStatus from 'http-status-codes';
 
-import validateSchema from '../../../common/validate-schema';
-import { getDefaultDb } from '../../../db/db-params';
+import validateSchema from '../../../core/common/validate-schema';
+import { getDefaultDb } from '../../../core/db/db-params';
 import { whiteboardAddSchema } from '../whiteboard.schemas';
 import { Whiteboard } from '../whiteboard.types';
 

@@ -3,7 +3,7 @@ import timeout from 'connect-timeout';
 import express from 'express';
 import bearerToken from 'express-bearer-token';
 
-import { accessLogger, consoleLogger } from './log';
+import { accessLogger, consoleLogger } from './core/log';
 import dbRoutes from './routes/db.routes';
 import { errorHandler, errorLogger } from './routes/error.routes';
 import staticRoutes from './routes/static.routes';

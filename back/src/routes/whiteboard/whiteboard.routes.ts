@@ -1,6 +1,6 @@
 import express from 'express';
 
-import checkBearerToken from '../../common/check-bearer-token';
+import checkBearerToken from '../../core/common/check-bearer-token';
 import addWhiteboardHandler from './handlers/add';
 import getWhiteboardHandler from './handlers/get';
 

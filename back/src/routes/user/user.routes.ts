@@ -1,7 +1,7 @@
 import express from 'express';
 import multer from 'multer';
 
-import checkBearerToken from '../../common/check-bearer-token';
+import checkBearerToken from '../../core/common/check-bearer-token';
 import signInHandler from './handlers/sign-in';
 import signUpHandler from './handlers/sign-up';
 import tokenHandler from './handlers/token';

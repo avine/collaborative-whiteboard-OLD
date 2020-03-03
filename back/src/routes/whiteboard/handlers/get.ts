@@ -2,7 +2,7 @@ import { RequestHandler } from 'express';
 import HttpStatus from 'http-status-codes';
 import { ObjectId } from 'mongodb';
 
-import { getDefaultDb } from '../../../db/db-params';
+import { getDefaultDb } from '../../../core/db/db-params';
 import { Whiteboard } from '../whiteboard.types';
 
 const getWhiteboardHandler: RequestHandler = async (req, res) => {

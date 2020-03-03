@@ -1,11 +1,11 @@
 import { RequestHandler } from 'express';
 import HttpStatus from 'http-status-codes';
 
-import { comparePassword } from '../../../common/hash-password';
-import { signUserToken } from '../../../common/jwt';
-import validateSchema from '../../../common/validate-schema';
-import { getConfig } from '../../../config';
-import { getDefaultDb } from '../../../db/db-params';
+import { comparePassword } from '../../../core/common/hash-password';
+import { signUserToken } from '../../../core/common/jwt';
+import validateSchema from '../../../core/common/validate-schema';
+import { getConfig } from '../../../core/config';
+import { getDefaultDb } from '../../../core/db/db-params';
 import { userLoginSchema } from '../user.schemas';
 import { User, UserLogin } from '../user.types';
 

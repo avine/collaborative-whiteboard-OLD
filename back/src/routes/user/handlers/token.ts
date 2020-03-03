@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 
-import { signToken } from '../../../common/jwt';
-import { getConfig } from '../../../config';
+import { signToken } from '../../../core/common/jwt';
+import { getConfig } from '../../../core/config';
 
 const tokenHandler: RequestHandler = async (req, res) => {
   const { tokenDecoded } = req;
