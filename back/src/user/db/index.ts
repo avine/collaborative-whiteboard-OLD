@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongodb';
 
-import { getDefaultDb } from '../../core/db/db-params';
+import { getDefaultDb } from '../../core/db';
 import { User } from './user.types';
 
 const getUsers = async () => {

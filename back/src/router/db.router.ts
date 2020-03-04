@@ -1,5 +1,6 @@
 import express from 'express';
-import { getDefaultDb } from '../core/db/db-params';
+
+import { getDefaultDb } from '../core/db';
 
 const router = express.Router();
 

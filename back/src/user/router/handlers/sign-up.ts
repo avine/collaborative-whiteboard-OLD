@@ -5,7 +5,7 @@ import { hashPassword } from '../../../core/common/hash-password';
 import { signUserToken } from '../../../core/common/jwt';
 import validateSchema from '../../../core/common/validate-schema';
 import { getConfig } from '../../../core/config';
-import { getDefaultDb } from '../../../core/db/db-params';
+import { getDefaultDb } from '../../../core/db';
 import { insertUser } from '../../db';
 import { User, UserLogin } from '../../db/user.types';
 import { userLoginSchema } from '../user.schemas';

@@ -1,4 +1,4 @@
-import { getDefaultDb } from './db-params';
+import { getDefaultDb } from '.';
 
 const createDbIndexes = async () => {
   const db = await getDefaultDb();
