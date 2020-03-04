@@ -4,6 +4,7 @@ import HttpStatus from 'http-status-codes';
 import validateSchema from '../../../core/common/validate-schema';
 import { findUserById } from '../../../db/user';
 import { insertWhiteboard } from '../../../db/whiteboard';
+import { getUsername } from '../../../helpers/user.helper';
 import { whiteboardAddSchema } from '../whiteboard.schemas';
 
 const addWhiteboardHandler: RequestHandler = async (req, res) => {
@@ -23,7 +24,7 @@ const addWhiteboardHandler: RequestHandler = async (req, res) => {
     {
       id: req.userId as string,
       role: 'author',
-      username: user.email // TODO: add `user.utils.ts` with `getUsername` method...
+      username: getUsername(user)
     }
   ]);
 
