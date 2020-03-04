@@ -1,15 +1,17 @@
-import { ObjectID } from 'mongodb';
+import { ObjectId } from 'mongodb';
+
+export type WhiteboardUserRole = 'author' | 'contributor' | 'subscriber';
 
 export interface WhiteboardUser {
   id: string;
-  admin: boolean;
+  role: WhiteboardUserRole;
+  username: string;
 }
 
 export interface Whiteboard {
-  _id: ObjectID;
+  _id: ObjectId;
   title: string;
-  // createdAt: string; // TODO
-  // lastModifiedAt: string; // TODO
+  creationDate: number;
   users: WhiteboardUser[];
   data: any[];
 }

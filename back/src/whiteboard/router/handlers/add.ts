@@ -2,6 +2,7 @@ import { RequestHandler } from 'express';
 import HttpStatus from 'http-status-codes';
 
 import validateSchema from '../../../core/common/validate-schema';
+import { findUserById } from '../../../user/db';
 import { insertWhiteboard } from '../../db';
 import { whiteboardAddSchema } from '../whiteboard.schemas';
 
@@ -12,8 +13,18 @@ const addWhiteboardHandler: RequestHandler = async (req, res) => {
     return;
   }
 
+  const user = await findUserById(req.userId as string);
+  if (!user) {
+    res.sendStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+    return;
+  }
+
   const insert = await insertWhiteboard(req.body.title, [
-    { id: req.userId as string, admin: true }
+    {
+      id: req.userId as string,
+      role: 'author',
+      username: user.email // TODO: add `user.utils.ts` with `getUsername` method...
+    }
   ]);
 
   if (insert.insertedCount) {

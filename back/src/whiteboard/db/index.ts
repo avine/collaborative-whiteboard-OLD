@@ -3,7 +3,7 @@ import { ObjectId } from 'mongodb';
 import { getDefaultDb } from '../../core/db';
 import { Whiteboard, WhiteboardUser } from './whiteboard.types';
 
-const getWhiteboards = async () => {
+const getWhiteboardsCollection = async () => {
   const db = await getDefaultDb();
   return db.collection<Whiteboard>('whiteboards');
 };
@@ -14,13 +14,14 @@ export const insertWhiteboard = async (
   users: WhiteboardUser[],
   data: any[] = []
 ) =>
-  (await getWhiteboards()).insertOne({
+  (await getWhiteboardsCollection()).insertOne({
     title,
+    creationDate: Date.now(),
     users,
     data
   });
 
 export const findWhiteboardById = async (id: string) =>
-  (await getWhiteboards()).findOne({
+  (await getWhiteboardsCollection()).findOne({
     _id: new ObjectId(id)
   });

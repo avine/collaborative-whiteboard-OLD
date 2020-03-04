@@ -23,7 +23,7 @@ const signInHandler: RequestHandler = async (req, res) => {
     return;
   }
 
-  await updateUserSignInDate(user._id);
+  await updateUserSignInDate(user._id.toHexString());
 
   const token = await signUserToken(user._id.toHexString());
   const expiresIn = getConfig('jwtExpiresIn');
