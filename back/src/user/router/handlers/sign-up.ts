@@ -4,10 +4,11 @@ import HttpStatus from 'http-status-codes';
 import { hashPassword } from '../../../core/common/hash-password';
 import { signUserToken } from '../../../core/common/jwt';
 import validateSchema from '../../../core/common/validate-schema';
-import { getDefaultDb } from '../../../core/db/db-params';
-import { userLoginSchema } from '../user.schemas';
-import { User, UserLogin } from '../user.types';
 import { getConfig } from '../../../core/config';
+import { getDefaultDb } from '../../../core/db/db-params';
+import { insertUser } from '../../db';
+import { User, UserLogin } from '../../db/user.types';
+import { userLoginSchema } from '../user.schemas';
 
 const signUpHandler: RequestHandler = async (req, res) => {
   const userLogin: UserLogin = req.body;
@@ -27,13 +28,7 @@ const signUpHandler: RequestHandler = async (req, res) => {
   }
 
   const hash = await hashPassword(userLogin.password);
-  const now = Date.now();
-  const insert = await users.insertOne({
-    email: userLogin.email,
-    password: hash,
-    signUpDate: now,
-    signInDate: now
-  });
+  const insert = await insertUser(userLogin.email, hash);
   if (insert.insertedCount) {
     res.status(HttpStatus.CREATED);
 

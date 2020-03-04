@@ -1,27 +1,21 @@
 import { RequestHandler } from 'express';
 import HttpStatus from 'http-status-codes';
-import { ObjectId } from 'mongodb';
 
-import { getDefaultDb } from '../../../core/db/db-params';
-import { Whiteboard } from '../whiteboard.types';
+import { findWhiteboardById } from '../../db';
 
 const getWhiteboardHandler: RequestHandler = async (req, res) => {
   const { whiteboardId } = req.params;
-
-  const db = await getDefaultDb();
-  const whiteboards = db.collection<Whiteboard>('whiteboards');
-  const whiteboard = await whiteboards.findOne({
-    _id: new ObjectId(whiteboardId)
-  });
-
+  const whiteboard = await findWhiteboardById(whiteboardId);
   if (!whiteboard) {
     res.sendStatus(HttpStatus.NOT_FOUND);
     return;
   }
+
   if (!whiteboard.users.find(user => user.id === req.userId)) {
     res.sendStatus(HttpStatus.FORBIDDEN);
     return;
   }
+
   res.send(whiteboard);
 };
 

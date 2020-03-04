@@ -1,4 +1,4 @@
-import { ObjectID } from 'mongodb';
+import { ObjectId } from 'mongodb';
 
 export interface UserLogin {
   email: string;
@@ -13,7 +13,7 @@ export interface UserDetails {
 }
 
 export interface User extends UserLogin, UserDetails {
-  _id: ObjectID;
+  _id: ObjectId;
 }
 
 export type UserPublic = Omit<User, 'password'>;

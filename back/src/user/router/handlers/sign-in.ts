@@ -5,9 +5,9 @@ import { comparePassword } from '../../../core/common/hash-password';
 import { signUserToken } from '../../../core/common/jwt';
 import validateSchema from '../../../core/common/validate-schema';
 import { getConfig } from '../../../core/config';
-import { getDefaultDb } from '../../../core/db/db-params';
+import { findUserByEmail, updateUserSignInDate } from '../../db';
+import { UserLogin } from '../../db/user.types';
 import { userLoginSchema } from '../user.schemas';
-import { User, UserLogin } from '../user.types';
 
 const signInHandler: RequestHandler = async (req, res) => {
   const userLogin: UserLogin = req.body;
@@ -17,15 +17,13 @@ const signInHandler: RequestHandler = async (req, res) => {
     return;
   }
 
-  const db = await getDefaultDb();
-  const users = db.collection<User>('users');
-  const user = await users.findOne({ email: userLogin.email });
+  const user = await findUserByEmail(userLogin.email);
   if (!user || !(await comparePassword(userLogin.password, user.password))) {
     res.sendStatus(HttpStatus.UNAUTHORIZED);
     return;
   }
 
-  users.updateOne({ _id: user._id }, { $set: { signInDate: Date.now() } });
+  await updateUserSignInDate(user._id);
 
   const token = await signUserToken(user._id.toHexString());
   const expiresIn = getConfig('jwtExpiresIn');

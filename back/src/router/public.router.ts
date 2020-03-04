@@ -5,8 +5,8 @@ import ROOT_PATH from '../root-path';
 
 const router = express.Router();
 
-const staticPath = resolve(ROOT_PATH, 'static');
+const publicPath = resolve(ROOT_PATH, 'public');
 
-router.use('/', express.static(staticPath));
+router.use('/', express.static(publicPath));
 
 export default router;

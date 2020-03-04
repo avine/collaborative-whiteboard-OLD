@@ -2,9 +2,8 @@ import { RequestHandler } from 'express';
 import HttpStatus from 'http-status-codes';
 
 import validateSchema from '../../../core/common/validate-schema';
-import { getDefaultDb } from '../../../core/db/db-params';
+import { insertWhiteboard } from '../../db';
 import { whiteboardAddSchema } from '../whiteboard.schemas';
-import { Whiteboard } from '../whiteboard.types';
 
 const addWhiteboardHandler: RequestHandler = async (req, res) => {
   const errors = validateSchema(whiteboardAddSchema, req.body);
@@ -13,13 +12,9 @@ const addWhiteboardHandler: RequestHandler = async (req, res) => {
     return;
   }
 
-  const db = await getDefaultDb();
-  const whiteboards = db.collection<Whiteboard>('whiteboards');
-  const insert = await whiteboards.insertOne({
-    title: req.body.title,
-    users: [{ id: req.userId as string, admin: true }],
-    data: []
-  });
+  const insert = await insertWhiteboard(req.body.title, [
+    { id: req.userId as string, admin: true }
+  ]);
 
   if (insert.insertedCount) {
     res.sendStatus(HttpStatus.OK);
