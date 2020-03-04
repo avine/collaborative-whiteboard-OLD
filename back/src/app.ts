@@ -4,11 +4,14 @@ import express from 'express';
 import bearerToken from 'express-bearer-token';
 
 import { accessLogger, consoleLogger } from './core/log';
-import dbRouter from './router/db.router';
-import { errorHandler, errorLogger } from './router/handlers/error';
-import publicRouter from './router/public.router';
-import userRouter from './user/router';
-import whiteboardRouter from './whiteboard/router';
+import {
+  errorClientHandler,
+  errorServerHandler
+} from './router/common/handlers/error';
+import dbRouter from './router/db';
+import publicRouter from './router/public';
+import userRouter from './router/user';
+import whiteboardRouter from './router/whiteboard';
 
 const app = express();
 
@@ -22,12 +25,12 @@ app.use(accessLogger);
 
 app.use(timeout('5s'));
 
-app.use(publicRouter);
 app.use(dbRouter);
 app.use(userRouter);
 app.use(whiteboardRouter);
+app.use(publicRouter);
 
-app.use(errorLogger);
-app.use(errorHandler);
+app.use(errorServerHandler);
+app.use(errorClientHandler);
 
 export default app;

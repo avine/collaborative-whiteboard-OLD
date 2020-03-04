@@ -4,11 +4,11 @@ import { getDefaultDb } from '../core/db';
 
 const router = express.Router();
 
-router.get('/db/ping', async (req, res, next) => {
+router.get('/db/stats', async (req, res, next) => {
   try {
     const db = await getDefaultDb();
     const stats = await db.stats();
-    res.status(200).send(stats);
+    res.send(stats);
   } catch (err) {
     next(err);
   }

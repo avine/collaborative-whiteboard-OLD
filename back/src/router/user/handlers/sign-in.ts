@@ -5,8 +5,8 @@ import { comparePassword } from '../../../core/common/hash-password';
 import { signUserToken } from '../../../core/common/jwt';
 import validateSchema from '../../../core/common/validate-schema';
 import { getConfig } from '../../../core/config';
-import { findUserByEmail, updateUserSignInDate } from '../../db';
-import { UserLogin } from '../../db/user.types';
+import { findUserByEmail, updateUserSignInDate } from '../../../db/user';
+import { UserLogin } from '../../../db/user/user.types';
 import { userLoginSchema } from '../user.schemas';
 
 const signInHandler: RequestHandler = async (req, res) => {

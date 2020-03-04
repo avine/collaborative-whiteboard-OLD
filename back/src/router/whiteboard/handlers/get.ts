@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 import HttpStatus from 'http-status-codes';
 
-import { findWhiteboardById } from '../../db';
+import { findWhiteboardById } from '../../../db/whiteboard';
 
 const getWhiteboardHandler: RequestHandler = async (req, res) => {
   const { whiteboardId } = req.params;

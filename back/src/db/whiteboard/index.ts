@@ -8,7 +8,6 @@ const getWhiteboardsCollection = async () => {
   return db.collection<Whiteboard>('whiteboards');
 };
 
-// eslint-disable-next-line import/prefer-default-export
 export const insertWhiteboard = async (
   title: string,
   users: WhiteboardUser[],
@@ -25,3 +24,9 @@ export const findWhiteboardById = async (id: string) =>
   (await getWhiteboardsCollection()).findOne({
     _id: new ObjectId(id)
   });
+
+export const updateWhiteboardData = async (id: string, data: any[]) =>
+  (await getWhiteboardsCollection()).updateOne(
+    { _id: new ObjectId(id) },
+    { $set: { data } }
+  );
