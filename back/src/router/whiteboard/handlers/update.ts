@@ -24,14 +24,13 @@ const updateWhiteboardHandler: RequestHandler = async (req, res) => {
     return;
   }
 
-  const transport /*: DrawTransport*/ = req.body; // TODO: validate schema...
+  const transport /*: DrawTransport */ = req.body; // TODO: validate schema...
 
   const update = await (async () => {
     if (transport.action === 'add') {
       return pushWhiteboardData(whiteboardId, transport.events);
-    } else {
-      return pullWhiteboardData(whiteboardId, transport.events);
     }
+    return pullWhiteboardData(whiteboardId, transport.events);
   })();
 
   if (update.modifiedCount) {

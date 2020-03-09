@@ -22,7 +22,7 @@ const checkBearerToken: RequestHandler = async (req, res, next) => {
     req.userId = req.tokenDecoded.sub; // userId is the token's subject alias
     next();
   } catch (err) {
-    next(err);
+    res.sendStatus(HttpStatus.UNAUTHORIZED);
   }
 };
 

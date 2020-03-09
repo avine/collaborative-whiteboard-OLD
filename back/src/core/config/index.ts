@@ -8,6 +8,7 @@ import { getConfigFactory } from './config.utils';
 const configDynamic: ConfigDynamic = { ...configEnv } as any;
 const schemaErrors = validateSchema(configEnvSchema, configDynamic);
 if (schemaErrors) {
+  // eslint-disable-next-line no-console
   console.error('Invalid config', schemaErrors);
 }
 
