@@ -1,13 +1,9 @@
 import { RequestHandler } from 'express';
 import HttpStatus from 'http-status-codes';
 
-import {
-  findWhiteboardById,
-  pullWhiteboardData,
-  pushWhiteboardData
-} from '../../../db/whiteboard';
+import { findWhiteboardById, setWhiteboardData } from '../../../db/whiteboard';
 
-const updateWhiteboardHandler: RequestHandler = async (req, res) => {
+const setWhiteboardHandler: RequestHandler = async (req, res) => {
   const { whiteboardId } = req.params;
   const whiteboard = await findWhiteboardById(whiteboardId);
   if (!whiteboard) {
@@ -24,16 +20,8 @@ const updateWhiteboardHandler: RequestHandler = async (req, res) => {
     return;
   }
 
-  const transport /*: DrawTransport*/ = req.body; // TODO: validate schema...
-
-  const update = await (async () => {
-    if (transport.action === 'add') {
-      return pushWhiteboardData(whiteboardId, transport.events);
-    } else {
-      return pullWhiteboardData(whiteboardId, transport.events);
-    }
-  })();
-
+  const history = req.body; // TODO: validate schema...
+  const update = await setWhiteboardData(whiteboardId, history);
   if (update.modifiedCount) {
     res.sendStatus(HttpStatus.OK);
   } else {
@@ -41,4 +29,4 @@ const updateWhiteboardHandler: RequestHandler = async (req, res) => {
   }
 };
 
-export default updateWhiteboardHandler;
+export default setWhiteboardHandler;

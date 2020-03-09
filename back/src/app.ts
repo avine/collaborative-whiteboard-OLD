@@ -1,5 +1,6 @@
 import bodyParser from 'body-parser';
 import timeout from 'connect-timeout';
+import cors from 'cors';
 import express from 'express';
 import bearerToken from 'express-bearer-token';
 
@@ -14,6 +15,8 @@ import userRouter from './router/user';
 import whiteboardRouter from './router/whiteboard';
 
 const app = express();
+
+app.use(cors()); // TODO: restrict to front public url
 
 app.use(bearerToken());
 

@@ -25,8 +25,25 @@ export const findWhiteboardById = async (id: string) =>
     _id: new ObjectId(id)
   });
 
-export const updateWhiteboardData = async (id: string, data: any[]) =>
-  (await getWhiteboardsCollection()).updateOne(
+export const setWhiteboardData = async (id: string, events: any[]) => {
+  return (await getWhiteboardsCollection()).updateOne(
     { _id: new ObjectId(id) },
-    { $set: { data } }
+    { $set: { data: events } }
   );
+};
+
+export const pushWhiteboardData = async (id: string, events: any[]) => {
+  return (await getWhiteboardsCollection()).updateOne(
+    { _id: new ObjectId(id) },
+    { $push: { data: { $each: events } } }
+  );
+};
+
+// TODO: improve this method to simply accept the list of hash `string[]`
+// (instead of the full list of events...)
+export const pullWhiteboardData = async (id: string, events: any[]) => {
+  return (await getWhiteboardsCollection()).updateOne(
+    { _id: new ObjectId(id) },
+    { $pull: { data: { $in: events } } }
+  );
+};

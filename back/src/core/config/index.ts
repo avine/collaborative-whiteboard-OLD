@@ -6,7 +6,10 @@ import { Config, ConfigDynamic } from './config.types';
 import { getConfigFactory } from './config.utils';
 
 const configDynamic: ConfigDynamic = { ...configEnv } as any;
-validateSchema(configEnvSchema, configDynamic);
+const schemaErrors = validateSchema(configEnvSchema, configDynamic);
+if (schemaErrors) {
+  console.error('Invalid config', schemaErrors);
+}
 
 export const getAllConfig = (): Config => ({
   ...configDynamic,
