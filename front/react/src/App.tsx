@@ -1,17 +1,13 @@
 import './App.scss';
+
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import DraggableOnTopContext, {
-  getDraggableOnTop
-} from './collaborative-whiteboard/components/draggableOnTopContext';
-import Whiteboard from './collaborative-whiteboard/components/whiteboard/Whiteboard2';
-import CwServiceContext, {
-  getCwService
-} from './collaborative-whiteboard/serviceContext';
+
 import Header from './components/header/Header';
 import Basic from './components/pages/basic/Basic';
 import Home from './components/pages/home/Home';
 import Mirror from './components/pages/mirror/Mirror';
+import WhiteboardPage from './components/pages/whiteboard/WhiteboardPage';
 
 const App: React.FC = () => {
   return (
@@ -32,11 +28,7 @@ const App: React.FC = () => {
               <Mirror />
             </Route>
             <Route path="/whiteboard">
-              <DraggableOnTopContext.Provider value={getDraggableOnTop()}>
-                <CwServiceContext.Provider value={getCwService()}>
-                  <Whiteboard />
-                </CwServiceContext.Provider>
-              </DraggableOnTopContext.Provider>
+              <WhiteboardPage />
             </Route>
           </Switch>
         </div>
