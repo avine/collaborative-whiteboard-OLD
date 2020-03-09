@@ -314,6 +314,7 @@ class Canvas extends React.Component<CanvasProps> {
       );
       this.drawPoint(data);
       this.props.draw({
+        hash: null,
         owner: null,
         type: 'point',
         options: this.props.drawOptions,
@@ -322,6 +323,7 @@ class Canvas extends React.Component<CanvasProps> {
     } else if (this.lineSerieBuffer.length > 2) {
       const data = this.lineSerieBuffer as CanvasLineSerie;
       this.props.draw({
+        hash: null,
         owner: null,
         type: 'lineSerie',
         options: this.props.drawOptions,

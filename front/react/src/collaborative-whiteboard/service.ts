@@ -10,6 +10,7 @@ import {
   Owner
 } from './models';
 import {
+  deepCopyDrawEvent,
   drawEventsBroadcastMapper,
   getClearEvent,
   getHash,
@@ -66,15 +67,11 @@ class CwService {
   owner: Owner;
 
   private pushHistory(event: DrawEvent) {
-    // eslint-disable-next-line no-param-reassign
-    event.options = { ...event.options }; // Make this immutable!
-    const hash = getHash(event);
-    this.historyMap.set(hash, event);
+    this.historyMap.set(event.hash, event);
   }
 
   private pullHistory(event: DrawEvent): boolean {
-    const hash = getHash(event);
-    return this.historyMap.delete(hash);
+    return this.historyMap.delete(event.hash);
   }
 
   private popHistory(hash = this.getOwnerLastHash()): DrawEvent {
@@ -94,17 +91,17 @@ class CwService {
     return this.historyRedo.shift();
   }
 
-  private dropHistoryRedoAgainst(events: DrawEvent[]) {
+  private dropHistoryRedoAgainstEvents(events: DrawEvent[]) {
     let redos: DrawEvent[] = [];
     events.forEach(event => {
-      const hash = getHash(event);
+      const { hash } = event;
       while (redos.length || this.historyRedo.length) {
         if (!redos.length) {
           redos = this.historyRedo.shift(); // redos = this.popHistoryRedo(); // FIXME...
         }
         while (redos.length) {
-          const redo = redos.shift();
-          if (getHash(redo) === hash) {
+          const { hash: redoHash } = redos.shift();
+          if (redoHash === hash) {
             // FIXME: Is there a bug ?
             // At this point we should do something like this, no?
             // But is this case really exists ?
@@ -137,8 +134,11 @@ class CwService {
     }
   }
 
-  private setDrawEventOwner(event: DrawEvent): DrawEvent {
-    return { ...event, owner: this.owner };
+  private consolidateDrawEvent(event: DrawEvent): DrawEvent {
+    const eventCopy = deepCopyDrawEvent(event);
+    eventCopy.owner = this.owner;
+    eventCopy.hash = getHash(eventCopy);
+    return eventCopy;
   }
 
   private getOwnerDrawEvents(events: DrawEvent[]) {
@@ -162,7 +162,7 @@ class CwService {
     events.forEach(event => this.pushHistory(event));
     const ownerEvents = this.getOwnerDrawEvents(events);
     if (ownerEvents.length) {
-      this.dropHistoryRedoAgainst(ownerEvents);
+      this.dropHistoryRedoAgainstEvents(ownerEvents);
     }
     this.broadcast$$.next(drawEventsBroadcastMapper(events, true));
     this.emitHistory();
@@ -220,9 +220,9 @@ class CwService {
    */
   emit(event: DrawEvent) {
     // eslint-disable-next-line no-param-reassign
-    event = this.setDrawEventOwner(event);
+    event = this.consolidateDrawEvent(event);
     this.pushHistory(event);
-    this.dropHistoryRedoAgainst([event]);
+    this.dropHistoryRedoAgainstEvents([event]);
     this.emit$$.next({ action: 'add', events: [event] });
     this.emitHistory();
   }

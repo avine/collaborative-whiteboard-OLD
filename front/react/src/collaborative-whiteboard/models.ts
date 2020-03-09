@@ -19,6 +19,7 @@ export interface DrawOptions {
 }
 
 export interface DrawBase {
+  hash: string;
   owner: Owner;
   type: DrawType;
   options: DrawOptions;

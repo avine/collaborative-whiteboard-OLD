@@ -51,6 +51,7 @@ export const getEmptyDrawOptions = (): DrawOptions => ({
 });
 
 export const getClearEvent = (): DrawClear => ({
+  hash: null,
   owner: null,
   type: 'clear',
   options: getEmptyDrawOptions(),
@@ -63,9 +64,10 @@ export const drawLineSerieToLinesMapper = (
   const result: DrawEvent[] = [];
   events.forEach(event => {
     if (event.type === 'lineSerie') {
-      const { owner, options, data } = event;
+      const { hash, owner, options, data } = event;
       for (let i = 0; i < data.length - 3; i += 2) {
         result.push({
+          hash,
           owner,
           type: 'line',
           options,
@@ -114,4 +116,15 @@ export const keepDrawEventsAfterClearEvent = (
   return events;
 };
 
-export const getHash = (event: DrawEvent) => MD5(event);
+export const deepCopyDrawEvent = (event: DrawEvent): DrawEvent => {
+  return {
+    ...event,
+    options: { ...event.options }
+  };
+};
+
+export const getHash = (event: DrawEvent) => {
+  const eventHashless = { ...event };
+  delete eventHashless.hash;
+  return MD5(eventHashless);
+};
