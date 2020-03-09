@@ -15,15 +15,15 @@ const WhiteboardPage: React.FC = () => {
   const [cwService] = useState(getCwService());
 
   useEffect(() => {
+    getWhiteboard(whiteboardId).then(({ data }) => {
+      cwService.broadcast({ action: 'add', events: data.data });
+    });
+
     const subscription = cwService.emit$.subscribe(transport => {
       updateWhiteboard(whiteboardId, transport);
     });
     return () => subscription.unsubscribe();
   }, [cwService]);
-
-  getWhiteboard(whiteboardId).then(({ data }) => {
-    cwService.broadcast({ action: 'add', events: data.data });
-  });
 
   return (
     <DraggableOnTopContext.Provider value={getDraggableOnTop()}>
