@@ -1,5 +1,7 @@
 import { ObjectId } from 'mongodb';
 
+import { DrawEvent } from './collaborative-whiteboard.types';
+
 export type WhiteboardUserRole = 'author' | 'contributor' | 'subscriber';
 
 export interface WhiteboardUser {
@@ -13,5 +15,5 @@ export interface Whiteboard {
   title: string;
   creationDate: number;
   users: WhiteboardUser[];
-  data: any[];
+  data: DrawEvent[];
 }

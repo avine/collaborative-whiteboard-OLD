@@ -2,6 +2,7 @@ import { RequestHandler } from 'express';
 import HttpStatus from 'http-status-codes';
 
 import { findWhiteboardById, setWhiteboardData } from '../../../db/whiteboard';
+import { DrawEvent } from '../../../db/whiteboard/collaborative-whiteboard.types';
 
 const setWhiteboardHandler: RequestHandler = async (req, res) => {
   const { whiteboardId } = req.params;
@@ -20,8 +21,8 @@ const setWhiteboardHandler: RequestHandler = async (req, res) => {
     return;
   }
 
-  const history = req.body; // TODO: validate schema...
-  const update = await setWhiteboardData(whiteboardId, history);
+  const events: DrawEvent[] = req.body; // TODO: validate schema...
+  const update = await setWhiteboardData(whiteboardId, events);
   if (update.modifiedCount) {
     res.sendStatus(HttpStatus.OK);
   } else {

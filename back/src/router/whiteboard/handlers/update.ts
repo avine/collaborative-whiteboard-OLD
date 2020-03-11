@@ -6,6 +6,7 @@ import {
   pullWhiteboardData,
   pushWhiteboardData
 } from '../../../db/whiteboard';
+import { DrawTransport } from '../../../db/whiteboard/collaborative-whiteboard.types';
 
 const updateWhiteboardHandler: RequestHandler = async (req, res) => {
   const { whiteboardId } = req.params;
@@ -24,14 +25,12 @@ const updateWhiteboardHandler: RequestHandler = async (req, res) => {
     return;
   }
 
-  const transport /*: DrawTransport */ = req.body; // TODO: validate schema...
+  const transport: DrawTransport = req.body; // TODO: validate schema...
 
-  const update = await (async () => {
-    if (transport.action === 'add') {
-      return pushWhiteboardData(whiteboardId, transport.events);
-    }
-    return pullWhiteboardData(whiteboardId, transport.events);
-  })();
+  const update = await (async () =>
+    transport.action === 'add'
+      ? pushWhiteboardData(whiteboardId, transport.events)
+      : pullWhiteboardData(whiteboardId, transport.events))();
 
   if (update.modifiedCount) {
     res.sendStatus(HttpStatus.OK);

@@ -1,6 +1,7 @@
 import { ObjectId } from 'mongodb';
 
 import { getDefaultDb } from '../../core/db';
+import { DrawEvent } from './collaborative-whiteboard.types';
 import { Whiteboard, WhiteboardUser } from './whiteboard.types';
 
 const getWhiteboardsCollection = async () => {
@@ -11,7 +12,7 @@ const getWhiteboardsCollection = async () => {
 export const insertWhiteboard = async (
   title: string,
   users: WhiteboardUser[],
-  data: any[] = []
+  data: DrawEvent[] = []
 ) =>
   (await getWhiteboardsCollection()).insertOne({
     title,
@@ -25,25 +26,24 @@ export const findWhiteboardById = async (id: string) =>
     _id: new ObjectId(id)
   });
 
-export const setWhiteboardData = async (id: string, events: any[]) => {
+export const setWhiteboardData = async (id: string, events: DrawEvent[]) => {
   return (await getWhiteboardsCollection()).updateOne(
     { _id: new ObjectId(id) },
     { $set: { data: events } }
   );
 };
 
-export const pushWhiteboardData = async (id: string, events: any[]) => {
+export const pushWhiteboardData = async (id: string, events: DrawEvent[]) => {
   return (await getWhiteboardsCollection()).updateOne(
     { _id: new ObjectId(id) },
     { $push: { data: { $each: events } } }
   );
 };
 
-// TODO: improve this method to simply accept the list of hash `string[]`
-// (instead of the full list of events...)
-export const pullWhiteboardData = async (id: string, events: any[]) => {
+export const pullWhiteboardData = async (id: string, events: DrawEvent[]) => {
+  const hashes = events.map(event => event.hash);
   return (await getWhiteboardsCollection()).updateOne(
     { _id: new ObjectId(id) },
-    { $pull: { data: { $in: events } } }
+    { $pull: { data: { hash: { $in: hashes } } } }
   );
 };
