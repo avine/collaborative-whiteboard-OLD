@@ -7,10 +7,13 @@ import createDbIndexes from './core/db/db-index';
 // eslint-disable-next-line no-console
 console.log('AppConfig', JSON.stringify(getAllConfig(), undefined, 2));
 
-createDbIndexes().then(() => {
-  const server = createServer(app);
+createDbIndexes()
+  .then(() => {
+    const server = createServer(app);
 
-  const port = getConfig('serverPort');
+    const port = getConfig('serverPort');
+    // eslint-disable-next-line no-console
+    server.listen(port, () => console.log(`App listening on port ${port}.`));
+  })
   // eslint-disable-next-line no-console
-  server.listen(port, () => console.log(`App listening on port ${port}.`));
-});
+  .catch(err => console.error(err));

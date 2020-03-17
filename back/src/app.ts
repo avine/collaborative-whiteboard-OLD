@@ -4,6 +4,7 @@ import cors from 'cors';
 import express from 'express';
 import bearerToken from 'express-bearer-token';
 
+import { getConfig } from './core/config';
 import { accessLogger, consoleLogger } from './core/log';
 import {
   errorClientHandler,
@@ -16,7 +17,7 @@ import whiteboardRouter from './router/whiteboard';
 
 const app = express();
 
-app.use(cors()); // TODO: restrict to front public url
+app.use(cors({ origin: getConfig('originBaseUrl') }));
 
 app.use(bearerToken());
 

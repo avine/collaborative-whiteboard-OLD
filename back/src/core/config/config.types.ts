@@ -3,6 +3,7 @@ export interface ConfigDynamic {
   dbUri: string;
   dbName: string;
   jwtSecret: string;
+  originBaseUrl: string;
 }
 
 export type ConfigEnv = Record<keyof ConfigDynamic, string | undefined>;
