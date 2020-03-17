@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb';
 
 import { getDefaultDb } from '../../core/db';
-import { DrawEvent } from './collaborative-whiteboard.types';
+import { DrawEvent } from '../../shared/collaborative-whiteboard.types';
 import { Whiteboard, WhiteboardUser } from './whiteboard.types';
 
 const getWhiteboardsCollection = async () => {

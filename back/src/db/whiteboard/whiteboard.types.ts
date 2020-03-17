@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongodb';
 
-import { DrawEvent } from './collaborative-whiteboard.types';
+import { DrawEvent } from '../../shared/collaborative-whiteboard.types';
 
 export type WhiteboardUserRole = 'author' | 'contributor' | 'subscriber';
 

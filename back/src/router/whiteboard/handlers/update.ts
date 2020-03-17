@@ -6,7 +6,7 @@ import {
   pullWhiteboardData,
   pushWhiteboardData
 } from '../../../db/whiteboard';
-import { DrawTransport } from '../../../db/whiteboard/collaborative-whiteboard.types';
+import { DrawTransport } from '../../../shared/collaborative-whiteboard.types';
 
 const updateWhiteboardHandler: RequestHandler = async (req, res) => {
   const { whiteboardId } = req.params;

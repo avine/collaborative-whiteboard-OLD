@@ -2,7 +2,7 @@ import { RequestHandler } from 'express';
 import HttpStatus from 'http-status-codes';
 
 import { findWhiteboardById, setWhiteboardData } from '../../../db/whiteboard';
-import { DrawEvent } from '../../../db/whiteboard/collaborative-whiteboard.types';
+import { DrawEvent } from '../../../shared/collaborative-whiteboard.types';
 
 const setWhiteboardHandler: RequestHandler = async (req, res) => {
   const { whiteboardId } = req.params;
