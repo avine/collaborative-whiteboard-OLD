@@ -12,13 +12,13 @@ const getWhiteboardsCollection = async () => {
 export const insertWhiteboard = async (
   title: string,
   users: WhiteboardUser[],
-  data: DrawEvent[] = []
+  events: DrawEvent[] = []
 ) =>
   (await getWhiteboardsCollection()).insertOne({
     title,
     creationDate: Date.now(),
     users,
-    data
+    events
   });
 
 export const findWhiteboardById = async (id: string) =>
@@ -29,20 +29,20 @@ export const findWhiteboardById = async (id: string) =>
 export const setWhiteboardData = async (id: string, events: DrawEvent[]) => {
   return (await getWhiteboardsCollection()).updateOne(
     { _id: new ObjectId(id) },
-    { $set: { data: events } }
+    { $set: { events } }
   );
 };
 
 export const pushWhiteboardData = async (id: string, events: DrawEvent[]) => {
   return (await getWhiteboardsCollection()).updateOne(
     { _id: new ObjectId(id) },
-    { $push: { data: { $each: events } } }
+    { $push: { events: { $each: events } } }
   );
 };
 
 export const pullWhiteboardData = async (id: string, hashes: string[]) => {
   return (await getWhiteboardsCollection()).updateOne(
     { _id: new ObjectId(id) },
-    { $pull: { data: { hash: { $in: hashes } } } }
+    { $pull: { events: { hash: { $in: hashes } } } }
   );
 };

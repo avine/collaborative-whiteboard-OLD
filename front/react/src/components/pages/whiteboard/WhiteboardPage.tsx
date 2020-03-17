@@ -16,7 +16,7 @@ const WhiteboardPage: React.FC = () => {
 
   useEffect(() => {
     getWhiteboard(whiteboardId).then(({ data }) => {
-      cwService.broadcast({ action: 'add', events: data.data });
+      cwService.broadcast({ action: 'add', events: data.events });
     });
 
     const subscription = cwService.emit$.subscribe(transport => {

@@ -1,6 +1,4 @@
-import { ObjectId } from 'mongodb';
-
-import { DrawEvent } from './collaborative-whiteboard.types';
+import { DrawEvent } from '../collaborative-whiteboard/models';
 
 export type WhiteboardUserRole = 'author' | 'contributor' | 'subscriber';
 
@@ -11,7 +9,7 @@ export interface WhiteboardUser {
 }
 
 export interface Whiteboard {
-  _id: ObjectId;
+  _id: string; // MongoDB ObjectId
   title: string;
   creationDate: number;
   users: WhiteboardUser[];

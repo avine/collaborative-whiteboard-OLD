@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import { DrawEvent, DrawTransport } from '../collaborative-whiteboard/models';
 import { getConfig } from '../core/config';
+import { Whiteboard } from '../shared/collaborative-whiteboard.type';
 import { getToken } from './token';
 
 const axiosInstance = axios.create({
@@ -12,7 +13,7 @@ const axiosInstance = axios.create({
 const getHeaderToken = () => ({ Authorization: `Bearer ${getToken()}` });
 
 export const getWhiteboard = (id: string) =>
-  axiosInstance.get(`whiteboard/${id}`, {
+  axiosInstance.get<Whiteboard>(`whiteboard/${id}`, {
     headers: getHeaderToken()
   });
 
