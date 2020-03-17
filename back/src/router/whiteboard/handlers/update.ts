@@ -30,7 +30,7 @@ const updateWhiteboardHandler: RequestHandler = async (req, res) => {
   const update = await (async () =>
     transport.action === 'add'
       ? pushWhiteboardData(whiteboardId, transport.events)
-      : pullWhiteboardData(whiteboardId, transport.events))();
+      : pullWhiteboardData(whiteboardId, transport.hashes))();
 
   if (update.modifiedCount) {
     res.sendStatus(HttpStatus.OK);

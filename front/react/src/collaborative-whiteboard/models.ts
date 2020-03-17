@@ -52,12 +52,17 @@ export interface DrawEventsBroadcast {
   events: DrawEvent[];
 }
 
-export type DrawAction = 'add' | 'remove';
-
-export interface DrawTransport {
-  action: DrawAction;
+export interface DrawTransportAdd {
+  action: 'add';
   events: DrawEvent[];
 }
+
+export interface DrawTransportRemove {
+  action: 'remove';
+  hashes: string[];
+}
+
+export type DrawTransport = DrawTransportAdd | DrawTransportRemove;
 
 export type CutRange = [number, number];
 

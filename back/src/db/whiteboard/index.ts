@@ -40,8 +40,7 @@ export const pushWhiteboardData = async (id: string, events: DrawEvent[]) => {
   );
 };
 
-export const pullWhiteboardData = async (id: string, events: DrawEvent[]) => {
-  const hashes = events.map(event => event.hash);
+export const pullWhiteboardData = async (id: string, hashes: string[]) => {
   return (await getWhiteboardsCollection()).updateOne(
     { _id: new ObjectId(id) },
     { $pull: { data: { hash: { $in: hashes } } } }

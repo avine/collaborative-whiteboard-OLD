@@ -134,6 +134,10 @@ class CwService {
     }
   }
 
+  private filterHistoryByHash(hashes: string[]): DrawEvent[] {
+    return this.history.filter(event => hashes.includes(event.hash));
+  }
+
   private consolidateDrawEvent(event: DrawEvent): DrawEvent {
     const eventCopy = deepCopyDrawEvent(event);
     eventCopy.owner = this.owner;
@@ -206,7 +210,7 @@ class CwService {
         this.broadcastAdd(transport.events);
         break;
       case 'remove':
-        this.broadcastRemove(transport.events);
+        this.broadcastRemove(this.filterHistoryByHash(transport.hashes));
         break;
       default:
         // eslint-disable-next-line no-console
@@ -234,7 +238,7 @@ class CwService {
       this.broadcast$$.next(
         drawEventsBroadcastMapper([getClearEvent(), ...this.history])
       );
-      this.emit$$.next({ action: 'remove', events: [event] });
+      this.emit$$.next({ action: 'remove', hashes: [event.hash] });
       this.emitHistory();
     }
   }
@@ -256,7 +260,10 @@ class CwService {
       this.broadcast$$.next(
         drawEventsBroadcastMapper([getClearEvent(), ...this.history])
       );
-      this.emit$$.next({ action: 'remove', events: removed });
+      this.emit$$.next({
+        action: 'remove',
+        hashes: removed.map(event => event.hash)
+      });
       this.emitHistory();
     }
   }
