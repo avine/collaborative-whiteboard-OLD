@@ -2,6 +2,7 @@ import { RequestHandler } from 'express';
 
 import { signToken } from '../../../core/common/jwt';
 import { getConfig } from '../../../core/config';
+import { UserToken } from '../user.types';
 
 const tokenHandler: RequestHandler = async (req, res) => {
   const { tokenDecoded } = req;
@@ -10,7 +11,8 @@ const tokenHandler: RequestHandler = async (req, res) => {
   tokenDecoded.exp += expiresIn;
 
   const token = await signToken(tokenDecoded);
-  res.send({ token, expiresIn });
+  const userToken: UserToken = { token, expiresIn };
+  res.send(userToken);
 };
 
 export default tokenHandler;

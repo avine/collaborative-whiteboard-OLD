@@ -7,8 +7,9 @@ import validateSchema from '../../../core/common/validate-schema';
 import { getConfig } from '../../../core/config';
 import { getDefaultDb } from '../../../core/db';
 import { insertUser } from '../../../db/user';
-import { User, UserLogin } from '../../../db/user/user.types';
+import { User } from '../../../db/user/user.types';
 import { userLoginSchema } from '../user.schemas';
+import { UserLogin, UserToken } from '../user.types';
 
 const signUpHandler: RequestHandler = async (req, res) => {
   const userLogin: UserLogin = req.body;
@@ -34,7 +35,8 @@ const signUpHandler: RequestHandler = async (req, res) => {
 
     const token = await signUserToken(insert.insertedId.toHexString());
     const expiresIn = getConfig('jwtExpiresIn');
-    res.send({ token, expiresIn });
+    const userToken: UserToken = { token, expiresIn };
+    res.send(userToken);
     return;
   }
 

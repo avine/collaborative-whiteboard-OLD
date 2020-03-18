@@ -6,8 +6,8 @@ import { signUserToken } from '../../../core/common/jwt';
 import validateSchema from '../../../core/common/validate-schema';
 import { getConfig } from '../../../core/config';
 import { findUserByEmail, updateUserSignInDate } from '../../../db/user';
-import { UserLogin } from '../../../db/user/user.types';
 import { userLoginSchema } from '../user.schemas';
+import { UserLogin, UserToken } from '../user.types';
 
 const signInHandler: RequestHandler = async (req, res) => {
   const userLogin: UserLogin = req.body;
@@ -27,7 +27,8 @@ const signInHandler: RequestHandler = async (req, res) => {
 
   const token = await signUserToken(user._id.toHexString());
   const expiresIn = getConfig('jwtExpiresIn');
-  res.send({ token, expiresIn });
+  const userToken: UserToken = { token, expiresIn };
+  res.send(userToken);
 };
 
 export default signInHandler;

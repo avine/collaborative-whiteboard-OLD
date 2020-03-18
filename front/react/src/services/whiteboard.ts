@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { DrawEvent, DrawTransport } from '../collaborative-whiteboard/models';
 import { getConfig } from '../core/config';
-import { Whiteboard } from '../shared/collaborative-whiteboard.type';
+import { Whiteboard } from '../shared/collaborative-whiteboard.types';
 import { getToken } from './token';
 
 const axiosInstance = axios.create({
