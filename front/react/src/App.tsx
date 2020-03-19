@@ -7,7 +7,7 @@ import Header from './components/header/Header';
 import Basic from './components/pages/basic/Basic';
 import Home from './components/pages/home/Home';
 import Mirror from './components/pages/mirror/Mirror';
-import UserProfilePage from './components/pages/profile/UserProfile';
+import UserProfilePage from './components/pages/profile/UserProfilePage';
 import WhiteboardPage from './components/pages/whiteboard/WhiteboardPage';
 
 const App: React.FC = () => {
