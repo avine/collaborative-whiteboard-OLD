@@ -15,11 +15,11 @@ const axiosInstance = axios.create({
 const getHeaderToken = () => ({ Authorization: `Bearer ${getToken()}` });
 
 export const getUserProfile = () =>
-  axiosInstance.get<UserProfile>(`user/profile`, {
+  axiosInstance.get<UserProfile>('user/profile', {
     headers: getHeaderToken()
   });
 
 export const getUserToken = () =>
-  axiosInstance.get<UserToken>(`user/token`, {
+  axiosInstance.get<UserToken>('user/token', {
     headers: getHeaderToken()
   });

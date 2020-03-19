@@ -2,6 +2,7 @@ import { RequestHandler } from 'express';
 import HttpStatus from 'http-status-codes';
 
 import { findWhiteboardById } from '../../../db/whiteboard';
+import { mapToWhiteboardPublic } from '../whiteboard.mapper';
 
 const getWhiteboardHandler: RequestHandler = async (req, res) => {
   const { whiteboardId } = req.params;
@@ -16,7 +17,8 @@ const getWhiteboardHandler: RequestHandler = async (req, res) => {
     return;
   }
 
-  res.send(whiteboard);
+  const whiteboardPublic = mapToWhiteboardPublic(whiteboard);
+  res.send(whiteboardPublic);
 };
 
 export default getWhiteboardHandler;

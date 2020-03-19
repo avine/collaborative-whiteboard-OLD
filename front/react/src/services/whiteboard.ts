@@ -1,8 +1,8 @@
 import axios from 'axios';
 
+import { WhiteboardPublic } from '../../../../back/src/router/whiteboard/whiteboard.types';
 import { DrawEvent, DrawTransport } from '../collaborative-whiteboard/models';
 import { getConfig } from '../core/config';
-import { Whiteboard } from '../shared/collaborative-whiteboard.types';
 import { getToken } from './token';
 
 const axiosInstance = axios.create({
@@ -13,7 +13,7 @@ const axiosInstance = axios.create({
 const getHeaderToken = () => ({ Authorization: `Bearer ${getToken()}` });
 
 export const getWhiteboard = (id: string) =>
-  axiosInstance.get<Whiteboard>(`whiteboard/${id}`, {
+  axiosInstance.get<WhiteboardPublic>(`whiteboard/${id}`, {
     headers: getHeaderToken()
   });
 
