@@ -9,6 +9,7 @@ import Home from './components/pages/home/Home';
 import Mirror from './components/pages/mirror/Mirror';
 import UserProfilePage from './components/pages/profile/UserProfilePage';
 import WhiteboardPage from './components/pages/whiteboard/WhiteboardPage';
+import WhiteboardList from './components/pages/whiteboard-list/WhiteboardList';
 
 const App: React.FC = () => {
   return (
@@ -28,7 +29,10 @@ const App: React.FC = () => {
             <Route path="/mirror">
               <Mirror />
             </Route>
-            <Route path="/whiteboard">
+            <Route path="/whiteboard/list">
+              <WhiteboardList />
+            </Route>
+            <Route path="/whiteboard/:whiteboardId">
               <WhiteboardPage />
             </Route>
             <Route path="/user/profile">

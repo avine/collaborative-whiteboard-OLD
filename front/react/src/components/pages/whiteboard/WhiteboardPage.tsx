@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 import DraggableOnTopContext, {
   getDraggableOnTop
@@ -10,9 +11,9 @@ import CwServiceContext, {
 import { getWhiteboard, updateWhiteboard } from '../../../services/whiteboard';
 
 const WhiteboardPage: React.FC = () => {
-  const whiteboardId = '5e5faced0850d12a3b8ccbb2';
-
   const [cwService] = useState(getCwService());
+
+  const { whiteboardId } = useParams();
 
   useEffect(() => {
     getWhiteboard(whiteboardId).then(({ data }) => {
@@ -23,7 +24,7 @@ const WhiteboardPage: React.FC = () => {
       updateWhiteboard(whiteboardId, transport);
     });
     return () => subscription.unsubscribe();
-  }, [cwService]);
+  }, [cwService, whiteboardId]);
 
   return (
     <DraggableOnTopContext.Provider value={getDraggableOnTop()}>

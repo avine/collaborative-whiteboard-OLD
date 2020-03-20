@@ -1,10 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import './Header.scss';
+
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { NavLink } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link, NavLink } from 'react-router-dom';
+
 import { faTint } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Header: React.FC = () => {
   const [theme, setTheme] = useState('light');
@@ -16,7 +18,9 @@ const Header: React.FC = () => {
         <html lang="en" className={`theme--${theme}`} />
       </Helmet>
 
-      <div className="header__logo">CW</div>
+      <Link className="header__logo" to="/">
+        CW
+      </Link>
 
       <div className="header__menu">
         <NavLink
@@ -44,9 +48,9 @@ const Header: React.FC = () => {
         <NavLink
           className="header__menu-link"
           activeClassName="header__menu-link--active"
-          to="/whiteboard"
+          to="/whiteboard/list"
         >
-          Whiteboard
+          Whiteboards
         </NavLink>
       </div>
 

@@ -9,6 +9,11 @@ const getWhiteboardsCollection = async () => {
   return db.collection<Whiteboard>('whiteboards');
 };
 
+export const getWhiteboardList = async (userId: string) =>
+  (await getWhiteboardsCollection())
+    .find({ 'users.id': userId }, { projection: { title: 1, creationDate: 1 } })
+    .sort({ creationDate: -1 });
+
 export const insertWhiteboard = async (
   title: string,
   users: WhiteboardUser[],
