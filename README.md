@@ -1,3 +1,5 @@
+## [VIEW NEW VERSION](https://github.com/avine/collaborative-whiteboard)
+
 # collaborative-whiteboard
 
 Collaborative Whiteboard with Angular
@@ -14,6 +16,6 @@ Collaborative Whiteboard with Angular
 
 ## Notes for deploying on Github pages
 
-- Run `ng build --prod --base-href /collaborative-whiteboard/`
+- Run `ng build --prod --base-href /collaborative-whiteboard-old/`
 - Duplicate `index.html` for `404.html`.
 - Add `404.html` to `ngsw.json`.
